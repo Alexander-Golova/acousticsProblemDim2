@@ -41,7 +41,6 @@ int main()
 	timeBegin = clock();
 	timeStart = clock();
 
-
 	// выделение памяти под 4-х мерный "квадратный" комплексный массив
 	vector<vector<vector<vector<complex<float>>>>> a(N + 1,
 		vector<vector<vector<complex<float>>>>(N + 1, vector<vector<complex<float>>>(N + 1,
@@ -283,11 +282,8 @@ int main()
 	const size_t N_squared = (N + 1) * (N + 1);
 
 	vector<complex<float>> rightPartEquation(N_squared, (0.0f, 0.0f));
-
 	vector<complex<float>> numbered_u(N_squared);
-
 	vector<vector<complex<float>>> substantiveMatrix(N_squared, vector<complex<float>>(N_squared, (0.0f, 0.0f)));
-
 	vector<complex<float>> overline_u(N + 1, (0.0f, 0.0f));
 
 	//
