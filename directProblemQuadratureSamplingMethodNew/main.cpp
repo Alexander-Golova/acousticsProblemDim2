@@ -1,4 +1,4 @@
-#include "stdafx.h"
+п»ї#include "stdafx.h"
 #include "basicFunctions.h"
 #include"Sources.h"
 #include "taskData.h"
@@ -13,10 +13,10 @@ int main()
 
 	const Source source;
 
-	// выделение памяти для акустического поля u
+	// РІС‹РґРµР»РµРЅРёРµ РїР°РјСЏС‚Рё РґР»СЏ Р°РєСѓСЃС‚РёС‡РµСЃРєРѕРіРѕ РїРѕР»СЏ u
 	vector<vector<complex<float>>> u(N + 1, vector<complex<float>>(N + 1, complex<float>()));
 
-	// задание точного решения \xi
+	// Р·Р°РґР°РЅРёРµ С‚РѕС‡РЅРѕРіРѕ СЂРµС€РµРЅРёСЏ \xi
 	vector<vector<float>> xi(N + 1, vector<float>(N + 1, 0.0f));
 	for (size_t i = 0; i <= N; ++i)
 	{
@@ -25,7 +25,7 @@ int main()
 			xi[i][j] = exp(-(i * h - 6.0f) * (i * h - 6.0f) - (j * h - 6.0f) * (j * h - 6.0f));
 		}
 	}
-	//печатаем точное решение в файл
+	//РїРµС‡Р°С‚Р°РµРј С‚РѕС‡РЅРѕРµ СЂРµС€РµРЅРёРµ РІ С„Р°Р№Р»
 	ofstream f_xi("exact_xi.txt");
 	for (size_t i = 0; i <= N; ++i)
 	{
@@ -37,27 +37,27 @@ int main()
 	f_xi.close();
 
 	// 
-	// Начало вычислений основных матриц
+	// РќР°С‡Р°Р»Рѕ РІС‹С‡РёСЃР»РµРЅРёР№ РѕСЃРЅРѕРІРЅС‹С… РјР°С‚СЂРёС†
 	//
-	// начало счета времени
+	// РЅР°С‡Р°Р»Рѕ СЃС‡РµС‚Р° РІСЂРµРјРµРЅРё
 	clock_t timeStart, timeFinish, timeBegin;
 	timeBegin = clock();
 	timeStart = clock();
 
 
-	// выделение памяти под 4-х мерный "квадратный" комплексный массив
+	// РІС‹РґРµР»РµРЅРёРµ РїР°РјСЏС‚Рё РїРѕРґ 4-С… РјРµСЂРЅС‹Р№ "РєРІР°РґСЂР°С‚РЅС‹Р№" РєРѕРјРїР»РµРєСЃРЅС‹Р№ РјР°СЃСЃРёРІ
 	vector<vector<vector<vector<complex<float>>>>> a(N + 1,
 		vector<vector<vector<complex<float>>>>(N + 1, vector<vector<complex<float>>>(N + 1,
 			vector<complex<float>>(N + 1, complex<float>()))));
 
-	// выделение памяти под 3-х мерный "квадратный" комплексный массив
+	// РІС‹РґРµР»РµРЅРёРµ РїР°РјСЏС‚Рё РїРѕРґ 3-С… РјРµСЂРЅС‹Р№ "РєРІР°РґСЂР°С‚РЅС‹Р№" РєРѕРјРїР»РµРєСЃРЅС‹Р№ РјР°СЃСЃРёРІ
 	vector<vector<vector<complex<float>>>> overline_a(N + 1, vector<vector<complex<float>>>(N + 1,
 		vector<complex<float>>(N + 1, complex<float>())));
 
-	// выделение памяти под 2-х мерный квадратный комплексный массив
+	// РІС‹РґРµР»РµРЅРёРµ РїР°РјСЏС‚Рё РїРѕРґ 2-С… РјРµСЂРЅС‹Р№ РєРІР°РґСЂР°С‚РЅС‹Р№ РєРѕРјРїР»РµРєСЃРЅС‹Р№ РјР°СЃСЃРёРІ
 	vector<vector<complex<float>>> b(N + 1, vector<complex<float>>(N + 1, complex<float>()));
 
-	// счет индексов метода квадратур
+	// СЃС‡РµС‚ РёРЅРґРµРєСЃРѕРІ РјРµС‚РѕРґР° РєРІР°РґСЂР°С‚СѓСЂ
 	vector<float> index(N + 1);
 	for (size_t i = 1; i < N; ++i)
 	{
@@ -73,7 +73,7 @@ int main()
 	index[0] = (float)1 / 3;
 	index[N] = (float)1 / 3;
 
-	// нахождение массива a
+	// РЅР°С…РѕР¶РґРµРЅРёРµ РјР°СЃСЃРёРІР° a
 	for (size_t i = 0; i <= N; ++i)
 	{
 		for (size_t j = 0; j <= N; ++j)
@@ -93,7 +93,7 @@ int main()
 		}
 	}
 
-	// нахождение массива overline_a
+	// РЅР°С…РѕР¶РґРµРЅРёРµ РјР°СЃСЃРёРІР° overline_a
 	for (size_t j = 0; j <= N; ++j)
 	{
 		for (size_t p = 0; p < N; ++p)
@@ -107,7 +107,7 @@ int main()
 		}
 	}
 
-	// нахождение массива b
+	// РЅР°С…РѕР¶РґРµРЅРёРµ РјР°СЃСЃРёРІР° b
 	for (size_t i = 0; i <= N; ++i)
 	{
 		for (size_t j = 0; j <= N; ++j)
@@ -126,13 +126,13 @@ int main()
 		}
 	}
 
-	//печатаем время работы
+	//РїРµС‡Р°С‚Р°РµРј РІСЂРµРјСЏ СЂР°Р±РѕС‚С‹
 	timeFinish = clock();
 	float d = (float)(timeFinish - timeStart) / CLOCKS_PER_SEC;
 	cout << "Time calculation of basic matrices " << d << endl;
 	timeStart = clock();
 
-	// записываем массивы в файлы
+	// Р·Р°РїРёСЃС‹РІР°РµРј РјР°СЃСЃРёРІС‹ РІ С„Р°Р№Р»С‹
 	ofstream f_a("matrix_a.txt");
 	for (size_t i = 0; i <= N; ++i)
 	{
@@ -172,33 +172,137 @@ int main()
 	}
 	f_b.close();
 
-	//печатаем время работы
+	//РїРµС‡Р°С‚Р°РµРј РІСЂРµРјСЏ СЂР°Р±РѕС‚С‹
 	timeFinish = clock();
 	d = (float)(timeFinish - timeStart) / CLOCKS_PER_SEC;
 	cout << "Download time major arrays " << d << endl;
 	timeStart = clock();
 
-	// счет функции источника в R и X
-
+	// СЃС‡РµС‚ С„СѓРЅРєС†РёРё РёСЃС‚РѕС‡РЅРёРєР° РІ R Рё X
+	ofstream fileSource("Source.txt");
 	for (size_t count = 0; count < source.numberSource; ++count)
 	{
-		ofstream fileSource01("Source_01.txt");
 		for (size_t i = 0; i <= N; ++i)
 		{
 			for (size_t j = 0; j <= N; ++j)
 			{
-				fileSource01 << fixed << setprecision(6) << source.Function(source.node[count], i * h, j * h) << " ";
+				fileSource << fixed << setprecision(6) << source.Function(source.node[count], i * h, j * h) << " ";
 			}
 		}
-		fileSource01.close();
-		ofstream fileSource02("Source_02.txt");
+
 		for (size_t j = 0; j <= N; ++j)
 		{
-			fileSource02 << fixed << setprecision(6) << source.Function(source.node[count], receiver, j * h) << " ";
+			fileSource << fixed << setprecision(6) << source.Function(source.node[count], receiver, j * h) << " ";
 		}
-		fileSource02.close();
 	}
+	fileSource.close();
+
+	//РїРµС‡Р°С‚Р°РµРј РІСЂРµРјСЏ СЂР°Р±РѕС‚С‹
+	timeFinish = clock();
+	d = (float)(timeFinish - timeStart) / CLOCKS_PER_SEC;
+	cout << "The computation time of the source function " << d << endl;
+	timeStart = clock();
+
+	// РґР»СЏ РЅР°С…РѕР¶РґРµРЅРёСЏ u^(1) СЃРѕСЃС‚Р°РІР»СЏРµРј РЎР›РђРЈ РѕСЃРЅРѕРІРЅР°СЏ РјР°С‚СЂРёС†Р° * u^(1) = РїСЂР°РІРѕР№ С‡Р°СЃС‚Рё
+	// substantiveMatrix[ii][jj] * numbered_u[jj] = rightPartEequation[ii]
+
+	const size_t N_squared = (N + 1) * (N + 1);
+	vector<complex<float>> rightPartEquation(N_squared, (0.0f, 0.0f));
+	vector<complex<float>> numbered_u(N_squared);
+	vector<vector<complex<float>>> substantiveMatrix(N_squared, vector<complex<float>>(N_squared, (0.0f, 0.0f)));
+	vector<complex<float>> overline_u(N + 1, (0.0f, 0.0f));
+
+	//СЃС‡РµС‚ РѕСЃРЅРѕРІРЅРѕР№ РјР°С‚СЂРёС†С‹
+	size_t ii, jj;
+	complex<float> sumOfTheCoefficients;
+	for (size_t i = 0; i <= N; ++i)
+	{
+		for (size_t j = 0; j <= N; ++j)
+		{
+			ii = i * (N + 1) + j;
+			sumOfTheCoefficients = (0.0f, 0.0f);
+			for (size_t p = 0; p < N; ++p)
+			{
+				for (size_t q = 0; q < N; ++q)
+				{
+					jj = p * (N + 1) + q;
+					if ((i != p) || (q != j))
+					{
+						substantiveMatrix[ii][jj] += a[i][j][p][q] * xi[i][j];
+						sumOfTheCoefficients += a[i][j][p][q];
+					}
+				}
+			}
+			substantiveMatrix[ii][ii] += (1.0f, 0.0f);
+			substantiveMatrix[ii][ii] -= sumOfTheCoefficients * xi[i][j];
+			substantiveMatrix[ii][ii] += b[i][j] * xi[i][j];
+		}
+	}
+	timeFinish = clock();
+	d = (float)(timeFinish - timeStart) / CLOCKS_PER_SEC;
+	cout << "The computation time of the matrix inside the squared " << d << endl;
+	timeStart = clock();
+
+	// РґР»СЏ РєР°Р¶РґРѕРіРѕ РёСЃС‚РѕС‡РЅРёРєР°
+	ofstream file_overline_u("matrix_overline_u.txt");
+	for (size_t count = 0; count < source.numberSource; ++count)
+	{
+		// РЅР°С…РѕР¶РґРµРЅРёРµ РїСЂР°РІРѕР№ С‡Р°СЃС‚Рё
+		for (size_t i = 0; i <= N; ++i)
+		{
+			for (size_t j = 0; j <= N; ++j)
+			{
+				ii = i * (N + 1) + j;
+				rightPartEquation[ii] = source.Function(source.node[count], i * h, j * h);
+			}
+		}
+		// РЅР°С…РѕР¶РґРµРЅРёРµ u^{(count)}
+		SolveSlauGaussa(substantiveMatrix, rightPartEquation, numbered_u);
+
+		// РћР±СЂР°С‚РЅР°СЏ РїРµСЂРµРЅСѓРјРµСЂР°С†РёСЏ
+		size_t coordinate_x;
+		size_t coordinate_y;
+		for (size_t i = 0; i < N_squared; ++i)
+		{
+			coordinate_x = i / (N + 1);
+			coordinate_y = i % (N + 1);
+			u[coordinate_x][coordinate_y] = numbered_u[i];
+		}
+		timeFinish = clock();
+		d = (float)(timeFinish - timeStart) / CLOCKS_PER_SEC;
+		cout << "Finding the acoustic pressure in R for " << count + 1 << " source " << d << endl;
+		timeStart = clock();
+
+		// РЅР°С…РѕРґРёРј overline_u_0
+		for (size_t i = 0; i <= N; ++i)
+		{
+			overline_u[i] = source.Function(source.node[count], receiver, i * h);			
+		}
+		for (size_t j = 0; j <= N; ++j)
+		{
+			for (size_t p = 0; p < N; ++p)
+			{
+				for (size_t q = 0; q < N; ++q)
+				{
+					overline_u[j] -= overline_a[j][p][q] * xi[p][q] * u[p][q];
+				}
+			}
+		}
+		// РїРµС‡Р°С‚СЊ overline_u_0^(count) РІ С„Р°Р№Р» РІ РѕРґРЅСѓ СЃС‚СЂРѕС‡РєСѓ
+		for (size_t j = 0; j <= N; ++j)
+		{
+			file_overline_u << fixed << setprecision(6) << overline_u[j] << " ";
+		}
+		timeFinish = clock();
+		d = (float)(timeFinish - timeStart) / CLOCKS_PER_SEC;
+		cout << "Finding the acoustic pressure in X for " << count + 1 << " source " << d << endl;
+		timeStart = clock();
+	}
+	file_overline_u.close();
+
+	timeFinish = clock();
+	d = (float)(timeFinish - timeBegin) / CLOCKS_PER_SEC;
+	cout << "The total time of the program " << d << endl;
 
 	return 0;
 }
-
