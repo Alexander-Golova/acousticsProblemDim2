@@ -11,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MultMatrix", "MultMatrix\Mu
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "directProblemQuadratureSamplingMethodNew", "directProblemQuadratureSamplingMethodNew\directProblemQuadratureSamplingMethodNew.vcxproj", "{DC2F2179-91D4-48EE-BF66-64AA83709C68}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "inverseProblemQuadratureSamplingMethodNew", "inverseProblemQuadratureSamplingMethodNew\inverseProblemQuadratureSamplingMethodNew.vcxproj", "{5206358D-B4EE-4351-AD0C-06D391B33693}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -51,6 +53,14 @@ Global
 		{DC2F2179-91D4-48EE-BF66-64AA83709C68}.Release|x64.Build.0 = Release|x64
 		{DC2F2179-91D4-48EE-BF66-64AA83709C68}.Release|x86.ActiveCfg = Release|Win32
 		{DC2F2179-91D4-48EE-BF66-64AA83709C68}.Release|x86.Build.0 = Release|Win32
+		{5206358D-B4EE-4351-AD0C-06D391B33693}.Debug|x64.ActiveCfg = Debug|x64
+		{5206358D-B4EE-4351-AD0C-06D391B33693}.Debug|x64.Build.0 = Debug|x64
+		{5206358D-B4EE-4351-AD0C-06D391B33693}.Debug|x86.ActiveCfg = Debug|Win32
+		{5206358D-B4EE-4351-AD0C-06D391B33693}.Debug|x86.Build.0 = Debug|Win32
+		{5206358D-B4EE-4351-AD0C-06D391B33693}.Release|x64.ActiveCfg = Release|x64
+		{5206358D-B4EE-4351-AD0C-06D391B33693}.Release|x64.Build.0 = Release|x64
+		{5206358D-B4EE-4351-AD0C-06D391B33693}.Release|x86.ActiveCfg = Release|Win32
+		{5206358D-B4EE-4351-AD0C-06D391B33693}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
