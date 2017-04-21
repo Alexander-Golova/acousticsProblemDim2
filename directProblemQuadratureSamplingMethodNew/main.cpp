@@ -1,6 +1,6 @@
 ﻿#include "stdafx.h"
 #include "basicFunctions.h"
-#include"Sources.h"
+#include "Sources.h"
 #include "taskData.h"
 #include "../directProblemQuadratureSamplingMethod/matrix_utils.h"
 
