@@ -276,7 +276,7 @@ int main()
 		// находим overline_u_0
 		for (size_t i = 0; i <= N; ++i)
 		{
-			overline_u[i] = source.Function(source.node[count], receiver, i * h);			
+			overline_u[i] = source.Function(source.node[count], receiver, i * h);
 		}
 		for (size_t j = 0; j <= N; ++j)
 		{

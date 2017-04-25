@@ -247,7 +247,7 @@ int main()
 	timeStart = clock();
 
 	// вспомогательные переменные
-	const size_t N_squared = (N + 1)*(N + 1);
+	const size_t N_squared = (N + 1) * (N + 1);
 
 	//выделение памяти под массивы производных  F_1, F_2, ...
 	vector<vector<complex<float>>> F_01(N_squared, vector<complex<float>>(N_squared, complex<float>()));
@@ -557,7 +557,7 @@ int main()
 			}
 		}
 
-		//первый источник 	
+		//первый источник 
 		// перенумерация u^{1}
 		for (size_t i = 0; i <= N; ++i)
 		{
