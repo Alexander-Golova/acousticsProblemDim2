@@ -23,8 +23,15 @@ int main()
 	const Source source;
 
 	const size_t N = NUMBER_PARTITION_POINTS;
+	const size_t N_squared = (N + 1) * (N + 1);
 	const float h = (float)DOMAIN_IN_HOMOGENEITY / N;
 
+	// начало счета времени
+	clock_t timeStart, timeFinish, timeBegin;
+	timeBegin = clock();
+	timeStart = clock();
+
+	// выделение памяти
 	// выделяем память под основные матрицы
 	vector<vector<vector<vector<complex<float>>>>> a(N + 1,
 		vector<vector<vector<complex<float>>>>(N + 1, vector<vector<complex<float>>>(N + 1,
@@ -35,11 +42,51 @@ int main()
 
 	vector<vector<complex<float>>> b(N + 1, vector<complex<float>>(N + 1, complex<float>()));
 
-	// начало счета времени
-	clock_t timeStart, timeFinish, timeBegin;
-	timeBegin = clock();
+	// выделяем память для значений источников
+	vector<vector<vector<complex<float>>>> Source_R(source.numberSource, vector<vector<complex<float>>>(N + 1, vector<complex<float>>(N + 1, complex<float>())));
+	vector<vector<complex<float>>> Source_X(source.numberSource, vector<complex<float>>(N + 1, complex<float>()));
+
+	// Выделяем память для поля в приемниках
+	vector<vector<complex<float>>> overline_u(source.numberSource, vector<complex<float>>(N + 1, complex<float>()));
+
+	//выделение памяти под массивы производных  F_1, F_2, ...
+	vector<vector<vector<complex<float>>>> F_odd(source.numberSource + 1, vector<vector<complex<float>>>(N_squared, vector<complex<float>>(N_squared, complex<float>())));
+	vector<vector<vector<complex<float>>>> F_even(source.numberSource + 1, vector<vector<complex<float>>>(N + 1, vector<complex<float>>(N_squared, complex<float>())));
+
+	//выделение памяти под массивы A и B
+	vector<vector<vector<complex<float>>>> A(source.numberSource + 1, vector<vector<complex<float>>>(N_squared, vector<complex<float>>(N_squared, complex<float>())));
+	vector<vector<complex<float>>> B(N_squared, vector<complex<float>>(N_squared, complex<float>()));
+	vector<vector<complex<float>>> inverseMatrixB(N_squared, vector<complex<float>>(N_squared, complex<float>()));
+	vector<vector<complex<float>>> auxiliaryMatrix(N_squared, vector<complex<float>>(N_squared, complex<float>()));
+	vector<vector<complex<float>>> secondAuxiliaryMatrix(N_squared, vector<complex<float>>(N_squared, complex<float>()));
+
+	// память для хранения значений основного оператора
+	vector<vector<complex<float>>> F_part_odd(source.numberSource, vector<complex<float>>(N_squared, complex<float>()));
+	vector<vector<complex<float>>> F_part_even(source.numberSource, vector<complex<float>>(N + 1, complex<float>()));
+
+	// память для b_0, b_1,...
+	vector<vector<complex<float>>> b_right(source.numberSource + 1, vector<complex<float>>(N_squared, complex<float>()));
+
+	// память для u^(1), u^(2), u^(3)
+	vector<vector<vector<complex<float>>>> u(source.numberSource + 1, vector<vector<complex<float>>>(N + 1, vector<complex<float>>(N + 1, complex<float>())));
+
+	// память для xi
+	vector<vector<complex<float>>> xi(N + 1, vector<complex<float>>(N + 1, complex<float>()));
+
+	// память для перенумерованных переменных и вспомогательного вектора
+	vector<vector<complex<float>>> numbered_u(source.numberSource, vector<complex<float>>(N_squared, complex<float>()));
+	vector<complex<float>> numbered_xi(N_squared, complex<float>());
+	vector<complex<float>> supportingVector_square(N_squared, complex<float>());
+	vector<complex<float>> secondSupportingVector_square(N_squared, complex<float>());
+	vector<complex<float>> supportingVector(N_squared, complex<float>());
+	
+	timeFinish = clock();
+	float d;
+	d = (float)(timeFinish - timeStart) / CLOCKS_PER_SEC;
+	cout << "Time allocation " << d << endl;
 	timeStart = clock();
-	// Начало загрузки основных матриц
+
+	// Загрузка данных
 	ifstream f_a("matrix_a.txt");
 	for (size_t i = 0; i <= N; ++i)
 	{
@@ -79,18 +126,6 @@ int main()
 	}
 	f_b.close();
 
-	//печатаем время работы
-	timeFinish = clock();
-	float d;
-	d = (float)(timeFinish - timeStart) / CLOCKS_PER_SEC;
-	cout << "Download time major arrays " << d << endl;
-	timeStart = clock();
-
-	// выделяем память для значений источников
-	vector<vector<vector<complex<float>>>> Source_R(source.numberSource, vector<vector<complex<float>>>(N + 1, vector<complex<float>>(N + 1, complex<float>())));
-	vector<vector<complex<float>>> Source_X(source.numberSource, vector<complex<float>>(N + 1, complex<float>()));
-
-	// загружаем значения источников
 	ifstream fileSource("Source.txt");
 	for (size_t count = 0; count < source.numberSource; ++count)
 	{
@@ -109,16 +144,6 @@ int main()
 	}
 	fileSource.close();
 
-	//печатаем время работы
-	timeFinish = clock();
-	d = (float)(timeFinish - timeStart) / CLOCKS_PER_SEC;
-	cout << "Download Time arrays sources " << d << endl;
-	timeStart = clock();
-
-	// Выделяем память для поля в приемниках
-	vector<vector<complex<float>>> overline_u(source.numberSource, vector<complex<float>>(N + 1, complex<float>()));
-	
-	// Загрузка акустического поля в приёмнике
 	ifstream file_overline_u("matrix_overline_u_1.txt");
 	for (size_t count = 0; count < source.numberSource; ++count)
 	{
@@ -132,47 +157,7 @@ int main()
 	//печатаем время работы
 	timeFinish = clock();
 	d = (float)(timeFinish - timeStart) / CLOCKS_PER_SEC;
-	cout << "Loading time of the acoustic field in the receivers " << d << endl;
-	timeStart = clock();
-
-	// вспомогательные переменные
-	const size_t N_squared = (N + 1) * (N + 1);
-
-	//выделение памяти под массивы производных  F_1, F_2, ...
-	vector<vector<vector<complex<float>>>> F_odd(source.numberSource, vector<vector<complex<float>>>(N_squared, vector<complex<float>>(N_squared, complex<float>())));
-	vector<vector<vector<complex<float>>>> F_even(source.numberSource, vector<vector<complex<float>>>(N + 1, vector<complex<float>>(N_squared, complex<float>())));
-
-	//выделение памяти под массивы A и B
-	vector<vector<vector<complex<float>>>> A(source.numberSource + 1, vector<vector<complex<float>>>(N + 1, vector<complex<float>>(N_squared, complex<float>())));
-	vector<vector<complex<float>>> B(N_squared, vector<complex<float>>(N_squared, complex<float>()));
-	vector<vector<complex<float>>> inverseMatrixB(N_squared, vector<complex<float>>(N_squared, complex<float>()));
-	vector<vector<complex<float>>> auxiliaryMatrix(N_squared, vector<complex<float>>(N_squared, complex<float>()));
-	vector<vector<complex<float>>> secondAuxiliaryMatrix(N_squared, vector<complex<float>>(N_squared, complex<float>()));
-
-	// память для хранения значений основного оператора
-	vector<vector<complex<float>>> F_part_odd(source.numberSource, vector<complex<float>>(N_squared, complex<float>()));
-	vector<vector<complex<float>>> F_part_even(source.numberSource, vector<complex<float>>(N + 1, complex<float>()));
-
-	// память для b_0, b_1,...
-	vector<vector<complex<float>>> b_right(source.numberSource + 1, vector<complex<float>>(N_squared, complex<float>()));
-
-	// память для u^(1), u^(2), u^(3)
-	vector<vector<vector<complex<float>>>> u(source.numberSource + 1, vector<vector<complex<float>>>(N + 1, vector<complex<float>>(N + 1, complex<float>())));
-
-	// память для xi
-	vector<vector<complex<float>>> xi(N + 1, vector<complex<float>>(N + 1, complex<float>()));
-
-	// память для перенумерованных переменных и вспомогательного вектора
-	vector<vector<complex<float>>> numbered_u(source.numberSource, vector<complex<float>>(N_squared, complex<float>()));
-	vector<complex<float>> numbered_xi(N_squared, complex<float>());
-	vector<complex<float>> supportingVector_square(N_squared, complex<float>());
-	vector<complex<float>> secondSupportingVector_square(N_squared, complex<float>());
-	vector<complex<float>> supportingVector(N_squared, complex<float>());
-
-	//печатаем время работы
-	timeFinish = clock();
-	d = (float)(timeFinish - timeStart) / CLOCKS_PER_SEC;
-	cout << "Time allocation " << d << endl;
+	cout << "Download time " << d << endl;
 	timeStart = clock();
 
 	// Начало вычислительной части
@@ -212,8 +197,8 @@ int main()
 		//////////////////////////////////////////////////////////////////////////
 		//строим левую часть СЛАУ основного метода Ньютона
 		//////////////////////////////////////////////////////////////////////////
-		//
-		// определяем матрицы F_01, F_03, F_05, ..., F_09 Якобиана
+
+		// определяем матрицы Якобиана
 		for (size_t i = 0; i <= N; ++i)
 		{
 			for (size_t j = 0; j <= N; ++j)
@@ -244,7 +229,6 @@ int main()
 			}
 		}
 
-		// определяем матрицы F_02, F_04, F_06, ..., F_10 Якобиана
 		for (size_t j = 0; j <= N; ++j)
 		{
 			for (size_t p = 0; p < N; ++p)
@@ -261,7 +245,11 @@ int main()
 			}
 		}
 
-		// находим матрицы А и В
+		timeFinish = clock();
+		d = (float)(timeFinish - timeStart) / CLOCKS_PER_SEC;
+		cout << "The counting time of the Jacobian matrices " << d << endl;
+		timeStart = clock();
+
 		// находим матрицы А
 		MultTransposedMatrix(F_odd[1], F_odd[1], A[0]);
 		for (size_t count = 2; count <= source.numberSource; ++count)
@@ -274,7 +262,6 @@ int main()
 			MultTransposedMatrix(F_even[count], F_even[count], auxiliaryMatrix);
 			AddSquareMatrices(A[0], auxiliaryMatrix);
 		}
-
 		for (size_t count = 1; count <= source.numberSource; ++count)
 		{
 			MultTransposedMatrix(F_odd[count], F_odd[0], A[count]);
@@ -282,10 +269,20 @@ int main()
 			AddSquareMatrices(A[count], auxiliaryMatrix);
 		}
 
+		timeFinish = clock();
+		d = (float)(timeFinish - timeStart) / CLOCKS_PER_SEC;
+		cout << "Counting time of matrices A " << d << endl;
+		timeStart = clock();
+
 		// находим матрицу В
 		MultTransposedMatrix(F_odd[0], F_odd[0], B);
 		MultTransposedMatrix(F_even[0], F_even[0], auxiliaryMatrix);
 		AddSquareMatrices(B, auxiliaryMatrix);
+
+		timeFinish = clock();
+		d = (float)(timeFinish - timeStart) / CLOCKS_PER_SEC;
+		cout << "Counting time of matrices B " << d << endl;
+		timeStart = clock();
 		
 		//добавляем alpha к диагонали
 		for (size_t ii = 0; ii < N_squared; ++ii)
@@ -294,10 +291,8 @@ int main()
 			B[ii][ii] += alpha;
 		}
 
-		timeFinish = clock();
-		d = (float)(timeFinish - timeStart) / CLOCKS_PER_SEC;
-		cout << "Calculation time left side " << d << endl;
-		timeStart = clock();
+		cout << "Calculate the left side" << endl;
+
 		//////////////////////////////////////////////////////////////////////////
 		//строим правую часть СЛАУ основного метода Ньютона
 		//////////////////////////////////////////////////////////////////////////
@@ -350,6 +345,11 @@ int main()
 				}
 			}
 		}
+
+		timeFinish = clock();
+		d = (float)(timeFinish - timeStart) / CLOCKS_PER_SEC;
+		cout << "Counting time of the main matrix " << d << endl;
+		timeStart = clock();
 
 		// находим F^{\prime}(x)*x и вычитаем F(x) 
 		// перенумерация xi
@@ -443,6 +443,11 @@ int main()
 		// находим xi
 		SolveSlauGaussa(A[0], b_right[0], numbered_xi);
 
+		timeFinish = clock();
+		d = (float)(timeFinish - timeStart) / CLOCKS_PER_SEC;
+		cout << "Time of xi " << d << endl;
+		timeStart = clock();
+
 		//находим u^{i}
 		for (size_t count = 0; count < source.numberSource; ++count)
 		{
@@ -450,6 +455,11 @@ int main()
 			SubVectors(b_right[count + 1], supportingVector_square);
 			MultMatrixVector(inverseMatrixB, b_right[count + 1], numbered_u[count]);
 		}
+
+		timeFinish = clock();
+		d = (float)(timeFinish - timeStart) / CLOCKS_PER_SEC;
+		cout << "Time of u " << d << endl;
+		timeStart = clock();
 
 		// изменяем alpha для следующей итерации
 		alpha = alpha * q;
