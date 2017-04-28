@@ -874,7 +874,7 @@ int main()
 		}
 
 		// печать результатов итераций
-		ofstream f_xi("approximate_xi_" + to_string(iteration) + ".txt");
+		ofstream f_xi("approximate_xi_" + to_string(iteration + 1) + ".txt");
 		f_xi << fixed << setprecision(6);
 		for (size_t i = 0; i <= N; ++i)
 		{
