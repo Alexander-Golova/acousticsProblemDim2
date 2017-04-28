@@ -228,14 +228,15 @@ int main()
 					jj = p * (N + 1) + q;
 					if ((i != p) || (q != j))
 					{
-						substantiveMatrix[ii][jj] += a[i][j][p][q] * xi[i][j];
+						substantiveMatrix[ii][jj] += a[i][j][p][q] * xi[p][q];  // вроде бы ошибка была
 						sumOfTheCoefficients += a[i][j][p][q];
 					}
 				}
 			}
-			substantiveMatrix[ii][ii] += (1.0f, 0.0f);
+			substantiveMatrix[ii][ii] += 1.0f;   // и здесь ошибка
 			substantiveMatrix[ii][ii] -= sumOfTheCoefficients * xi[i][j];
 			substantiveMatrix[ii][ii] += b[i][j] * xi[i][j];
+			cout << substantiveMatrix[ii][ii];
 		}
 	}
 	timeFinish = clock();
