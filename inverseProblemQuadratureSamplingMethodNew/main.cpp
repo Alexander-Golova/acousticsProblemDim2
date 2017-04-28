@@ -110,7 +110,7 @@ int main()
 		{
 			for (size_t q = 0; q < N; ++q)
 			{
-				f_a >> overline_a[j][p][q];
+				f_overline_a >> overline_a[j][p][q];
 			}
 		}
 	}
@@ -144,7 +144,7 @@ int main()
 	}
 	fileSource.close();
 
-	ifstream file_overline_u("matrix_overline_u_1.txt");
+	ifstream file_overline_u("matrix_overline_u.txt");
 	for (size_t count = 0; count < source.numberSource; ++count)
 	{
 		for (size_t j = 0; j <= N; ++j)
@@ -178,7 +178,7 @@ int main()
 	{
 		for (size_t j = 0; j <= N; ++j)
 		{
-			xi[i][j] = (0.0f, 0.0f);
+			xi[i][j] = 0.1f;
 		}
 	}
 
@@ -197,7 +197,6 @@ int main()
 		//////////////////////////////////////////////////////////////////////////
 		//строим левую часть СЛАУ основного метода Ньютона
 		//////////////////////////////////////////////////////////////////////////
-
 		// определяем матрицы Якобиана
 		for (size_t i = 0; i <= N; ++i)
 		{
@@ -419,7 +418,6 @@ int main()
 		timeStart = clock();
 
 		// составляем основное уравнение для метода Ньютона
-
 		// Находим xi
 		// находим обратную матрицу для B
 		InvertMatrix(B, inverseMatrixB);
@@ -489,13 +487,13 @@ int main()
 		}
 
 		// печать результатов итераций
-		string s((char*)&iteration);
-		ofstream f_xi("approximate_xi_" + s + ".txt");
+		ofstream f_xi("approximate_xi_" + to_string(iteration + 1) + ".txt");
+		f_xi << fixed << setprecision(6);
 		for (size_t i = 0; i <= N; ++i)
 		{
 			for (size_t j = 0; j <= N; ++j)
 			{
-				f_xi << fixed << setprecision(6) << real(xi[i][j]) << " ";
+				f_xi << real(xi[i][j]) << " ";
 			}
 		}
 		f_xi.close();
