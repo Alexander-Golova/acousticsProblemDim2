@@ -342,7 +342,7 @@ int main()
 	{
 		for(size_t j = 0; j <= N; ++j)
 		{
-			xi[i][j] = (0.1f, 0.0f);
+			xi[i][j] = 0.1f;
 		}
 	}
 
