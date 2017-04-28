@@ -873,80 +873,18 @@ int main()
 			}
 		}
 
-		// печать результатов итераций (первые 5)
-		if (iteration == 0)
+		// печать результатов итераций
+		ofstream f_xi("approximate_xi_" + to_string(iteration) + ".txt");
+		f_xi << fixed << setprecision(6);
+		for (size_t i = 0; i <= N; ++i)
 		{
-			ofstream f_xi("approximate_xi_1.txt");
-			for (size_t i = 0; i <= N; ++i)
+			for (size_t j = 0; j <= N; ++j)
 			{
-				for (size_t j = 0; j <= N; ++j)
-				{
-					f_xi << fixed << setprecision(6) << real(xi[i][j]) << " ";
-				}
+				f_xi << real(xi[i][j]) << " ";
 			}
-			f_xi.close();
 		}
-		if (iteration == 1)
-		{
-			ofstream f_xi("approximate_xi_2.txt");
-			for (size_t i = 0; i <= N; ++i)
-			{
-				for (size_t j = 0; j <= N; ++j)
-				{
-					f_xi << fixed << setprecision(6) << real(xi[i][j]) << " ";
-				}
-			}
-			f_xi.close();
-		}
-		if (iteration == 2)
-		{
-			ofstream f_xi("approximate_xi_3.txt");
-			for (size_t i = 0; i <= N; ++i)
-			{
-				for (size_t j = 0; j <= N; ++j)
-				{
-					f_xi << fixed << setprecision(6) << real(xi[i][j]) << " ";
-				}
-			}
-			f_xi.close();
-		}
-		if (iteration == 3)
-		{
-			ofstream f_xi("approximate_xi_4.txt");
-			for (size_t i = 0; i <= N; ++i)
-			{
-				for (size_t j = 0; j <= N; ++j)
-				{
-					f_xi << fixed << setprecision(6) << real(xi[i][j]) << " ";
-				}
-			}
-			f_xi.close();
-		}
-		if (iteration == 4)
-		{
-			ofstream f_xi("approximate_xi_5.txt");
-			for (size_t i = 0; i <= N; ++i)
-			{
-				for (size_t j = 0; j <= N; ++j)
-				{
-					f_xi << fixed << setprecision(6) << real(xi[i][j]) << " ";
-				}
-			}
-			f_xi.close();
-		}
+		f_xi.close();
 	}
-	// конец итераций
-
-	//печатаем приближенное решение в файл
-	ofstream f_xi("approximate_xi.txt");
-	for (size_t i = 0; i <= N; ++i)
-	{
-		for (size_t j = 0; j <= N; ++j)
-		{
-			f_xi << fixed << setprecision(6) << real(xi[i][j]) << " ";
-		}
-	}
-	f_xi.close();
 
 	d = (float)(timeFinish - timeBegin) / CLOCKS_PER_SEC;
 	cout << "The total time of the program " << d << endl;
