@@ -304,12 +304,12 @@ int main()
 					jj = p * (N + 1) + q;
 					if ((i != p) || (q != j))
 					{
-						substantiveMatrix[ii][jj] += a[i][j][p][q] * xi[i][j];
+						substantiveMatrix[ii][jj] += a[i][j][p][q] * xi[p][q];
 						sumOfTheCoefficients += a[i][j][p][q];
 					}
 				}
 			}
-			substantiveMatrix[ii][ii] += (1.0f, 0.0f);
+			substantiveMatrix[ii][ii] += 1.0f;  // была ошибка в прибавлении единицы
 			substantiveMatrix[ii][ii] -= sumOfTheCoefficients * xi[i][j];
 			substantiveMatrix[ii][ii] += b[i][j] * xi[i][j];
 		}
