@@ -60,7 +60,7 @@ int main()
 		{
 			for (size_t q = 0; q < N; ++q)
 			{
-				f_a >> overline_a[j][p][q];
+				f_overline_a >> overline_a[j][p][q];
 			}
 		}
 	}
@@ -368,7 +368,7 @@ int main()
 			for (size_t j = 0; j <= N; ++j)
 			{
 				ii = i * (N + 1) + j;
-				sumOfTheCoefficients = (0.0f, 0.0f);
+				sumOfTheCoefficients = { 0.0f, 0.0f };
 				for (size_t p = 0; p < N; ++p)
 				{
 					for (size_t q = 0; q < N; ++q)
@@ -391,7 +391,8 @@ int main()
 				F_05[ii][ii] = u_3[i][j] * (b[i][j] - sumOfTheCoefficients);
 				F_07[ii][ii] = u_4[i][j] * (b[i][j] - sumOfTheCoefficients);
 				F_09[ii][ii] = u_5[i][j] * (b[i][j] - sumOfTheCoefficients);
-				F_o[ii][ii] = (1.0f, 0.0f) + xi[i][j] * (b[i][j] - sumOfTheCoefficients);
+				F_o[ii][ii] = 1.0f;
+				F_o[ii][ii] += xi[i][j] * (b[i][j] - sumOfTheCoefficients);
 			}
 		}
 
@@ -868,7 +869,7 @@ int main()
 			{
 				if (real(xi[i][j]) <= 0)
 				{
-					xi[i][j] = (0.0f, 0.0f);
+					xi[i][j] = { 0.0f, 0.0f };
 				}
 			}
 		}

@@ -28,7 +28,7 @@ void GetNullMatrix(vector<vector<complex<float>>> & matrix)
 	{
 		for (size_t col = 0; col < dim2; ++col)
 		{
-			matrix[row][col] = (0.0f, 0.0f);
+			matrix[row][col] = { 0.0f, 0.0f };
 		}
 	}
 }
@@ -78,7 +78,7 @@ void MultTransMatrix(const vector<vector<complex<float>>> & lhs, const vector<ve
 		for (size_t row = 0; row < dim1; ++row)
 		{
 			thisRow = lhs[row];
-			summand = (0.0f, 0.0f);
+			summand = { 0.0f, 0.0f };
 			for (size_t inner = 0; inner < dim2; ++inner)
 			{
 				summand += thisRow[inner] * thatColumn[inner];
@@ -112,7 +112,7 @@ void MultMatrixBlock(const vector<vector<complex<float>>> & lhs, const vector<ve
 
 				for (size_t col = jj; col < min(jj + SIZE_BLOCK, dim3); ++col)
 				{
-					r = (0.0f, 0.0f);
+					r = { 0.0f, 0.0f };
 					for (size_t inner = kk; inner < min(kk + SIZE_BLOCK, dim2); ++inner)
 					{
 						r += lhs[row][inner] * rhs[inner][col];

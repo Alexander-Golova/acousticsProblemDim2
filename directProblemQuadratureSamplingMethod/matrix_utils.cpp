@@ -13,7 +13,7 @@ void GetNullMatrix(vector<vector<complex<float>>> & matrix)
 	{
 		for (size_t col = 0; col < dim2; ++col)
 		{
-			matrix[row][col] = (0.0f, 0.0f);
+			matrix[row][col] = { 0.0f, 0.0f };
 		}
 	}
 }
@@ -88,7 +88,7 @@ void InvertMatrix(vector<vector<complex<float>>> matrix, vector<vector<complex<f
 	GetNullMatrix(invertedMatrix);
 	for (size_t row = 0; row < dim; ++row)
 	{
-		invertedMatrix[row][row] = (1.0f, 0.0f);
+		invertedMatrix[row][row] = { 1.0f, 0.0f };
 	}
 
 	for (size_t row = 0; row < dim; ++row)
@@ -195,7 +195,7 @@ void MultMatrixVector(const vector<vector<complex<float>>> & matrix, const vecto
 
 	for (size_t row = 0; row < dim1; ++row)
 	{
-		result[row] = (0.0f, 0.0f);
+		result[row] = { 0.0f, 0.0f };
 	}
 	for (size_t row = 0; row < dim1; ++row)
 	{
@@ -214,7 +214,7 @@ void MultTransposedMatrixVector(const vector<vector<complex<float>>> & matrix,
 
 	for (size_t i = 0; i < dim2; ++i)
 	{
-		result[i] = (0.0f, 0.0f);
+		result[i] = { 0.0f, 0.0f };
 	}
 	for (size_t i = 0; i < dim2; ++i)
 	{
@@ -247,7 +247,7 @@ void MultMatrix(const vector<vector<complex<float>>> & lhs, const vector<vector<
 		for (size_t row = 0; row < dim1; ++row)
 		{
 			thisRow = lhs[row];
-			summand = (0.0f, 0.0f);
+			summand = { 0.0f, 0.0f };
 			for (size_t inner = 0; inner < dim2; ++inner)
 			{
 				summand += thisRow[inner] * thatColumn[inner];

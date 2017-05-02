@@ -3,6 +3,7 @@
 #include "../directProblemQuadratureSamplingMethodNew/Sources.h"
 #include "../directProblemQuadratureSamplingMethodNew/taskData.h"
 #include "../directProblemQuadratureSamplingMethod/matrix_utils.h"
+#include "exact_solution.h"
 
 using namespace std;
 
@@ -203,7 +204,7 @@ int main()
 			for (size_t j = 0; j <= N; ++j)
 			{
 				ii = i * (N + 1) + j;
-				sumOfTheCoefficients = (0.0f, 0.0f);
+				sumOfTheCoefficients = { 0.0f, 0.0f };
 				for (size_t p = 0; p < N; ++p)
 				{
 					for (size_t q = 0; q < N; ++q)
@@ -224,7 +225,8 @@ int main()
 				{
 					F_odd[count][ii][ii] = u[count - 1][i][j] * (b[i][j] - sumOfTheCoefficients);
 				}
-				F_odd[0][ii][ii] = (1.0f, 0.0f) + xi[i][j] * (b[i][j] - sumOfTheCoefficients);
+				F_odd[0][ii][ii] = 1.0f;
+				F_odd[0][ii][ii] += xi[i][j] * (b[i][j] - sumOfTheCoefficients);
 			}
 		}
 
@@ -475,28 +477,11 @@ int main()
 		}
 
 		// проекция xi >= 0
-		for (size_t i = 0; i <= N; ++i)
-		{
-			for (size_t j = 0; j <= N; ++j)
-			{
-				if (real(xi[i][j]) <= 0)
-				{
-					xi[i][j] = (0.0f, 0.0f);
-				}
-			}
-		}
+		ProjectionXi(xi);		
 
-		// печать результатов итераций
-		ofstream f_xi("approximate_xi_" + to_string(iteration + 1) + ".txt");
-		f_xi << fixed << setprecision(6);
-		for (size_t i = 0; i <= N; ++i)
-		{
-			for (size_t j = 0; j <= N; ++j)
-			{
-				f_xi << real(xi[i][j]) << " ";
-			}
-		}
-		f_xi.close();
+		// печать результатов итераций в файл
+		PrintXi(xi, iteration);
+		
 	}
 
 	timeFinish = clock();

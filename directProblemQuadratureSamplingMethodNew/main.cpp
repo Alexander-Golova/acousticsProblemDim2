@@ -233,7 +233,7 @@ int main()
 					}
 				}
 			}
-			substantiveMatrix[ii][ii] += 1.0f;   // и здесь ошибка
+			substantiveMatrix[ii][ii] += 1.0f;   // и здесь ошибка была
 			substantiveMatrix[ii][ii] -= sumOfTheCoefficients * xi[i][j];
 			substantiveMatrix[ii][ii] += b[i][j] * xi[i][j];
 		}
