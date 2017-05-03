@@ -5,6 +5,7 @@
 #include "../directProblemQuadratureSamplingMethod/matrix_utils.h"
 #include "exact_solution.h"
 #include "initialValue.h"
+#include "arrayLoading.h"
 
 using namespace std;
 
@@ -18,9 +19,9 @@ int main()
 	cout << "Enter alpha ";
 	cin >> alpha;
 
-	float q;
+	float multiplier;
 	cout << "Enter q ";
-	cin >> q;
+	cin >> multiplier;
 
 	const Source source;
 
@@ -89,73 +90,12 @@ int main()
 	timeStart = clock();
 
 	// Загрузка данных
-	ifstream f_a("matrix_a.txt");
-	for (size_t i = 0; i <= N; ++i)
-	{
-		for (size_t j = 0; j <= N; ++j)
-		{
-			for (size_t p = 0; p < N; ++p)
-			{
-				for (size_t q = 0; q < N; ++q)
-				{
-					f_a >> a[i][j][p][q];
-				}
-			}
-		}
-	}
-	f_a.close();
-
-	ifstream f_overline_a("matrix_overline_a.txt");
-	for (size_t j = 0; j <= N; ++j)
-	{
-		for (size_t p = 0; p < N; ++p)
-		{
-			for (size_t q = 0; q < N; ++q)
-			{
-				f_overline_a >> overline_a[j][p][q];
-			}
-		}
-	}
-	f_overline_a.close();
-
-	ifstream f_b("matrix_b.txt");
-	for (size_t i = 0; i <= N; ++i)
-	{
-		for (size_t j = 0; j <= N; ++j)
-		{
-			f_b >> b[i][j];
-		}
-	}
-	f_b.close();
-
-	ifstream fileSource("Source.txt");
-	for (size_t count = 0; count < source.numberSource; ++count)
-	{
-		for (size_t i = 0; i <= N; ++i)
-		{
-			for (size_t j = 0; j <= N; ++j)
-			{
-				fileSource >> Source_R[count][i][j];
-			}
-		}
-
-		for (size_t j = 0; j <= N; ++j)
-		{
-			fileSource >> Source_X[count][j];
-		}
-	}
-	fileSource.close();
-
-	ifstream file_overline_u("matrix_overline_u.txt");
-	for (size_t count = 0; count < source.numberSource; ++count)
-	{
-		for (size_t j = 0; j <= N; ++j)
-		{
-			file_overline_u >> overline_u[count][j];
-		}
-	}
-	file_overline_u.close();
-
+	ArrayLoadingA(a);
+	ArrayLoadingOverlineA(overline_a);
+	ArrayLoadingB(b);
+	ArrayLoadingSource(source.numberSource, Source_R, Source_X);
+	ArrayLoadingOverlineU(source.numberSource, overline_u);
+	
 	//печатаем время работы
 	timeFinish = clock();
 	d = (float)(timeFinish - timeStart) / CLOCKS_PER_SEC;
@@ -167,8 +107,6 @@ int main()
 	InitialValueU(source.numberSource, u, Source_R);
 	InitialValueXi(xi);
 	
-	size_t coordinate_x;
-	size_t coordinate_y;
 	size_t ii, jj;
 	complex<float> sumOfTheCoefficients;
 
@@ -270,10 +208,10 @@ int main()
 		timeStart = clock();
 		
 		//добавляем alpha к диагонали
-		for (size_t ii = 0; ii < N_squared; ++ii)
+		for (size_t i = 0; i < N_squared; ++i)
 		{
-			A[0][ii][ii] += alpha;
-			B[ii][ii] += alpha;
+			A[0][i][i] += alpha;
+			B[i][i] += alpha;
 		}
 
 		cout << "Calculate the left side" << endl;
@@ -351,24 +289,24 @@ int main()
 				}
 			}
 			MultMatrixVector(F_odd[count], numbered_xi, supportingVector_square);
-			for (size_t ii = 0; ii < N_squared; ++ii)
+			for (size_t i = 0; i < N_squared; ++i)
 			{
-				F_part_odd[count - 1][ii] = supportingVector_square[ii] - F_part_odd[count - 1][ii];
+				F_part_odd[count - 1][i] = supportingVector_square[i] - F_part_odd[count - 1][i];
 			}
 			MultMatrixVector(F_odd[0], numbered_u[count - 1], supportingVector_square);
-			for (size_t ii = 0; ii < N_squared; ++ii)
+			for (size_t i = 0; i < N_squared; ++i)
 			{
-				F_part_odd[count - 1][ii] += supportingVector_square[ii];
+				F_part_odd[count - 1][i] += supportingVector_square[i];
 			}
 			MultMatrixVector(F_even[count], numbered_xi, supportingVector);
-			for (size_t ii = 0; ii <= N; ++ii)
+			for (size_t i = 0; i <= N; ++i)
 			{
-				F_part_even[count - 1][ii] = supportingVector_square[ii] - F_part_even[count - 1][ii];
+				F_part_even[count - 1][i] = supportingVector_square[i] - F_part_even[count - 1][i];
 			}
 			MultMatrixVector(F_even[0], numbered_u[count - 1], supportingVector);
-			for (size_t ii = 0; ii <= N; ++ii)
+			for (size_t i = 0; i <= N; ++i)
 			{
-				F_part_even[count - 1][ii] += supportingVector_square[ii];
+				F_part_even[count - 1][i] += supportingVector_square[i];
 			}
 		}
 
@@ -439,7 +377,7 @@ int main()
 		timeStart = clock();
 
 		// изменяем alpha для следующей итерации
-		alpha = alpha * q;
+		alpha = alpha * multiplier;
 
 		// Обратная перенумерация u^{i}, xi
 		InverseRenumbering(numbered_xi, xi);

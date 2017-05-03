@@ -109,7 +109,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -126,7 +126,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -149,6 +149,7 @@
     <ClInclude Include="..\directProblemQuadratureSamplingMethodNew\Sources.h" />
     <ClInclude Include="..\directProblemQuadratureSamplingMethodNew\taskData.h" />
     <ClInclude Include="..\directProblemQuadratureSamplingMethod\matrix_utils.h" />
+    <ClInclude Include="arrayLoading.h" />
     <ClInclude Include="exact_solution.h" />
     <ClInclude Include="initialValue.h" />
     <ClInclude Include="stdafx.h" />
@@ -158,6 +159,7 @@
     <ClCompile Include="..\directProblemQuadratureSamplingMethodNew\basicFunctions.cpp" />
     <ClCompile Include="..\directProblemQuadratureSamplingMethodNew\Sources.cpp" />
     <ClCompile Include="..\directProblemQuadratureSamplingMethod\matrix_utils.cpp" />
+    <ClCompile Include="arrayLoading.cpp" />
     <ClCompile Include="exact_solution.cpp" />
     <ClCompile Include="initialValue.cpp" />
     <ClCompile Include="main.cpp" />
