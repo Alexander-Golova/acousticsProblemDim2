@@ -32,3 +32,29 @@ void PrintXi(std::vector<std::vector<std::complex<float>>> & xi, size_t iteratio
 	}
 	f_xi.close();
 }
+
+void Renumbering(const vector<vector<complex<float>>> & xi, vector<complex<float>> & numbered_xi)
+{
+	size_t ii;
+	for (size_t i = 0; i <= NUMBER_PARTITION_POINTS; ++i)
+	{
+		for (size_t j = 0; j <= NUMBER_PARTITION_POINTS; ++j)
+		{
+			ii = i * (NUMBER_PARTITION_POINTS + 1) + j;
+			numbered_xi[ii] = xi[i][j];
+		}
+	}
+}
+
+void InverseRenumbering(const vector<complex<float>> & numbered_xi, vector<vector<complex<float>>> & xi)
+{
+	size_t ii;
+	for (size_t i = 0; i <= NUMBER_PARTITION_POINTS; ++i)
+	{
+		for (size_t j = 0; j <= NUMBER_PARTITION_POINTS; ++j)
+		{
+			ii = i * (NUMBER_PARTITION_POINTS + 1) + j;
+			xi[i][j] = numbered_xi[ii];
+		}
+	}
+}

@@ -338,14 +338,7 @@ int main()
 
 		// находим F^{\prime}(x)*x и вычитаем F(x) 
 		// перенумерация xi
-		for (size_t i = 0; i <= N; ++i)
-		{
-			for (size_t j = 0; j <= N; ++j)
-			{
-				ii = i * (N + 1) + j;
-				numbered_xi[ii] = xi[i][j];
-			}
-		}
+		Renumbering(xi, numbered_xi);
 
 		for (size_t count = 1; count <= source.numberSource; ++count)
 		{
@@ -449,19 +442,14 @@ int main()
 		alpha = alpha * q;
 
 		// Обратная перенумерация u^{i}, xi
-		for (size_t ii = 0; ii < N_squared; ++ii)
+		InverseRenumbering(numbered_xi, xi);
+		for (size_t count = 0; count < source.numberSource; ++count)
 		{
-			coordinate_x = ii / (N + 1);
-			coordinate_y = ii % (N + 1);
-			for (size_t count = 0; count < source.numberSource; ++count)
-			{
-				u[count][coordinate_x][coordinate_y] = numbered_u[count][ii];
-			}
-			xi[coordinate_x][coordinate_y] = numbered_xi[ii];
+			InverseRenumbering(numbered_u[count], u[count]);
 		}
 
 		// проекция xi >= 0
-		ProjectionXi(xi);		
+		ProjectionXi(xi);
 
 		// печать результатов итераций в файл
 		PrintXi(xi, iteration);
