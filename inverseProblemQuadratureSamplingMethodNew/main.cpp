@@ -4,6 +4,7 @@
 #include "../directProblemQuadratureSamplingMethodNew/taskData.h"
 #include "../directProblemQuadratureSamplingMethod/matrix_utils.h"
 #include "exact_solution.h"
+#include "initialValue.h"
 
 using namespace std;
 
@@ -162,27 +163,10 @@ int main()
 	timeStart = clock();
 
 	// Начало вычислительной части
-	// начальное приближение u
-	for (size_t count = 0; count < source.numberSource; ++count)
-	{
-		for (size_t i = 0; i <= N; ++i)
-		{
-			for (size_t j = 0; j <= N; ++j)
-			{
-				u[count][i][j] = Source_R[count][i][j];
-			}
-		}
-	}
+	// начальные значения
+	InitialValueU(source.numberSource, u, Source_R);
+	InitialValueXi(xi);
 	
-	// начальное приближение xi
-	for (size_t i = 0; i <= N; ++i)
-	{
-		for (size_t j = 0; j <= N; ++j)
-		{
-			xi[i][j] = 0.1f;
-		}
-	}
-
 	size_t coordinate_x;
 	size_t coordinate_y;
 	size_t ii, jj;

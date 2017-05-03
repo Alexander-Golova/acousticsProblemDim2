@@ -150,6 +150,7 @@
     <ClInclude Include="..\directProblemQuadratureSamplingMethodNew\taskData.h" />
     <ClInclude Include="..\directProblemQuadratureSamplingMethod\matrix_utils.h" />
     <ClInclude Include="exact_solution.h" />
+    <ClInclude Include="initialValue.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -158,6 +159,7 @@
     <ClCompile Include="..\directProblemQuadratureSamplingMethodNew\Sources.cpp" />
     <ClCompile Include="..\directProblemQuadratureSamplingMethod\matrix_utils.cpp" />
     <ClCompile Include="exact_solution.cpp" />
+    <ClCompile Include="initialValue.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
