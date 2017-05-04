@@ -45,6 +45,9 @@
     <ClInclude Include="arrayLoading.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="regularization.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -69,6 +72,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="arrayLoading.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="regularization.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
