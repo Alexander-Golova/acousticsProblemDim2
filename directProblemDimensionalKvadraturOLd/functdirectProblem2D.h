@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 
 #include <math.h>
 #include <complex>
@@ -11,11 +11,11 @@ float omega = 1.0f;
 float c_0 = 1.0f;
 float PI = 3.1415926f;
 
-// количество источников
+// РєРѕР»РёС‡РµСЃС‚РІРѕ РёСЃС‚РѕС‡РЅРёРєРѕРІ
 size_t numberSource = 5;
-// количество квадратиков по каждому измерению
+// РєРѕР»РёС‡РµСЃС‚РІРѕ РєРІР°РґСЂР°С‚РёРєРѕРІ РїРѕ РєР°Р¶РґРѕРјСѓ РёР·РјРµСЂРµРЅРёСЋ
 size_t numberPartitionPosize_ts_N = 50;
-// размер квадрата в котором находится неоднородность
+// СЂР°Р·РјРµСЂ РєРІР°РґСЂР°С‚Р° РІ РєРѕС‚РѕСЂРѕРј РЅР°С…РѕРґРёС‚СЃСЏ РЅРµРѕРґРЅРѕСЂРѕРґРЅРѕСЃС‚СЊ
 float domainInHomogeneity_R = 10.0f;
 
 inline size_t min(size_t a, size_t b)
@@ -24,58 +24,58 @@ inline size_t min(size_t a, size_t b)
 	return b;
 }
 
-// функция Ханкеля
+// С„СѓРЅРєС†РёСЏ РҐР°РЅРєРµР»СЏ
 complex<float> Hankel(float x)
 {
 	return ((float)_j0(x), (float)_y0(x));
 }
 
-// функция Грина
+// С„СѓРЅРєС†РёСЏ Р“СЂРёРЅР°
 complex<float> G(float x_1, float x_2, float y_1, float y_2)
 {
 	float dist = sqrt(pow(x_1 - y_1, 2) + pow(x_2 - y_2, 2));
 	return -0.25f * I * omega * omega * Hankel(omega * dist / c_0);
 }
 
-// задаём 1 источник
+// Р·Р°РґР°С‘Рј 1 РёСЃС‚РѕС‡РЅРёРє
 complex<float> f_01(float x_1, float x_2)
 {
-	//физическое местоположение 1 источника
+	//С„РёР·РёС‡РµСЃРєРѕРµ РјРµСЃС‚РѕРїРѕР»РѕР¶РµРЅРёРµ 1 РёСЃС‚РѕС‡РЅРёРєР°
 	float q_1 = -1.0f; float q_2 = 0.0f;
 	float dist = sqrt(pow(x_1 - q_1, 2) + pow(x_2 - q_2, 2));
 	return -0.25f * I * Hankel(omega * dist / c_0);
 }
-// задаём 2 источник
+// Р·Р°РґР°С‘Рј 2 РёСЃС‚РѕС‡РЅРёРє
 complex<float> f_02(float x_1, float x_2)
 {
-	float q_1 = -1.0f; float q_2 = 2.5f;                      //физическое местоположение 1 источника
+	float q_1 = -1.0f; float q_2 = 2.5f;                      //С„РёР·РёС‡РµСЃРєРѕРµ РјРµСЃС‚РѕРїРѕР»РѕР¶РµРЅРёРµ 1 РёСЃС‚РѕС‡РЅРёРєР°
 	float dist = sqrt(pow(x_1 - q_1, 2) + pow(x_2 - q_2, 2));
 	return -0.25f * I * Hankel(omega * dist / c_0);
 }
-// задаём 3 источник
+// Р·Р°РґР°С‘Рј 3 РёСЃС‚РѕС‡РЅРёРє
 complex<float> f_03(float x_1, float x_2)
 {
-	float q_1 = -1.0f; float q_2 = 5.0f;                      //физическое местоположение 1 источника
+	float q_1 = -1.0f; float q_2 = 5.0f;                      //С„РёР·РёС‡РµСЃРєРѕРµ РјРµСЃС‚РѕРїРѕР»РѕР¶РµРЅРёРµ 1 РёСЃС‚РѕС‡РЅРёРєР°
 	float dist = sqrt(pow(x_1 - q_1, 2) + pow(x_2 - q_2, 2));
 	return -0.25f * I * Hankel(omega * dist / c_0);
 }
-// задаём 4 источник
+// Р·Р°РґР°С‘Рј 4 РёСЃС‚РѕС‡РЅРёРє
 complex<float> f_04(float x_1, float x_2)
 {
-	float q_1 = -1.0f; float q_2 = 7.5f;                      //физическое местоположение 1 источника
+	float q_1 = -1.0f; float q_2 = 7.5f;                      //С„РёР·РёС‡РµСЃРєРѕРµ РјРµСЃС‚РѕРїРѕР»РѕР¶РµРЅРёРµ 1 РёСЃС‚РѕС‡РЅРёРєР°
 	float dist = sqrt(pow(x_1 - q_1, 2) + pow(x_2 - q_2, 2));
 	return -0.25f * I * Hankel(omega * dist / c_0);
 }
-// задаём 5 источник
+// Р·Р°РґР°С‘Рј 5 РёСЃС‚РѕС‡РЅРёРє
 complex<float> f_05(float x_1, float x_2)
 {
-	float q_1 = -1.0f; float q_2 = 10.0f;                      //физическое местоположение 1 источника
+	float q_1 = -1.0f; float q_2 = 10.0f;                      //С„РёР·РёС‡РµСЃРєРѕРµ РјРµСЃС‚РѕРїРѕР»РѕР¶РµРЅРёРµ 1 РёСЃС‚РѕС‡РЅРёРєР°
 	float dist = sqrt(pow(x_1 - q_1, 2) + pow(x_2 - q_2, 2));
 	return -0.25f * I * Hankel(omega * dist / c_0);
 }
 
 
-// решение системы методом Гаусса
+// СЂРµС€РµРЅРёРµ СЃРёСЃС‚РµРјС‹ РјРµС‚РѕРґРѕРј Р“Р°СѓСЃСЃР°
 void SolveSlauGaussa(complex<float> **matrix_A, int dimensionMatrix, complex<float> *matrix_b, complex<float> *exactSolution)
 {
 	complex<double> **basicMatrix, *g_b;
@@ -233,7 +233,7 @@ void SolveSlauGaussa(complex<float> **matrix_A, size_t dimensionMatrix, complex<
 	delete[] g_b;
 }
 */
-// сложение двух квадратных матриц - результат записывается в первую матрицу
+// СЃР»РѕР¶РµРЅРёРµ РґРІСѓС… РєРІР°РґСЂР°С‚РЅС‹С… РјР°С‚СЂРёС† - СЂРµР·СѓР»СЊС‚Р°С‚ Р·Р°РїРёСЃС‹РІР°РµС‚СЃСЏ РІ РїРµСЂРІСѓСЋ РјР°С‚СЂРёС†Сѓ
 
 void AdditionOfSquareMatrices(size_t dimensionMatrix, complex<float> **matrix_A, complex<float> **matrix_B)
 {
@@ -248,9 +248,9 @@ void AdditionOfSquareMatrices(size_t dimensionMatrix, complex<float> **matrix_A,
 }
 
 
-// блочное умножение матриц 
-// первый размер матриц -  размер результирующей матрицы
-// второй размер 
+// Р±Р»РѕС‡РЅРѕРµ СѓРјРЅРѕР¶РµРЅРёРµ РјР°С‚СЂРёС† 
+// РїРµСЂРІС‹Р№ СЂР°Р·РјРµСЂ РјР°С‚СЂРёС† -  СЂР°Р·РјРµСЂ СЂРµР·СѓР»СЊС‚РёСЂСѓСЋС‰РµР№ РјР°С‚СЂРёС†С‹
+// РІС‚РѕСЂРѕР№ СЂР°Р·РјРµСЂ 
 void MultiplicationMatrixBlock(size_t dimensionMatrix_1, size_t dimensionMatrix_2, size_t dimensionMatrix_3, complex<float> **matrix_A, complex<float> **matrix_B, complex<float> **matrix_C)
 {
 	for (size_t i = 0; i < dimensionMatrix_1; ++i)
@@ -260,7 +260,7 @@ void MultiplicationMatrixBlock(size_t dimensionMatrix_1, size_t dimensionMatrix_
 			matrix_C[i][j] = 0.0f;
 		}
 	}
-	register size_t sizeBlockParallelMultiplicationMatrix = 32; // размер блока при умножении матриц
+	register size_t sizeBlockParallelMultiplicationMatrix = 32; // СЂР°Р·РјРµСЂ Р±Р»РѕРєР° РїСЂРё СѓРјРЅРѕР¶РµРЅРёРё РјР°С‚СЂРёС†
 	for (size_t jj = 0; jj < dimensionMatrix_3; jj = jj + sizeBlockParallelMultiplicationMatrix)
 	{
 		for (size_t kk = 0; kk < dimensionMatrix_2; kk = kk + sizeBlockParallelMultiplicationMatrix)
@@ -282,7 +282,7 @@ void MultiplicationMatrixBlock(size_t dimensionMatrix_1, size_t dimensionMatrix_
 	}
 }
 
-// блочное умножение транспонированной матрицы на обычную матрицу
+// Р±Р»РѕС‡РЅРѕРµ СѓРјРЅРѕР¶РµРЅРёРµ С‚СЂР°РЅСЃРїРѕРЅРёСЂРѕРІР°РЅРЅРѕР№ РјР°С‚СЂРёС†С‹ РЅР° РѕР±С‹С‡РЅСѓСЋ РјР°С‚СЂРёС†Сѓ
 void MultiplicationTransposedMatrix(size_t dimensionMatrix_1, size_t dimensionMatrix_2, size_t dimensionMatrix_3, complex<float> **matrix_A, complex<float> **matrix_B, complex<float> **matrix_C)
 {
 	for (size_t i = 0; i < dimensionMatrix_1; ++i)
@@ -292,7 +292,7 @@ void MultiplicationTransposedMatrix(size_t dimensionMatrix_1, size_t dimensionMa
 			matrix_C[i][j] = 0.0f;
 		}
 	}
-	register size_t sizeBlockParallelMultiplicationMatrix = 32; // размер блока при умножении матриц
+	register size_t sizeBlockParallelMultiplicationMatrix = 32; // СЂР°Р·РјРµСЂ Р±Р»РѕРєР° РїСЂРё СѓРјРЅРѕР¶РµРЅРёРё РјР°С‚СЂРёС†
 	for (size_t jj = 0; jj < dimensionMatrix_3; jj = jj + sizeBlockParallelMultiplicationMatrix)
 	{
 		for (size_t kk = 0; kk < dimensionMatrix_2; kk = kk + sizeBlockParallelMultiplicationMatrix)
@@ -315,7 +315,7 @@ void MultiplicationTransposedMatrix(size_t dimensionMatrix_1, size_t dimensionMa
 }
 
 
-// блочное умножение обычной матрицы на транспонированную матрицу
+// Р±Р»РѕС‡РЅРѕРµ СѓРјРЅРѕР¶РµРЅРёРµ РѕР±С‹С‡РЅРѕР№ РјР°С‚СЂРёС†С‹ РЅР° С‚СЂР°РЅСЃРїРѕРЅРёСЂРѕРІР°РЅРЅСѓСЋ РјР°С‚СЂРёС†Сѓ
 void MultiplicationMatrixTransposed(size_t dimensionMatrix_1, size_t dimensionMatrix_2, size_t dimensionMatrix_3, complex<float> **matrix_A, complex<float> **matrix_B, complex<float> **matrix_C)
 {
 	for (size_t i = 0; i < dimensionMatrix_1; ++i)
@@ -325,7 +325,7 @@ void MultiplicationMatrixTransposed(size_t dimensionMatrix_1, size_t dimensionMa
 			matrix_C[i][j] = 0.0f;
 		}
 	}
-	register size_t sizeBlockParallelMultiplicationMatrix = 32; // размер блока при умножении матриц
+	register size_t sizeBlockParallelMultiplicationMatrix = 32; // СЂР°Р·РјРµСЂ Р±Р»РѕРєР° РїСЂРё СѓРјРЅРѕР¶РµРЅРёРё РјР°С‚СЂРёС†
 	for (size_t jj = 0; jj < dimensionMatrix_3; jj = jj + sizeBlockParallelMultiplicationMatrix)
 	{
 		for (size_t kk = 0; kk < dimensionMatrix_2; kk = kk + sizeBlockParallelMultiplicationMatrix)
@@ -348,7 +348,7 @@ void MultiplicationMatrixTransposed(size_t dimensionMatrix_1, size_t dimensionMa
 }
 
 
-// умножение транспонированной матрицы на вектор
+// СѓРјРЅРѕР¶РµРЅРёРµ С‚СЂР°РЅСЃРїРѕРЅРёСЂРѕРІР°РЅРЅРѕР№ РјР°С‚СЂРёС†С‹ РЅР° РІРµРєС‚РѕСЂ
 void MultiplicationTransposedMatrixVector(size_t dimensionMatrix_1, size_t dimensionMatrix_2, complex<float> **matrix_A, complex<float> *matrix_b, complex<float> *matrix_c)
 {
 	for (size_t i = 0; i < dimensionMatrix_1; ++i)
@@ -365,7 +365,7 @@ void MultiplicationTransposedMatrixVector(size_t dimensionMatrix_1, size_t dimen
 }
 
 
-// умножение матрицы на вектор
+// СѓРјРЅРѕР¶РµРЅРёРµ РјР°С‚СЂРёС†С‹ РЅР° РІРµРєС‚РѕСЂ
 void MultiplicationMatrixVector(size_t dimensionMatrix_1, size_t dimensionMatrix_2, complex<float> **matrix_A, complex<float> *matrix_b, complex<float> *matrix_c)
 {
 	for (size_t i = 0; i < dimensionMatrix_1; ++i)
@@ -382,7 +382,7 @@ void MultiplicationMatrixVector(size_t dimensionMatrix_1, size_t dimensionMatrix
 }
 
 
-// умножение вектора на вектор
+// СѓРјРЅРѕР¶РµРЅРёРµ РІРµРєС‚РѕСЂР° РЅР° РІРµРєС‚РѕСЂ
 void MultiplicationVectorVector(size_t dimensionMatrix, complex<float> *matrix_x, complex<float> *matrix_y, complex<float> *matrix_z)
 {
 	for (size_t i = 0; i < dimensionMatrix; ++i)
@@ -396,7 +396,7 @@ void MultiplicationVectorVector(size_t dimensionMatrix, complex<float> *matrix_x
 }
 
 
-// сложение двух векторов - результат записывается в первый вектор
+// СЃР»РѕР¶РµРЅРёРµ РґРІСѓС… РІРµРєС‚РѕСЂРѕРІ - СЂРµР·СѓР»СЊС‚Р°С‚ Р·Р°РїРёСЃС‹РІР°РµС‚СЃСЏ РІ РїРµСЂРІС‹Р№ РІРµРєС‚РѕСЂ
 void AdditionOfSquareVector(size_t dimensionMatrix, complex<float> *matrix_x, complex<float> *matrix_y)
 {
 	for (size_t i = 0; i < dimensionMatrix; ++i)
@@ -406,7 +406,7 @@ void AdditionOfSquareVector(size_t dimensionMatrix, complex<float> *matrix_x, co
 }
 
 
-// вычитание двух векторов - результат записывается в первый вектор
+// РІС‹С‡РёС‚Р°РЅРёРµ РґРІСѓС… РІРµРєС‚РѕСЂРѕРІ - СЂРµР·СѓР»СЊС‚Р°С‚ Р·Р°РїРёСЃС‹РІР°РµС‚СЃСЏ РІ РїРµСЂРІС‹Р№ РІРµРєС‚РѕСЂ
 void SubtractionOfSquareVector(size_t dimensionMatrix, complex<float> *matrix_x, complex<float> *matrix_y)
 {
 	for (size_t i = 0; i < dimensionMatrix; ++i)
@@ -416,7 +416,7 @@ void SubtractionOfSquareVector(size_t dimensionMatrix, complex<float> *matrix_x,
 }
 
 
-// вычитание двух квадратных матриц - результат записывается в первую матрицу
+// РІС‹С‡РёС‚Р°РЅРёРµ РґРІСѓС… РєРІР°РґСЂР°С‚РЅС‹С… РјР°С‚СЂРёС† - СЂРµР·СѓР»СЊС‚Р°С‚ Р·Р°РїРёСЃС‹РІР°РµС‚СЃСЏ РІ РїРµСЂРІСѓСЋ РјР°С‚СЂРёС†Сѓ
 void SubtractionOfSquareMatrices(size_t dimensionMatrix, complex<float> **matrix_A, complex<float> **matrix_B)
 {
 	for (size_t i = 0; i < dimensionMatrix; ++i)
@@ -430,7 +430,7 @@ void SubtractionOfSquareMatrices(size_t dimensionMatrix, complex<float> **matrix
 }
 
 
-//нахождение обратной матрицы методом Жордана-Гаусса
+//РЅР°С…РѕР¶РґРµРЅРёРµ РѕР±СЂР°С‚РЅРѕР№ РјР°С‚СЂРёС†С‹ РјРµС‚РѕРґРѕРј Р–РѕСЂРґР°РЅР°-Р“Р°СѓСЃСЃР°
 void ComputeInverseMatrixGaussJordan(size_t dimensionMatrix, complex<float> **matrix_A, complex<float> **inverseMatrix_A)
 {
 	complex<float> **basicMatrix;

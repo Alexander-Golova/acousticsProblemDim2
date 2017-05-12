@@ -1,4 +1,4 @@
-#include "stdafx.h"
+п»ї#include "stdafx.h"
 #include "functdirectProblem2D.h"
 
 using namespace std;
@@ -8,7 +8,7 @@ int main()
 	size_t N = numberPartitionPosize_ts_N;
 	float h = (float)domainInHomogeneity_R / numberPartitionPosize_ts_N;
 
-	// выделение памяти для точного решения xi и акустического поля u
+	// РІС‹РґРµР»РµРЅРёРµ РїР°РјСЏС‚Рё РґР»СЏ С‚РѕС‡РЅРѕРіРѕ СЂРµС€РµРЅРёСЏ xi Рё Р°РєСѓСЃС‚РёС‡РµСЃРєРѕРіРѕ РїРѕР»СЏ u
 	float **xi;
 	complex<float> ** u;
 	xi = new float *[N + 1];
@@ -18,7 +18,7 @@ int main()
 		xi[i] = new float[N + 1];
 		u[i] = new complex<float>[N + 1];
 	}
-	// задание точного решения \xi
+	// Р·Р°РґР°РЅРёРµ С‚РѕС‡РЅРѕРіРѕ СЂРµС€РµРЅРёСЏ \xi
 	for (size_t i = 0; i <= N; ++i)
 	{
 		for (size_t j = 0; j <= N; ++j)
@@ -27,7 +27,7 @@ int main()
 		}
 	}
 
-	//печатаем точное решение в файл
+	//РїРµС‡Р°С‚Р°РµРј С‚РѕС‡РЅРѕРµ СЂРµС€РµРЅРёРµ РІ С„Р°Р№Р»
 	ofstream f_xi("exact_xi.txt");
 	for (size_t i = 0; i <= N; ++i)
 	{
@@ -38,7 +38,7 @@ int main()
 	}
 	f_xi.close();
 
-	// выделяем память под основные матрицы
+	// РІС‹РґРµР»СЏРµРј РїР°РјСЏС‚СЊ РїРѕРґ РѕСЃРЅРѕРІРЅС‹Рµ РјР°С‚СЂРёС†С‹
 	complex<float> ****a;
 	a = new complex<float> ***[N + 1];
 	for (size_t i = 0; i <= N; ++i)
@@ -72,12 +72,12 @@ int main()
 		}
 	}
 
-	// Начало вычислений основных матриц
+	// РќР°С‡Р°Р»Рѕ РІС‹С‡РёСЃР»РµРЅРёР№ РѕСЃРЅРѕРІРЅС‹С… РјР°С‚СЂРёС†
 	//
-	// начало счета времени
+	// РЅР°С‡Р°Р»Рѕ СЃС‡РµС‚Р° РІСЂРµРјРµРЅРё
 	clock_t timeStart, timeFinish;
 	timeStart = clock();
-	// для индексов метода квадратур
+	// РґР»СЏ РёРЅРґРµРєСЃРѕРІ РјРµС‚РѕРґР° РєРІР°РґСЂР°С‚СѓСЂ
 	float *index;
 	index = new float[N + 1];
 	for (size_t i = 1; i < N; ++i)
@@ -93,7 +93,7 @@ int main()
 	}
 	index[0] = (float)1 / 3;
 	index[N] = (float)1 / 3;
-	// нахождение массива a
+	// РЅР°С…РѕР¶РґРµРЅРёРµ РјР°СЃСЃРёРІР° a
 	for (size_t i = 0; i <= N; ++i)
 	{
 		for (size_t j = 0; j <= N; ++j)
@@ -112,7 +112,7 @@ int main()
 			}
 		}
 	}
-	// нахождение массива overline_a
+	// РЅР°С…РѕР¶РґРµРЅРёРµ РјР°СЃСЃРёРІР° overline_a
 	for (size_t j = 0; j <= N; ++j)
 	{
 		for (size_t p = 0; p < N; ++p)
@@ -125,7 +125,7 @@ int main()
 			}
 		}
 	}
-	// нахождение массива b
+	// РЅР°С…РѕР¶РґРµРЅРёРµ РјР°СЃСЃРёРІР° b
 	for (size_t i = 0; i <= N; ++i)
 	{
 		for (size_t j = 0; j <= N; ++j)
@@ -145,13 +145,13 @@ int main()
 		}
 	}
 
-	//печатаем время работы
+	//РїРµС‡Р°С‚Р°РµРј РІСЂРµРјСЏ СЂР°Р±РѕС‚С‹
 	timeFinish = clock();
 	float d = (float)(timeFinish - timeStart) / CLOCKS_PER_SEC;
 	cout << "Time calculation of basic matrices " << d << endl;
 	timeStart = clock();
 
-	// записываем массивы в файлы
+	// Р·Р°РїРёСЃС‹РІР°РµРј РјР°СЃСЃРёРІС‹ РІ С„Р°Р№Р»С‹
 	ofstream f_a("matrix_a.txt");
 	for (size_t i = 0; i <= N; ++i)
 	{
@@ -190,14 +190,14 @@ int main()
 		}
 	}
 	f_b.close();
-	//печатаем время работы
+	//РїРµС‡Р°С‚Р°РµРј РІСЂРµРјСЏ СЂР°Р±РѕС‚С‹
 	timeFinish = clock();
 	d = (float)(timeFinish - timeStart) / CLOCKS_PER_SEC;
 	cout << "Download time major arrays " << d << endl;
 	timeStart = clock();
 
-	// счет функции источника в R и X
-	// первый источник
+	// СЃС‡РµС‚ С„СѓРЅРєС†РёРё РёСЃС‚РѕС‡РЅРёРєР° РІ R Рё X
+	// РїРµСЂРІС‹Р№ РёСЃС‚РѕС‡РЅРёРє
 	ofstream f_Source_01("f_Source_01.txt");
 	for (size_t i = 0; i <= N; ++i)
 	{
@@ -214,7 +214,7 @@ int main()
 	}
 	f_Source_02.close();
 
-	// второй источник
+	// РІС‚РѕСЂРѕР№ РёСЃС‚РѕС‡РЅРёРє
 	ofstream f_Source_03("f_Source_03.txt");
 	for (size_t i = 0; i <= N; ++i)
 	{
@@ -231,7 +231,7 @@ int main()
 	}
 	f_Source_04.close();
 
-	// третий источник
+	// С‚СЂРµС‚РёР№ РёСЃС‚РѕС‡РЅРёРє
 	ofstream f_Source_05("f_Source_05.txt");
 	for (size_t i = 0; i <= N; ++i)
 	{
@@ -248,7 +248,7 @@ int main()
 	}
 	f_Source_06.close();
 
-	// четвертый источник
+	// С‡РµС‚РІРµСЂС‚С‹Р№ РёСЃС‚РѕС‡РЅРёРє
 	ofstream f_Source_07("f_Source_07.txt");
 	for (size_t i = 0; i <= N; ++i)
 	{
@@ -265,7 +265,7 @@ int main()
 	}
 	f_Source_08.close();
 
-	// пятый источник
+	// РїСЏС‚С‹Р№ РёСЃС‚РѕС‡РЅРёРє
 	ofstream f_Source_09("f_Source_09.txt");
 	for (size_t i = 0; i <= N; ++i)
 	{
@@ -282,19 +282,19 @@ int main()
 	}
 	f_Source_10.close();
 
-	//печатаем время работы
+	//РїРµС‡Р°С‚Р°РµРј РІСЂРµРјСЏ СЂР°Р±РѕС‚С‹
 	timeFinish = clock();
 	d = (float)(timeFinish - timeStart) / CLOCKS_PER_SEC;
 	cout << "The computation time of the source function " << d << endl;
 	timeStart = clock();
 
-	// для нахождения u^(1) составляем СЛАУ основная матрица * u^(1) = правой части
+	// РґР»СЏ РЅР°С…РѕР¶РґРµРЅРёСЏ u^(1) СЃРѕСЃС‚Р°РІР»СЏРµРј РЎР›РђРЈ РѕСЃРЅРѕРІРЅР°СЏ РјР°С‚СЂРёС†Р° * u^(1) = РїСЂР°РІРѕР№ С‡Р°СЃС‚Рё
 	// substantiveMatrix[ii][jj] * numbered_u[jj] = rightPartEequation[ii]
 	size_t N_squared = (N + 1) * (N + 1);
 	complex<float> *numbered_u, *rightPartEquation;
 	rightPartEquation = new complex<float>[N_squared];
 	numbered_u = new complex<float>[N_squared];
-	//память под основную матрицу
+	//РїР°РјСЏС‚СЊ РїРѕРґ РѕСЃРЅРѕРІРЅСѓСЋ РјР°С‚СЂРёС†Сѓ
 	complex<float> **substantiveMatrix;
 	substantiveMatrix = new complex<float> *[N_squared];
 	for (size_t i = 0; i < N_squared; ++i)
@@ -309,11 +309,11 @@ int main()
 		}
 	}
 
-	// выделение памяти для overline_u_0
+	// РІС‹РґРµР»РµРЅРёРµ РїР°РјСЏС‚Рё РґР»СЏ overline_u_0
 	complex<float> *overline_u;
 	overline_u = new complex<float>[N + 1];
 	//
-	//счет основной матрицы
+	//СЃС‡РµС‚ РѕСЃРЅРѕРІРЅРѕР№ РјР°С‚СЂРёС†С‹
 	//
 	size_t ii, jj;
 	//
@@ -346,9 +346,9 @@ int main()
 	timeStart = clock();
 
 	////////////////////////////////////////////////////////
-	///Для первого источника
+	///Р”Р»СЏ РїРµСЂРІРѕРіРѕ РёСЃС‚РѕС‡РЅРёРєР°
 	///////////////////////////////////////////////////////
-	// нахождение правой части
+	// РЅР°С…РѕР¶РґРµРЅРёРµ РїСЂР°РІРѕР№ С‡Р°СЃС‚Рё
 	for (size_t i = 0; i <= N; ++i)
 	{
 		for (size_t j = 0; j <= N; ++j)
@@ -357,10 +357,10 @@ int main()
 			rightPartEquation[ii] = f_01(i * h, j * h);
 		}
 	}
-	// нахождение u^{(1)}
+	// РЅР°С…РѕР¶РґРµРЅРёРµ u^{(1)}
 	SolveSlauGaussa(substantiveMatrix, (int)N_squared, rightPartEquation, numbered_u);
 	//
-	// Обратная перенумерация
+	// РћР±СЂР°С‚РЅР°СЏ РїРµСЂРµРЅСѓРјРµСЂР°С†РёСЏ
 	//
 	
 	for (size_t l = 0; l < N_squared; ++l)
@@ -374,7 +374,7 @@ int main()
 	cout << "Finding the acoustic pressure in R for 1 source " << d << endl;
 	timeStart = clock();
 	//
-	// находим overline_u_0
+	// РЅР°С…РѕРґРёРј overline_u_0
 	//
 	for (size_t i = 0; i <= N; ++i)
 	{
@@ -390,7 +390,7 @@ int main()
 			}
 		}
 	}
-	// печать overline_u_0^(1) в файл в одну строчку
+	// РїРµС‡Р°С‚СЊ overline_u_0^(1) РІ С„Р°Р№Р» РІ РѕРґРЅСѓ СЃС‚СЂРѕС‡РєСѓ
 	ofstream f_overline_u_1("matrix_overline_u_1.txt");
 	for (size_t j = 0; j <= N; ++j)
 	{
@@ -404,9 +404,9 @@ int main()
 
 
 	////////////////////////////////////////////////////////
-	///Для второго источника
+	///Р”Р»СЏ РІС‚РѕСЂРѕРіРѕ РёСЃС‚РѕС‡РЅРёРєР°
 	///////////////////////////////////////////////////////
-	// нахождение правой части
+	// РЅР°С…РѕР¶РґРµРЅРёРµ РїСЂР°РІРѕР№ С‡Р°СЃС‚Рё
 	for (size_t i = 0; i <= N; ++i)
 	{
 		for (size_t j = 0; j <= N; ++j)
@@ -415,10 +415,10 @@ int main()
 			rightPartEquation[ii] = f_02(i * h, j * h);
 		}
 	}
-	// нахождение u^{(2)}
+	// РЅР°С…РѕР¶РґРµРЅРёРµ u^{(2)}
 	SolveSlauGaussa(substantiveMatrix, N_squared, rightPartEquation, numbered_u);
 	//
-	// Обратная перенумерация
+	// РћР±СЂР°С‚РЅР°СЏ РїРµСЂРµРЅСѓРјРµСЂР°С†РёСЏ
 	//
 	for (size_t l = 0; l < N_squared; ++l)
 	{
@@ -431,7 +431,7 @@ int main()
 	cout << "Finding the acoustic pressure in R for 2 source " << d << endl;
 	timeStart = clock();
 	//
-	// находим overline_u_0
+	// РЅР°С…РѕРґРёРј overline_u_0
 	//
 	for (size_t i = 0; i <= N; ++i)
 	{
@@ -447,7 +447,7 @@ int main()
 			}
 		}
 	}
-	// печать overline_u_0^(2) в файл в одну строчку
+	// РїРµС‡Р°С‚СЊ overline_u_0^(2) РІ С„Р°Р№Р» РІ РѕРґРЅСѓ СЃС‚СЂРѕС‡РєСѓ
 	ofstream f_overline_u_2("matrix_overline_u_2.txt");
 	for (size_t j = 0; j <= N; ++j)
 	{
@@ -460,9 +460,9 @@ int main()
 	timeStart = clock();
 
 	////////////////////////////////////////////////////////
-	///Для третьего источника
+	///Р”Р»СЏ С‚СЂРµС‚СЊРµРіРѕ РёСЃС‚РѕС‡РЅРёРєР°
 	///////////////////////////////////////////////////////
-	// нахождение правой части
+	// РЅР°С…РѕР¶РґРµРЅРёРµ РїСЂР°РІРѕР№ С‡Р°СЃС‚Рё
 	for (size_t i = 0; i <= N; ++i)
 	{
 		for (size_t j = 0; j <= N; ++j)
@@ -471,10 +471,10 @@ int main()
 			rightPartEquation[ii] = f_03(i * h, j * h);
 		}
 	}
-	// нахождение u^{(3)}
+	// РЅР°С…РѕР¶РґРµРЅРёРµ u^{(3)}
 	SolveSlauGaussa(substantiveMatrix, N_squared, rightPartEquation, numbered_u);
 	//
-	// Обратная перенумерация
+	// РћР±СЂР°С‚РЅР°СЏ РїРµСЂРµРЅСѓРјРµСЂР°С†РёСЏ
 	//
 	for (size_t l = 0; l < N_squared; ++l)
 	{
@@ -487,7 +487,7 @@ int main()
 	cout << "Finding the acoustic pressure in R for 3 source " << d << endl;
 	timeStart = clock();
 	//
-	// находим overline_u_0
+	// РЅР°С…РѕРґРёРј overline_u_0
 	//
 	for (size_t i = 0; i <= N; ++i)
 	{
@@ -503,7 +503,7 @@ int main()
 			}
 		}
 	}
-	// печать overline_u_0^(3) в файл в одну строчку
+	// РїРµС‡Р°С‚СЊ overline_u_0^(3) РІ С„Р°Р№Р» РІ РѕРґРЅСѓ СЃС‚СЂРѕС‡РєСѓ
 	ofstream f_overline_u_3("matrix_overline_u_3.txt");
 	for (size_t j = 0; j <= N; j++)
 	{
@@ -516,9 +516,9 @@ int main()
 	timeStart = clock();
 
 	////////////////////////////////////////////////////////
-	///Для четвёртого источника
+	///Р”Р»СЏ С‡РµС‚РІС‘СЂС‚РѕРіРѕ РёСЃС‚РѕС‡РЅРёРєР°
 	///////////////////////////////////////////////////////
-	// нахождение правой части
+	// РЅР°С…РѕР¶РґРµРЅРёРµ РїСЂР°РІРѕР№ С‡Р°СЃС‚Рё
 	for (size_t i = 0; i <= N; ++i)
 	{
 		for (size_t j = 0; j <= N; ++j)
@@ -527,10 +527,10 @@ int main()
 			rightPartEquation[ii] = f_04(i * h, j * h);
 		}
 	}
-	// нахождение u^{(4)}
+	// РЅР°С…РѕР¶РґРµРЅРёРµ u^{(4)}
 	SolveSlauGaussa(substantiveMatrix, N_squared, rightPartEquation, numbered_u);
 	//
-	// Обратная перенумерация
+	// РћР±СЂР°С‚РЅР°СЏ РїРµСЂРµРЅСѓРјРµСЂР°С†РёСЏ
 	//
 	for (size_t l = 0; l < N_squared; ++l)
 	{
@@ -543,7 +543,7 @@ int main()
 	cout << "Finding the acoustic pressure in R for 4 source " << d << endl;
 	timeStart = clock();
 	//
-	// находим overline_u_0
+	// РЅР°С…РѕРґРёРј overline_u_0
 	//
 	for (size_t i = 0; i <= N; ++i)
 	{
@@ -559,7 +559,7 @@ int main()
 			}
 		}
 	}
-	// печать overline_u_0^(4) в файл в одну строчку
+	// РїРµС‡Р°С‚СЊ overline_u_0^(4) РІ С„Р°Р№Р» РІ РѕРґРЅСѓ СЃС‚СЂРѕС‡РєСѓ
 	ofstream f_overline_u_4("matrix_overline_u_4.txt");
 	for (size_t j = 0; j <= N; ++j)
 	{
@@ -572,9 +572,9 @@ int main()
 	timeStart = clock();
 
 	////////////////////////////////////////////////////////
-	///Для пятого источника
+	///Р”Р»СЏ РїСЏС‚РѕРіРѕ РёСЃС‚РѕС‡РЅРёРєР°
 	///////////////////////////////////////////////////////
-	// нахождение правой части
+	// РЅР°С…РѕР¶РґРµРЅРёРµ РїСЂР°РІРѕР№ С‡Р°СЃС‚Рё
 	for (size_t i = 0; i <= N; ++i)
 	{
 		for (size_t j = 0; j <= N; ++j)
@@ -583,10 +583,10 @@ int main()
 			rightPartEquation[ii] = f_05(i * h, j * h);
 		}
 	}
-	// нахождение u^{(5)}
+	// РЅР°С…РѕР¶РґРµРЅРёРµ u^{(5)}
 	SolveSlauGaussa(substantiveMatrix, N_squared, rightPartEquation, numbered_u);
 	//
-	// Обратная перенумерация
+	// РћР±СЂР°С‚РЅР°СЏ РїРµСЂРµРЅСѓРјРµСЂР°С†РёСЏ
 	//
 	for (size_t l = 0; l < N_squared; ++l)
 	{
@@ -599,7 +599,7 @@ int main()
 	cout << "Finding the acoustic pressure in R for 5 source " << d << endl;
 	timeStart = clock();
 	//
-	// находим overline_u_0
+	// РЅР°С…РѕРґРёРј overline_u_0
 	//
 	for (size_t i = 0; i <= N; ++i)
 	{
@@ -615,7 +615,7 @@ int main()
 			}
 		}
 	}
-	// печать overline_u_0^(5) в файл в одну строчку
+	// РїРµС‡Р°С‚СЊ overline_u_0^(5) РІ С„Р°Р№Р» РІ РѕРґРЅСѓ СЃС‚СЂРѕС‡РєСѓ
 	ofstream f_overline_u_5("matrix_overline_u_5.txt");
 	for (size_t j = 0; j <= N; j++)
 	{
@@ -628,7 +628,7 @@ int main()
 	timeStart = clock();
 
 
-	// освобождение памяти	
+	// РѕСЃРІРѕР±РѕР¶РґРµРЅРёРµ РїР°РјСЏС‚Рё	
 	for (size_t i = 0; i <= N; ++i)
 	{
 		delete[] xi[i];
@@ -636,7 +636,7 @@ int main()
 	}
 	delete[] xi;
 	delete[] u;
-	// освобождаем основные массивы
+	// РѕСЃРІРѕР±РѕР¶РґР°РµРј РѕСЃРЅРѕРІРЅС‹Рµ РјР°СЃСЃРёРІС‹
 	for (size_t i = 0; i <= N; ++i)
 	{
 		for (size_t j = 0; j <= N; ++j)
