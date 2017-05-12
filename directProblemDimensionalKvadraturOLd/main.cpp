@@ -130,7 +130,7 @@ int main()
 	{
 		for (size_t j = 0; j <= N; ++j)
 		{
-			b[i][j] = 0.0;
+			b[i][j] = { 0.0f, 0.0f };
 			for (size_t p = 0; p < N; ++p)
 			{
 				for (size_t q = 0; q < N; ++q)
@@ -287,9 +287,10 @@ int main()
 	d = (float)(timeFinish - timeStart) / CLOCKS_PER_SEC;
 	cout << "The computation time of the source function " << d << endl;
 	timeStart = clock();
+
 	// для нахождения u^(1) составляем СЛАУ основная матрица * u^(1) = правой части
 	// substantiveMatrix[ii][jj] * numbered_u[jj] = rightPartEequation[ii]
-	const size_t N_squared = (N + 1) * (N + 1);
+	size_t N_squared = (N + 1) * (N + 1);
 	complex<float> *numbered_u, *rightPartEquation;
 	rightPartEquation = new complex<float>[N_squared];
 	numbered_u = new complex<float>[N_squared];
@@ -304,7 +305,7 @@ int main()
 	{
 		for (size_t j = 0; j < N_squared; ++j)
 		{
-			substantiveMatrix[i][j] = 0.0f;
+			substantiveMatrix[i][j] = { 0.0f, 0.0f };
 		}
 	}
 
@@ -357,7 +358,7 @@ int main()
 		}
 	}
 	// нахождение u^{(1)}
-	SolveSlauGaussa(substantiveMatrix, N_squared, rightPartEquation, numbered_u);
+	SolveSlauGaussa(substantiveMatrix, (int)N_squared, rightPartEquation, numbered_u);
 	//
 	// Обратная перенумерация
 	//
@@ -419,7 +420,7 @@ int main()
 	//
 	// Обратная перенумерация
 	//
-	for (size_t l = 0; l<N_squared; ++l)
+	for (size_t l = 0; l < N_squared; ++l)
 	{
 		size_t coordinate_x = l / (N + 1);
 		size_t coordinate_y = l % (N + 1);
@@ -625,7 +626,6 @@ int main()
 	d = (float)(timeFinish - timeStart) / CLOCKS_PER_SEC;
 	cout << "Finding the acoustic pressure in X for 5 source " << d << endl;
 	timeStart = clock();
-
 
 
 	// освобождение памяти	
