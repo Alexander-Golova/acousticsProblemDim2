@@ -4,7 +4,7 @@
 
 using namespace std;
 
-complex<float> Source::Function(const Point source, const float x, const float y) const
+complex<float> Source::Function(const Posize_t source, const float x, const float y) const
 {
 	float dist = sqrt(pow(x - source.x, 2) + pow(y - source.y, 2));
 	complex<float> multiplier = { 0.0f, -0.25f };

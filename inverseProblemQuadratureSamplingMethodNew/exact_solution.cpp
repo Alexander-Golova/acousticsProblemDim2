@@ -18,7 +18,7 @@ void ProjectionXi(std::vector<std::vector<std::complex<float>>> & xi)
 	}
 }
 
-void PrintXi(std::vector<std::vector<std::complex<float>>> & xi, size_t iteration)
+void Prsize_tXi(std::vector<std::vector<std::complex<float>>> & xi, size_t iteration)
 {
 	const size_t N = (size_t)xi.size();
 	ofstream f_xi("approximate_xi_" + to_string(iteration + 1) + ".txt");
@@ -36,11 +36,11 @@ void PrintXi(std::vector<std::vector<std::complex<float>>> & xi, size_t iteratio
 void Renumbering(const vector<vector<complex<float>>> & xi, vector<complex<float>> & numbered_xi)
 {
 	size_t ii;
-	for (size_t i = 0; i <= NUMBER_PARTITION_POINTS; ++i)
+	for (size_t i = 0; i <= NUMBER_PARTITION_POsize_tS; ++i)
 	{
-		for (size_t j = 0; j <= NUMBER_PARTITION_POINTS; ++j)
+		for (size_t j = 0; j <= NUMBER_PARTITION_POsize_tS; ++j)
 		{
-			ii = i * (NUMBER_PARTITION_POINTS + 1) + j;
+			ii = i * (NUMBER_PARTITION_POsize_tS + 1) + j;
 			numbered_xi[ii] = xi[i][j];
 		}
 	}
@@ -49,11 +49,11 @@ void Renumbering(const vector<vector<complex<float>>> & xi, vector<complex<float
 void InverseRenumbering(const vector<complex<float>> & numbered_xi, vector<vector<complex<float>>> & xi)
 {
 	size_t ii;
-	for (size_t i = 0; i <= NUMBER_PARTITION_POINTS; ++i)
+	for (size_t i = 0; i <= NUMBER_PARTITION_POsize_tS; ++i)
 	{
-		for (size_t j = 0; j <= NUMBER_PARTITION_POINTS; ++j)
+		for (size_t j = 0; j <= NUMBER_PARTITION_POsize_tS; ++j)
 		{
-			ii = i * (NUMBER_PARTITION_POINTS + 1) + j;
+			ii = i * (NUMBER_PARTITION_POsize_tS + 1) + j;
 			xi[i][j] = numbered_xi[ii];
 		}
 	}

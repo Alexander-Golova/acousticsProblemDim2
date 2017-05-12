@@ -4,7 +4,7 @@ using namespace std;
 
 const size_t dim = 500;
 
-void PrintMatrix(const vector<vector<complex<float>>> & matrix)
+void Prsize_tMatrix(const vector<vector<complex<float>>> & matrix)
 {
 	const size_t dim1 = (size_t)matrix.size();
 	const size_t dim2 = (size_t)matrix[0].size();
@@ -207,13 +207,13 @@ int main()
 	d = (float)(timeFinish - timeStart) / CLOCKS_PER_SEC;
 	cout << "MultMatrixBlock " << d << endl;
 
-	//PrintMatrix(matrix3);
+	//Prsize_tMatrix(matrix3);
 	//cout << "" << endl;
-	//PrintMatrix(matrix4);
+	//Prsize_tMatrix(matrix4);
 	SubtractionOfSquareMatrices(matrix3, matrix4);
 	
 	//cout << "" << endl;
-	//PrintMatrix(matrix3);
+	//Prsize_tMatrix(matrix3);
 	
 	cout << GetEuclideanNorm(matrix3) << endl;
 

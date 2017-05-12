@@ -26,7 +26,7 @@ int main()
 
 	const Source source;
 
-	const size_t N = NUMBER_PARTITION_POINTS;
+	const size_t N = NUMBER_PARTITION_POsize_tS;
 	const size_t N_squared = (N + 1) * (N + 1);
 	const float h = (float)DOMAIN_IN_HOMOGENEITY / N;
 
@@ -178,7 +178,7 @@ int main()
 		ProjectionXi(xi);
 
 		// печать результатов итераций в файл
-		PrintXi(xi, iteration);
+		Prsize_tXi(xi, iteration);
 	}
 
 	timeFinish = clock();

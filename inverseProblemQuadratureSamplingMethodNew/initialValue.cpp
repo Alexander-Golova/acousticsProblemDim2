@@ -9,9 +9,9 @@ void InitialValueU(const size_t numberSource, vector<vector<vector<complex<float
 {
 	for (size_t count = 0; count < numberSource; ++count)
 	{
-		for (size_t i = 0; i <= NUMBER_PARTITION_POINTS; ++i)
+		for (size_t i = 0; i <= NUMBER_PARTITION_POsize_tS; ++i)
 		{
-			for (size_t j = 0; j <= NUMBER_PARTITION_POINTS; ++j)
+			for (size_t j = 0; j <= NUMBER_PARTITION_POsize_tS; ++j)
 			{
 				u[count][i][j] = Source_R[count][i][j];
 			}
@@ -21,9 +21,9 @@ void InitialValueU(const size_t numberSource, vector<vector<vector<complex<float
 
 void InitialValueXi(vector<vector<complex<float>>> &xi)
 {
-	for (size_t i = 0; i <= NUMBER_PARTITION_POINTS; ++i)
+	for (size_t i = 0; i <= NUMBER_PARTITION_POsize_tS; ++i)
 	{
-		for (size_t j = 0; j <= NUMBER_PARTITION_POINTS; ++j)
+		for (size_t j = 0; j <= NUMBER_PARTITION_POsize_tS; ++j)
 		{
 			xi[i][j] = 0.1f;
 		}

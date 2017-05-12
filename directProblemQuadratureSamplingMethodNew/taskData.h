@@ -1,6 +1,6 @@
 #pragma once
 
-struct Point
+struct Posize_t
 {
 	float x;
 	float y;
@@ -14,7 +14,7 @@ const float C_0 = 1.0f;
 const float receiver = 11.0f;
 
 // количество квадратиков по каждому измерению
-const size_t NUMBER_PARTITION_POINTS = 50;
+const size_t NUMBER_PARTITION_POsize_tS = 50;
 
 // размер квадрата в котором находится неоднородность
 const float DOMAIN_IN_HOMOGENEITY = 10.0;

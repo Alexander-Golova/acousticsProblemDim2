@@ -11,17 +11,17 @@ void GetJacobian(const size_t numberSource, const vector<vector<vector<vector<co
 	complex<float> sumOfTheCoefficients;
 	size_t ii, jj;
 
-	for (size_t i = 0; i <= NUMBER_PARTITION_POINTS; ++i)
+	for (size_t i = 0; i <= NUMBER_PARTITION_POsize_tS; ++i)
 	{
-		for (size_t j = 0; j <= NUMBER_PARTITION_POINTS; ++j)
+		for (size_t j = 0; j <= NUMBER_PARTITION_POsize_tS; ++j)
 		{
-			ii = i * (NUMBER_PARTITION_POINTS + 1) + j;
+			ii = i * (NUMBER_PARTITION_POsize_tS + 1) + j;
 			sumOfTheCoefficients = { 0.0f, 0.0f };
-			for (size_t p = 0; p < NUMBER_PARTITION_POINTS; ++p)
+			for (size_t p = 0; p < NUMBER_PARTITION_POsize_tS; ++p)
 			{
-				for (size_t q = 0; q < NUMBER_PARTITION_POINTS; ++q)
+				for (size_t q = 0; q < NUMBER_PARTITION_POsize_tS; ++q)
 				{
-					jj = p * (NUMBER_PARTITION_POINTS + 1) + q;
+					jj = p * (NUMBER_PARTITION_POsize_tS + 1) + q;
 					if ((i != p) || (q != j))
 					{
 						sumOfTheCoefficients += a[i][j][p][q];
@@ -42,13 +42,13 @@ void GetJacobian(const size_t numberSource, const vector<vector<vector<vector<co
 		}
 	}
 
-	for (size_t j = 0; j <= NUMBER_PARTITION_POINTS; ++j)
+	for (size_t j = 0; j <= NUMBER_PARTITION_POsize_tS; ++j)
 	{
-		for (size_t p = 0; p < NUMBER_PARTITION_POINTS; ++p)
+		for (size_t p = 0; p < NUMBER_PARTITION_POsize_tS; ++p)
 		{
-			for (size_t q = 0; q < NUMBER_PARTITION_POINTS; ++q)
+			for (size_t q = 0; q < NUMBER_PARTITION_POsize_tS; ++q)
 			{
-				jj = p * (NUMBER_PARTITION_POINTS + 1) + q;
+				jj = p * (NUMBER_PARTITION_POsize_tS + 1) + q;
 				for (size_t count = 1; count <= numberSource; ++count)
 				{
 					F_even[count][j][jj] = overline_a[j][p][q] * u[count - 1][p][q];
@@ -63,7 +63,7 @@ void GetMatrixA(const size_t numberSource,
 	const vector<vector<vector<complex<float>>>> & F_odd, const vector<vector<vector<complex<float>>>> & F_even,
 	vector<vector<vector<complex<float>>>> & A, const float alpha)
 {
-	const size_t N_squared = (NUMBER_PARTITION_POINTS + 1) * (NUMBER_PARTITION_POINTS + 1);
+	const size_t N_squared = (NUMBER_PARTITION_POsize_tS + 1) * (NUMBER_PARTITION_POsize_tS + 1);
 	vector<vector<complex<float>>> auxiliaryMatrix(N_squared, vector<complex<float>>(N_squared, complex<float>()));
 	MultTransposedMatrix(F_odd[1], F_odd[1], A[0]);
 	for (size_t count = 2; count <= numberSource; ++count)
@@ -95,7 +95,7 @@ void GetMatrixB(const vector<vector<vector<complex<float>>>> & F_odd,
 	const vector<vector<vector<complex<float>>>> & F_even,
 	vector<vector<complex<float>>> & B, const float alpha)
 {
-	const size_t N_squared = (NUMBER_PARTITION_POINTS + 1) * (NUMBER_PARTITION_POINTS + 1);
+	const size_t N_squared = (NUMBER_PARTITION_POsize_tS + 1) * (NUMBER_PARTITION_POsize_tS + 1);
 	vector<vector<complex<float>>> auxiliaryMatrix(N_squared, vector<complex<float>>(N_squared, complex<float>()));
 
 	MultTransposedMatrix(F_odd[0], F_odd[0], B);
@@ -118,18 +118,18 @@ void GetOperatorF(const size_t numberSource, const vector<vector<vector<vector<c
 	vector<vector<complex<float>>> & F_part_even)
 {
 	size_t ii;
-	for (size_t i = 0; i <= NUMBER_PARTITION_POINTS; ++i)
+	for (size_t i = 0; i <= NUMBER_PARTITION_POsize_tS; ++i)
 	{
-		for (size_t j = 0; j <= NUMBER_PARTITION_POINTS; ++j)
+		for (size_t j = 0; j <= NUMBER_PARTITION_POsize_tS; ++j)
 		{
-			ii = i * (NUMBER_PARTITION_POINTS + 1) + j;
+			ii = i * (NUMBER_PARTITION_POsize_tS + 1) + j;
 			for (size_t count = 0; count < numberSource; ++count)
 			{
 				F_part_odd[count][ii] = u[count][i][j];
 			}
-			for (size_t p = 0; p < NUMBER_PARTITION_POINTS; ++p)
+			for (size_t p = 0; p < NUMBER_PARTITION_POsize_tS; ++p)
 			{
-				for (size_t q = 0; q < NUMBER_PARTITION_POINTS; ++q)
+				for (size_t q = 0; q < NUMBER_PARTITION_POsize_tS; ++q)
 				{
 					if ((i != p) || (q != j))
 					{
@@ -147,15 +147,15 @@ void GetOperatorF(const size_t numberSource, const vector<vector<vector<vector<c
 			}
 		}
 	}
-	for (size_t j = 0; j <= NUMBER_PARTITION_POINTS; ++j)
+	for (size_t j = 0; j <= NUMBER_PARTITION_POsize_tS; ++j)
 	{
 		for (size_t count = 0; count < numberSource; ++count)
 		{
 			F_part_even[count][j] = overline_u[count][j] - Source_X[count][j];
 		}
-		for (size_t p = 0; p < NUMBER_PARTITION_POINTS; ++p)
+		for (size_t p = 0; p < NUMBER_PARTITION_POsize_tS; ++p)
 		{
-			for (size_t q = 0; q < NUMBER_PARTITION_POINTS; ++q)
+			for (size_t q = 0; q < NUMBER_PARTITION_POsize_tS; ++q)
 			{
 				for (size_t count = 0; count < numberSource; ++count)
 				{
@@ -171,7 +171,7 @@ void GetValueDerivedFunction(const size_t numberSource, const vector<complex<flo
 	const vector<vector<vector<complex<float>>>> & F_even, vector<vector<complex<float>>> & F_part_odd,
 	vector<vector<complex<float>>> & F_part_even)
 {
-	const size_t N_squared = (NUMBER_PARTITION_POINTS + 1) * (NUMBER_PARTITION_POINTS + 1);
+	const size_t N_squared = (NUMBER_PARTITION_POsize_tS + 1) * (NUMBER_PARTITION_POsize_tS + 1);
 	vector<complex<float>> supportingVector_square(N_squared, complex<float>());
 	vector<complex<float>> supportingVector(N_squared, complex<float>());
 
@@ -189,12 +189,12 @@ void GetValueDerivedFunction(const size_t numberSource, const vector<complex<flo
 		}
 		MultMatrixVector(F_even[count], numbered_xi, supportingVector);
 
-		for (size_t i = 0; i <= NUMBER_PARTITION_POINTS; ++i)
+		for (size_t i = 0; i <= NUMBER_PARTITION_POsize_tS; ++i)
 		{
 			F_part_even[count - 1][i] = supportingVector_square[i] - F_part_even[count - 1][i];
 		}
 		MultMatrixVector(F_even[0], numbered_u[count - 1], supportingVector);
-		for (size_t i = 0; i <= NUMBER_PARTITION_POINTS; ++i)
+		for (size_t i = 0; i <= NUMBER_PARTITION_POsize_tS; ++i)
 		{
 			F_part_even[count - 1][i] += supportingVector_square[i];
 		}
@@ -205,7 +205,7 @@ void Getb(const size_t numberSource, const vector<vector<vector<complex<float>>>
 	const vector<vector<vector<complex<float>>>> & F_even, const vector<vector<complex<float>>> & F_part_odd,
 	const vector<vector<complex<float>>> & F_part_even, vector<vector<complex<float>>> & b_right)
 {
-	const size_t N_squared = (NUMBER_PARTITION_POINTS + 1) * (NUMBER_PARTITION_POINTS + 1);
+	const size_t N_squared = (NUMBER_PARTITION_POsize_tS + 1) * (NUMBER_PARTITION_POsize_tS + 1);
 	vector<complex<float>> supportingVector_square(N_squared, complex<float>());
 
 	MultTransposedMatrixVector(F_odd[1], F_part_odd[0], b_right[0]);
@@ -231,7 +231,7 @@ void GetXi(const size_t numberSource, vector<vector<vector<complex<float>>>> & A
 	const vector<vector<complex<float>>> & inverseMatrixB, vector<vector<complex<float>>> & b_right,
 	vector<complex<float>> & numbered_xi)
 {
-	const size_t N_squared = (NUMBER_PARTITION_POINTS + 1) * (NUMBER_PARTITION_POINTS + 1);
+	const size_t N_squared = (NUMBER_PARTITION_POsize_tS + 1) * (NUMBER_PARTITION_POsize_tS + 1);
 	vector<vector<complex<float>>> auxiliaryMatrix(N_squared, vector<complex<float>>(N_squared, complex<float>()));
 	vector<vector<complex<float>>> secondAuxiliaryMatrix(N_squared, vector<complex<float>>(N_squared, complex<float>()));
 	vector<complex<float>> supportingVector_square(N_squared, complex<float>());
@@ -263,7 +263,7 @@ void GetU(const size_t numberSource, vector<vector<vector<complex<float>>>> & A,
 	const vector<vector<complex<float>>> & inverseMatrixB, vector<vector<complex<float>>> & b_right,
 	const vector<complex<float>> & numbered_xi, vector<vector<complex<float>>> & numbered_u)
 {
-	const size_t N_squared = (NUMBER_PARTITION_POINTS + 1) * (NUMBER_PARTITION_POINTS + 1);
+	const size_t N_squared = (NUMBER_PARTITION_POsize_tS + 1) * (NUMBER_PARTITION_POsize_tS + 1);
 	vector<complex<float>> supportingVector_square(N_squared, complex<float>());
 
 	for (size_t count = 0; count < numberSource; ++count)
