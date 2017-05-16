@@ -9,4 +9,4 @@
 #include <fstream>
 #include <iomanip>
 #include <complex>
-#include <time.h>
+#include <ctime>

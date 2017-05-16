@@ -1,22 +1,22 @@
 ﻿#pragma once
 
-#include <math.h>
+#include <cmath>
 #include <complex>
 
 using namespace std;
 
-complex<float> I(0.0f, 1.0f);
+complex<double> I(0.0, 1.0);
 
-float omega = 1.0f;
-float c_0 = 1.0f;
-float PI = 3.1415926f;
+const double omega = 1.0;
+const double c_0 = 1.0;
+const double PI = 3.1415926;
 
 // количество источников
 size_t numberSource = 5;
 // количество квадратиков по каждому измерению
 size_t numberPartitionPosize_ts_N = 50;
 // размер квадрата в котором находится неоднородность
-float domainInHomogeneity_R = 10.0f;
+double domainInHomogeneity_R = 10.0;
 
 inline size_t min(size_t a, size_t b)
 {
@@ -25,138 +25,67 @@ inline size_t min(size_t a, size_t b)
 }
 
 // функция Ханкеля
-complex<float> Hankel(float x)
+complex<double> Hankel(double x)
 {
-	return ((float)_j0(x), (float)_y0(x));
+	return 
+	{ (double)_j0(x), (double)_y0(x) };
 }
 
 // функция Грина
-complex<float> G(float x_1, float x_2, float y_1, float y_2)
+complex<double> G(double x_1, double x_2, double y_1, double y_2)
 {
-	float dist = sqrt(pow(x_1 - y_1, 2) + pow(x_2 - y_2, 2));
-	return -0.25f * I * omega * omega * Hankel(omega * dist / c_0);
+	double dist = sqrt(pow(x_1 - y_1, 2) + pow(x_2 - y_2, 2));
+	return -0.25 * I * omega * omega * Hankel(omega * dist / c_0);
 }
 
 // задаём 1 источник
-complex<float> f_01(float x_1, float x_2)
+complex<double> f_01(double x_1, double x_2)
 {
 	//физическое местоположение 1 источника
-	float q_1 = -1.0f; float q_2 = 0.0f;
-	float dist = sqrt(pow(x_1 - q_1, 2) + pow(x_2 - q_2, 2));
-	return -0.25f * I * Hankel(omega * dist / c_0);
+	double q_1 = -1.0f; double q_2 = 0.0f;
+	double dist = sqrt(pow(x_1 - q_1, 2) + pow(x_2 - q_2, 2));
+	return -0.25 * I * Hankel(omega * dist / c_0);
 }
 // задаём 2 источник
-complex<float> f_02(float x_1, float x_2)
+complex<double> f_02(double x_1, double x_2)
 {
-	float q_1 = -1.0f; float q_2 = 2.5f;                      //физическое местоположение 1 источника
-	float dist = sqrt(pow(x_1 - q_1, 2) + pow(x_2 - q_2, 2));
-	return -0.25f * I * Hankel(omega * dist / c_0);
+	double q_1 = -1.0f; double q_2 = 2.5f;                      //физическое местоположение 1 источника
+	double dist = sqrt(pow(x_1 - q_1, 2) + pow(x_2 - q_2, 2));
+	return -0.25 * I * Hankel(omega * dist / c_0);
 }
 // задаём 3 источник
-complex<float> f_03(float x_1, float x_2)
+complex<double> f_03(double x_1, double x_2)
 {
-	float q_1 = -1.0f; float q_2 = 5.0f;                      //физическое местоположение 1 источника
-	float dist = sqrt(pow(x_1 - q_1, 2) + pow(x_2 - q_2, 2));
-	return -0.25f * I * Hankel(omega * dist / c_0);
+	double q_1 = -1.0f; double q_2 = 5.0f;                      //физическое местоположение 1 источника
+	double dist = sqrt(pow(x_1 - q_1, 2) + pow(x_2 - q_2, 2));
+	return -0.25 * I * Hankel(omega * dist / c_0);
 }
 // задаём 4 источник
-complex<float> f_04(float x_1, float x_2)
+complex<double> f_04(double x_1, double x_2)
 {
-	float q_1 = -1.0f; float q_2 = 7.5f;                      //физическое местоположение 1 источника
-	float dist = sqrt(pow(x_1 - q_1, 2) + pow(x_2 - q_2, 2));
-	return -0.25f * I * Hankel(omega * dist / c_0);
+	double q_1 = -1.0f; double q_2 = 7.5f;                      //физическое местоположение 1 источника
+	double dist = sqrt(pow(x_1 - q_1, 2) + pow(x_2 - q_2, 2));
+	return -0.25 * I * Hankel(omega * dist / c_0);
 }
 // задаём 5 источник
-complex<float> f_05(float x_1, float x_2)
+complex<double> f_05(double x_1, double x_2)
 {
-	float q_1 = -1.0f; float q_2 = 10.0f;                      //физическое местоположение 1 источника
-	float dist = sqrt(pow(x_1 - q_1, 2) + pow(x_2 - q_2, 2));
-	return -0.25f * I * Hankel(omega * dist / c_0);
+	double q_1 = -1.0f; double q_2 = 10.0f;                      //физическое местоположение 1 источника
+	double dist = sqrt(pow(x_1 - q_1, 2) + pow(x_2 - q_2, 2));
+	return -0.25 * I * Hankel(omega * dist / c_0);
 }
 
 
 // решение системы методом Гаусса
-void SolveSlauGaussa(complex<float> **matrix_A, int dimensionMatrix, complex<float> *matrix_b, complex<float> *exactSolution)
+void SolveSlauGaussa(complex<double> **matrix_A, size_t dimensionMatrix, complex<double> *matrix_b, complex<double> *exactSolution)
 {
 	complex<double> **basicMatrix, *g_b;
 	basicMatrix = new complex<double> *[dimensionMatrix];
-	for (int i = 0;i<dimensionMatrix;i++)
+	for (size_t i = 0; i < dimensionMatrix; ++i)
 	{
 		basicMatrix[i] = new complex<double>[dimensionMatrix];
 	}
 	g_b = new complex<double>[dimensionMatrix];
-	for (int i = 0; i < dimensionMatrix; i++)
-	{
-		for (int j = 0; j< dimensionMatrix; j++)
-		{
-			basicMatrix[i][j] = static_cast<complex<double>>(matrix_A[i][j]);
-		}
-	}
-	for (int i = 0; i<dimensionMatrix; i++)
-	{
-		g_b[i] = static_cast<complex<double>>(matrix_b[i]);
-	}
-	for (int k = 0; k<dimensionMatrix; k++)
-	{
-		double maxString = abs(basicMatrix[k][k]);
-		int maxNomerInString = k;
-		for (int i = k + 1;i<dimensionMatrix;i++)
-		{
-			if (abs(basicMatrix[i][k])>maxString)
-			{
-				maxString = abs(basicMatrix[i][k]);
-				maxNomerInString = i;
-			}
-		}
-		for (int j = 0; j<dimensionMatrix;j++)
-		{
-			complex<double> c = basicMatrix[k][j];
-			basicMatrix[k][j] = basicMatrix[maxNomerInString][j];
-			basicMatrix[maxNomerInString][j] = c;
-		}
-		complex<double> c = g_b[k];
-		g_b[k] = g_b[maxNomerInString];
-		g_b[maxNomerInString] = c;
-		for (int i = k + 1;i<dimensionMatrix;i++)
-		{
-			complex<double> M = basicMatrix[i][k] / basicMatrix[k][k];
-			for (int j = k; j<dimensionMatrix;j++)
-			{
-				basicMatrix[i][j] -= M*basicMatrix[k][j];
-			}
-			g_b[i] -= M*g_b[k];
-		}
-	}
-	for (int i = dimensionMatrix - 1; i >= 0; i--)
-	{
-		complex<double> s = 0;
-		for (int j = i + 1; j<dimensionMatrix; j++)
-		{
-			s += basicMatrix[i][j] * static_cast<complex<double>>(exactSolution[j]);
-		}
-		exactSolution[i] = static_cast<complex<float>>((g_b[i] - s) / basicMatrix[i][i]);
-	}
-	for (int i = 0;i<dimensionMatrix;i++)
-	{
-		delete[] basicMatrix[i];
-	}
-	delete[] basicMatrix;
-	delete[] g_b;
-}
-
-
-
-/*
-void SolveSlauGaussa(complex<float> **matrix_A, size_t dimensionMatrix, complex<float> *matrix_b, complex<float> *exactSolution)
-{
-	complex<float> **basicMatrix, *g_b;
-	basicMatrix = new complex<float> *[dimensionMatrix];
-	for (size_t i = 0; i < dimensionMatrix; ++i)
-	{
-		basicMatrix[i] = new complex<float>[dimensionMatrix];
-	}
-	g_b = new complex<float>[dimensionMatrix];
-
 
 	for (size_t i = 0; i < dimensionMatrix; ++i)
 	{
@@ -170,11 +99,11 @@ void SolveSlauGaussa(complex<float> **matrix_A, size_t dimensionMatrix, complex<
 		g_b[i] = matrix_b[i];
 	}
 	
-	float maxString;
+	double maxString;
 	size_t maxNomerInString;
-	complex<float> c;
-	complex<float> M;
-	complex<float> s;
+	complex<double> c;
+	complex<double> M;
+	complex<double> s;
 
 	for (size_t k = 0; k < dimensionMatrix; ++k)
 	{
@@ -211,14 +140,14 @@ void SolveSlauGaussa(complex<float> **matrix_A, size_t dimensionMatrix, complex<
 
 	for (size_t i = dimensionMatrix - 1; i > 0; --i)
 	{
-		s = { 0.0f, 0.0f };
+		s = { 0.0, 0.0 };
 		for (size_t j = i + 1; j < dimensionMatrix; ++j)
 		{
 			s += basicMatrix[i][j] * exactSolution[j];
 		}
 		exactSolution[i] = (g_b[i] - s) / basicMatrix[i][i];
 	}
-	s = { 0.0f, 0.0f };
+	s = { 0.0, 0.0 };
 	for (size_t j = 1; j < dimensionMatrix; ++j)
 	{
 		s += basicMatrix[0][j] * exactSolution[j];
@@ -232,10 +161,10 @@ void SolveSlauGaussa(complex<float> **matrix_A, size_t dimensionMatrix, complex<
 	delete[] basicMatrix;
 	delete[] g_b;
 }
-*/
-// сложение двух квадратных матриц - результат записывается в первую матрицу
 
-void AdditionOfSquareMatrices(size_t dimensionMatrix, complex<float> **matrix_A, complex<float> **matrix_B)
+
+// сложение двух квадратных матриц - результат записывается в первую матрицу
+void AdditionOfSquareMatrices(size_t dimensionMatrix, complex<double> **matrix_A, complex<double> **matrix_B)
 {
 	for (size_t i = 0; i < dimensionMatrix; ++i)
 	{
@@ -244,20 +173,19 @@ void AdditionOfSquareMatrices(size_t dimensionMatrix, complex<float> **matrix_A,
 			matrix_A[i][j] = matrix_A[i][j] + matrix_B[i][j];
 		}
 	}
-
 }
 
 
 // блочное умножение матриц 
 // первый размер матриц -  размер результирующей матрицы
 // второй размер 
-void MultiplicationMatrixBlock(size_t dimensionMatrix_1, size_t dimensionMatrix_2, size_t dimensionMatrix_3, complex<float> **matrix_A, complex<float> **matrix_B, complex<float> **matrix_C)
+void MultiplicationMatrixBlock(size_t dimensionMatrix_1, size_t dimensionMatrix_2, size_t dimensionMatrix_3, complex<double> **matrix_A, complex<double> **matrix_B, complex<double> **matrix_C)
 {
 	for (size_t i = 0; i < dimensionMatrix_1; ++i)
 	{
 		for (size_t j = 0; j < dimensionMatrix_3; ++j)
 		{
-			matrix_C[i][j] = 0.0f;
+			matrix_C[i][j] = 0.0;
 		}
 	}
 	register size_t sizeBlockParallelMultiplicationMatrix = 32; // размер блока при умножении матриц
@@ -267,10 +195,10 @@ void MultiplicationMatrixBlock(size_t dimensionMatrix_1, size_t dimensionMatrix_
 		{
 			for (size_t i = 0; i < dimensionMatrix_1; ++i)
 			{
-				complex<float> *t = matrix_C[i];
+				complex<double> *t = matrix_C[i];
 				for (size_t j = jj; j < min(jj + sizeBlockParallelMultiplicationMatrix, dimensionMatrix_3); ++j)
 				{
-					complex<float> r = 0.0f;
+					complex<double> r = 0.0;
 					for (size_t k = kk; k < min(kk + sizeBlockParallelMultiplicationMatrix, dimensionMatrix_2); ++k)
 					{
 						r = r + matrix_A[i][k] * matrix_B[k][j];
@@ -283,13 +211,13 @@ void MultiplicationMatrixBlock(size_t dimensionMatrix_1, size_t dimensionMatrix_
 }
 
 // блочное умножение транспонированной матрицы на обычную матрицу
-void MultiplicationTransposedMatrix(size_t dimensionMatrix_1, size_t dimensionMatrix_2, size_t dimensionMatrix_3, complex<float> **matrix_A, complex<float> **matrix_B, complex<float> **matrix_C)
+void MultiplicationTransposedMatrix(size_t dimensionMatrix_1, size_t dimensionMatrix_2, size_t dimensionMatrix_3, complex<double> **matrix_A, complex<double> **matrix_B, complex<double> **matrix_C)
 {
 	for (size_t i = 0; i < dimensionMatrix_1; ++i)
 	{
 		for (size_t j = 0; j < dimensionMatrix_3; ++j)
 		{
-			matrix_C[i][j] = 0.0f;
+			matrix_C[i][j] = 0.0;
 		}
 	}
 	register size_t sizeBlockParallelMultiplicationMatrix = 32; // размер блока при умножении матриц
@@ -299,10 +227,10 @@ void MultiplicationTransposedMatrix(size_t dimensionMatrix_1, size_t dimensionMa
 		{
 			for (size_t i = 0; i < dimensionMatrix_1; ++i)
 			{
-				complex<float> *t = matrix_C[i];
+				complex<double> *t = matrix_C[i];
 				for (size_t j = jj; j < min(jj + sizeBlockParallelMultiplicationMatrix, dimensionMatrix_3); ++j)
 				{
-					complex<float> r = 0.0f;
+					complex<double> r = 0.0;
 					for (size_t k = kk; k < min(kk + sizeBlockParallelMultiplicationMatrix, dimensionMatrix_2); ++k)
 					{
 						r = r + conj(matrix_A[k][i])*matrix_B[k][j];
@@ -316,13 +244,13 @@ void MultiplicationTransposedMatrix(size_t dimensionMatrix_1, size_t dimensionMa
 
 
 // блочное умножение обычной матрицы на транспонированную матрицу
-void MultiplicationMatrixTransposed(size_t dimensionMatrix_1, size_t dimensionMatrix_2, size_t dimensionMatrix_3, complex<float> **matrix_A, complex<float> **matrix_B, complex<float> **matrix_C)
+void MultiplicationMatrixTransposed(size_t dimensionMatrix_1, size_t dimensionMatrix_2, size_t dimensionMatrix_3, complex<double> **matrix_A, complex<double> **matrix_B, complex<double> **matrix_C)
 {
 	for (size_t i = 0; i < dimensionMatrix_1; ++i)
 	{
 		for (size_t j = 0; j < dimensionMatrix_3; ++j)
 		{
-			matrix_C[i][j] = 0.0f;
+			matrix_C[i][j] = 0.0;
 		}
 	}
 	register size_t sizeBlockParallelMultiplicationMatrix = 32; // размер блока при умножении матриц
@@ -332,10 +260,10 @@ void MultiplicationMatrixTransposed(size_t dimensionMatrix_1, size_t dimensionMa
 		{
 			for (size_t i = 0; i < dimensionMatrix_1; ++i)
 			{
-				complex<float> *t = matrix_C[i];
+				complex<double> *t = matrix_C[i];
 				for (size_t j = jj; j < min(jj + sizeBlockParallelMultiplicationMatrix, dimensionMatrix_3); ++j)
 				{
-					complex<float> r = 0.0f;
+					complex<double> r = 0.0;
 					for (size_t k = kk; k < min(kk + sizeBlockParallelMultiplicationMatrix, dimensionMatrix_2); ++k)
 					{
 						r = r + matrix_A[i][k] * conj(matrix_B[j][k]);
@@ -349,11 +277,11 @@ void MultiplicationMatrixTransposed(size_t dimensionMatrix_1, size_t dimensionMa
 
 
 // умножение транспонированной матрицы на вектор
-void MultiplicationTransposedMatrixVector(size_t dimensionMatrix_1, size_t dimensionMatrix_2, complex<float> **matrix_A, complex<float> *matrix_b, complex<float> *matrix_c)
+void MultiplicationTransposedMatrixVector(size_t dimensionMatrix_1, size_t dimensionMatrix_2, complex<double> **matrix_A, complex<double> *matrix_b, complex<double> *matrix_c)
 {
 	for (size_t i = 0; i < dimensionMatrix_1; ++i)
 	{
-		matrix_c[i] = 0.0f;
+		matrix_c[i] = 0.0;
 	}
 	for (size_t i = 0; i < dimensionMatrix_1; ++i)
 	{
@@ -366,11 +294,11 @@ void MultiplicationTransposedMatrixVector(size_t dimensionMatrix_1, size_t dimen
 
 
 // умножение матрицы на вектор
-void MultiplicationMatrixVector(size_t dimensionMatrix_1, size_t dimensionMatrix_2, complex<float> **matrix_A, complex<float> *matrix_b, complex<float> *matrix_c)
+void MultiplicationMatrixVector(size_t dimensionMatrix_1, size_t dimensionMatrix_2, complex<double> **matrix_A, complex<double> *matrix_b, complex<double> *matrix_c)
 {
 	for (size_t i = 0; i < dimensionMatrix_1; ++i)
 	{
-		matrix_c[i] = 0.0f;
+		matrix_c[i] = 0.0;
 	}
 	for (size_t i = 0; i < dimensionMatrix_1; ++i)
 	{
@@ -383,11 +311,11 @@ void MultiplicationMatrixVector(size_t dimensionMatrix_1, size_t dimensionMatrix
 
 
 // умножение вектора на вектор
-void MultiplicationVectorVector(size_t dimensionMatrix, complex<float> *matrix_x, complex<float> *matrix_y, complex<float> *matrix_z)
+void MultiplicationVectorVector(size_t dimensionMatrix, complex<double> *matrix_x, complex<double> *matrix_y, complex<double> *matrix_z)
 {
 	for (size_t i = 0; i < dimensionMatrix; ++i)
 	{
-		matrix_z[i] = 0.0f;
+		matrix_z[i] = 0.0;
 	}
 	for (size_t i = 0; i < dimensionMatrix; ++i)
 	{
@@ -397,7 +325,7 @@ void MultiplicationVectorVector(size_t dimensionMatrix, complex<float> *matrix_x
 
 
 // сложение двух векторов - результат записывается в первый вектор
-void AdditionOfSquareVector(size_t dimensionMatrix, complex<float> *matrix_x, complex<float> *matrix_y)
+void AdditionOfSquareVector(size_t dimensionMatrix, complex<double> *matrix_x, complex<double> *matrix_y)
 {
 	for (size_t i = 0; i < dimensionMatrix; ++i)
 	{
@@ -407,7 +335,7 @@ void AdditionOfSquareVector(size_t dimensionMatrix, complex<float> *matrix_x, co
 
 
 // вычитание двух векторов - результат записывается в первый вектор
-void SubtractionOfSquareVector(size_t dimensionMatrix, complex<float> *matrix_x, complex<float> *matrix_y)
+void SubtractionOfSquareVector(size_t dimensionMatrix, complex<double> *matrix_x, complex<double> *matrix_y)
 {
 	for (size_t i = 0; i < dimensionMatrix; ++i)
 	{
@@ -417,7 +345,7 @@ void SubtractionOfSquareVector(size_t dimensionMatrix, complex<float> *matrix_x,
 
 
 // вычитание двух квадратных матриц - результат записывается в первую матрицу
-void SubtractionOfSquareMatrices(size_t dimensionMatrix, complex<float> **matrix_A, complex<float> **matrix_B)
+void SubtractionOfSquareMatrices(size_t dimensionMatrix, complex<double> **matrix_A, complex<double> **matrix_B)
 {
 	for (size_t i = 0; i < dimensionMatrix; ++i)
 	{
@@ -431,13 +359,13 @@ void SubtractionOfSquareMatrices(size_t dimensionMatrix, complex<float> **matrix
 
 
 //нахождение обратной матрицы методом Жордана-Гаусса
-void ComputeInverseMatrixGaussJordan(size_t dimensionMatrix, complex<float> **matrix_A, complex<float> **inverseMatrix_A)
+void ComputeInverseMatrixGaussJordan(size_t dimensionMatrix, complex<double> **matrix_A, complex<double> **inverseMatrix_A)
 {
-	complex<float> **basicMatrix;
-	basicMatrix = new complex<float> *[dimensionMatrix];
+	complex<double> **basicMatrix;
+	basicMatrix = new complex<double> *[dimensionMatrix];
 	for (size_t i = 0; i < dimensionMatrix; ++i)
 	{
-		basicMatrix[i] = new complex<float>[dimensionMatrix];
+		basicMatrix[i] = new complex<double>[dimensionMatrix];
 	}
 	for (size_t i = 0; i < dimensionMatrix; ++i)
 	{
@@ -446,14 +374,14 @@ void ComputeInverseMatrixGaussJordan(size_t dimensionMatrix, complex<float> **ma
 			basicMatrix[i][j] = matrix_A[i][j];
 		}
 	}
-	complex<float> temp;
+	complex<double> temp;
 	for (size_t i = 0; i < dimensionMatrix; ++i)
 	{
 		for (size_t j = 0; j < dimensionMatrix; ++j)
 		{
-			inverseMatrix_A[i][j] = 0.0f;
+			inverseMatrix_A[i][j] = 0.0;
 		}
-		inverseMatrix_A[i][i] = 1.0f;
+		inverseMatrix_A[i][i] = 1.0;
 	}
 	for (size_t k = 0; k < dimensionMatrix; ++k)
 	{
