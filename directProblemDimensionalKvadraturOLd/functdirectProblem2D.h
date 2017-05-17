@@ -93,9 +93,6 @@ void SolveSlauGaussa(complex<double> **matrix_A, size_t dimensionMatrix, complex
 		{
 			basicMatrix[i][j] = matrix_A[i][j];
 		}
-	}
-	for (size_t i = 0; i < dimensionMatrix; ++i)
-	{
 		g_b[i] = matrix_b[i];
 	}
 	
