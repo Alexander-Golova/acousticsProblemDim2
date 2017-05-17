@@ -399,9 +399,10 @@ void ComputeInverseMatrixGaussJordan(size_t dimensionMatrix, complex<double> **m
 			}
 		}
 	}
+	// ошибка была
 	for (size_t k = dimensionMatrix - 1; k > 0; --k)
 	{
-		for (size_t i = k - 1; i >= 0; --i)
+		for (size_t i = k - 1; i > 0; --i)
 		{
 			temp = basicMatrix[i][k];
 			for (size_t j = 0; j < dimensionMatrix; ++j)
@@ -410,7 +411,14 @@ void ComputeInverseMatrixGaussJordan(size_t dimensionMatrix, complex<double> **m
 				inverseMatrix_A[i][j] -= inverseMatrix_A[k][j] * temp;
 			}
 		}
+		temp = basicMatrix[0][k];
+		for (size_t j = 0; j < dimensionMatrix; ++j)
+		{
+			basicMatrix[0][j] -= basicMatrix[k][j] * temp;
+			inverseMatrix_A[0][j] -= inverseMatrix_A[k][j] * temp;
+		}
 	}
+
 	for (size_t i = 0; i < dimensionMatrix; ++i)
 	{
 		delete[] basicMatrix[i];
