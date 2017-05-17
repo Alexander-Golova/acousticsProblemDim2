@@ -3,8 +3,8 @@
 
 using namespace std;
 
-complex<float> SourceFunction(const Posize_t source, const float x, const float y)
+complex<double> SourceFunction(const Posize_t source, const double x, const double y)
 {
-	float dist = sqrt(pow(x - source.x, 2) + pow(y - source.y, 2));
-	return (0.0f, -0.25f) * Hankel(OMEGA * dist / C_0);
+	double dist = sqrt(pow(x - source.x, 2) + pow(y - source.y, 2));
+	return -0.25 * I * Hankel(OMEGA * dist / C_0);
 }

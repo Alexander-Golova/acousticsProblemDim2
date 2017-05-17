@@ -4,12 +4,12 @@
 #include <stdio.h>
 #include <tchar.h>
 
-#include <math.h>
+#include <cmath>
 #include <complex>
 #include <iostream>
 #include <stdio.h>
 #include <fstream>
 #include <iomanip>
-#include <time.h>
+#include <ctime>
 #include <vector>
 #include <algorithm>

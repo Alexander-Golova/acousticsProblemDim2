@@ -1,29 +1,31 @@
 ﻿#pragma once
 
+const std::complex<double> I(0.0, 1.0);
+
 struct Posize_t
 {
-	float x;
-	float y;
+	double x;
+	double y;
 };
 
 // задание характеристик поля
-const float OMEGA = 1.0f;
-const float C_0 = 1.0f;
+const double OMEGA = 1.0;
+const double C_0 = 1.0;
 
 // координаты приемников
-const float receiver = 11.0f;
+const double receiver = 11.0;
 
 // количество источников
 const size_t NUMBER_SOURCE = 5;
 
 // количество квадратиков по каждому измерению
-const size_t NUMBER_PARTITION_POsize_tS = 50;
+const size_t NUMBER_PARTITION_Posize = 50;
 
 // размер квадрата в котором находится неоднородность
-const float DOMAIN_IN_HOMOGENEITY = 10.0;
+const double DOMAIN_IN_HOMOGENEITY = 10.0;
 
 //функция Ханкеля
-std::complex<float> Hankel(const float x);
+std::complex<double> Hankel(const double x);
 
 // функция Грина
-std::complex<float> G(const float x_1, const float x_2, const float y_1, const float y_2);
+std::complex<double> G(const double x_1, const double x_2, const double y_1, const double y_2);
