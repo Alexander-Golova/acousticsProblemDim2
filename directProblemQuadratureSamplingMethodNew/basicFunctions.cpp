@@ -4,20 +4,20 @@
 
 using namespace std;
 
-complex<float> Hankel(const float x)
+complex<double> Hankel(const double x)
 {
-	return (static_cast<float>(_j0(x)), static_cast<float>(_y0(x)));
+	return{ static_cast<double>(_j0(x)), static_cast<double>(_y0(x)) };
 }
 
-complex<float> G(const float x_1, const float x_2, const float y_1, const float y_2)
+complex<double> G(const double x_1, const double x_2, const double y_1, const double y_2)
 {
-	float dist = sqrt(pow(x_1 - y_1, 2) + pow(x_2 - y_2, 2));
-	return (0.0f, -0.25f * OMEGA * OMEGA) * Hankel(OMEGA * dist / C_0);
+	double dist = sqrt(pow(x_1 - y_1, 2) + pow(x_2 - y_2, 2));
+	return -0.25 * I * OMEGA * OMEGA * Hankel(OMEGA * dist / C_0);
 }
 
 void Lasting(const string & st, const clock_t timeStart, const clock_t timeFinish)
 {
-	float d;
-	d = (float)(timeFinish - timeStart) / CLOCKS_PER_SEC;
+	double d;
+	d = (double)(timeFinish - timeStart) / CLOCKS_PER_SEC;
 	cout << st << " " << d << endl;
 }

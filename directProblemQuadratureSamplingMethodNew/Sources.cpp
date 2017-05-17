@@ -4,10 +4,8 @@
 
 using namespace std;
 
-complex<float> Source::Function(const Posize_t source, const float x, const float y) const
+complex<double> Source::Function(const Posize_t source, const double x, const double y) const
 {
-	float dist = sqrt(pow(x - source.x, 2) + pow(y - source.y, 2));
-	complex<float> multiplier = { 0.0f, -0.25f };
-
-	return multiplier * Hankel(OMEGA * dist / C_0);
+	double dist = sqrt(pow(x - source.x, 2) + pow(y - source.y, 2));
+	return -0.25 * I * Hankel(OMEGA * dist / C_0);
 }

@@ -9,7 +9,7 @@ struct Source
 {
 	const size_t numberSource = 5;
 	const std::vector<Posize_t> node = {
-		{ -1.0f, 0.0f },{ -1.0f, 2.5f },{ -1.0f, 5.0f },{ -1.0f, 7.5f },{ -1.0f, 10.0f } };
-	std::complex<float> Function(const Posize_t source, const float x, const float y) const;
+		{ -1.0, 0.0 },{ -1.0, 2.5 },{ -1.0, 5.0 },{ -1.0, 7.5 },{ -1.0, 10.0 } };
+	std::complex<double> Function(const Posize_t source, const double x, const double y) const;
 };
 

@@ -8,21 +8,21 @@ using namespace std;
 
 int main()
 {
-	const size_t N = NUMBER_PARTITION_POsize_tS;
-	const float h = (float)DOMAIN_IN_HOMOGENEITY / N;
+	const size_t N = NUMBER_PARTITION_POSIZE;
+	const double h = (double)DOMAIN_IN_HOMOGENEITY / N;
 
 	const Source source;
 
 	// выделение памяти для акустического поля u
-	vector<vector<complex<float>>> u(N + 1, vector<complex<float>>(N + 1, complex<float>()));
+	vector<vector<complex<double>>> u(N + 1, vector<complex<double>>(N + 1, complex<double>()));
 
 	// задание точного решения \xi
-	vector<vector<float>> xi(N + 1, vector<float>(N + 1, 0.0f));
+	vector<vector<double>> xi(N + 1, vector<double>(N + 1, 0.0));
 	for (size_t i = 0; i <= N; ++i)
 	{
 		for (size_t j = 0; j <= N; ++j)
 		{
-			xi[i][j] = exp(-(i * h - 6.0f) * (i * h - 6.0f) - (j * h - 6.0f) * (j * h - 6.0f));
+			xi[i][j] = exp(-(i * h - 6.0) * (i * h - 6.0) - (j * h - 6.0) * (j * h - 6.0));
 		}
 	}
 	//печатаем точное решение в файл
@@ -46,32 +46,32 @@ int main()
 
 
 	// выделение памяти под 4-х мерный "квадратный" комплексный массив
-	vector<vector<vector<vector<complex<float>>>>> a(N + 1,
-		vector<vector<vector<complex<float>>>>(N + 1, vector<vector<complex<float>>>(N + 1,
-			vector<complex<float>>(N + 1, complex<float>()))));
+	vector<vector<vector<vector<complex<double>>>>> a(N + 1,
+		vector<vector<vector<complex<double>>>>(N + 1, vector<vector<complex<double>>>(N + 1,
+			vector<complex<double>>(N + 1, complex<double>()))));
 
 	// выделение памяти под 3-х мерный "квадратный" комплексный массив
-	vector<vector<vector<complex<float>>>> overline_a(N + 1, vector<vector<complex<float>>>(N + 1,
-		vector<complex<float>>(N + 1, complex<float>())));
+	vector<vector<vector<complex<double>>>> overline_a(N + 1, vector<vector<complex<double>>>(N + 1,
+		vector<complex<double>>(N + 1, complex<double>())));
 
 	// выделение памяти под 2-х мерный квадратный комплексный массив
-	vector<vector<complex<float>>> b(N + 1, vector<complex<float>>(N + 1, complex<float>()));
+	vector<vector<complex<double>>> b(N + 1, vector<complex<double>>(N + 1, complex<double>()));
 
 	// счет индексов метода квадратур
-	vector<float> index(N + 1);
+	vector<double> index(N + 1);
 	for (size_t i = 1; i < N; ++i)
 	{
 		if (i % 2 != 0)
 		{
-			index[i] = (float)4 / 3;
+			index[i] = (double)4 / 3;
 		}
 		else
 		{
-			index[i] = (float)2 / 3;
+			index[i] = (double)2 / 3;
 		}
 	}
-	index[0] = (float)1 / 3;
-	index[N] = (float)1 / 3;
+	index[0] = (double)1 / 3;
+	index[N] = (double)1 / 3;
 
 	// нахождение массива a
 	for (size_t i = 0; i <= N; ++i)
@@ -128,7 +128,7 @@ int main()
 
 	//печатаем время работы
 	timeFinish = clock();
-	float d = (float)(timeFinish - timeStart) / CLOCKS_PER_SEC;
+	double d = (double)(timeFinish - timeStart) / CLOCKS_PER_SEC;
 	cout << "Time calculation of basic matrices " << d << endl;
 	timeStart = clock();
 
@@ -174,7 +174,7 @@ int main()
 
 	//печатаем время работы
 	timeFinish = clock();
-	d = (float)(timeFinish - timeStart) / CLOCKS_PER_SEC;
+	d = (double)(timeFinish - timeStart) / CLOCKS_PER_SEC;
 	cout << "Download time major arrays " << d << endl;
 	timeStart = clock();
 
@@ -199,7 +199,7 @@ int main()
 
 	//печатаем время работы
 	timeFinish = clock();
-	d = (float)(timeFinish - timeStart) / CLOCKS_PER_SEC;
+	d = (double)(timeFinish - timeStart) / CLOCKS_PER_SEC;
 	cout << "The computation time of the source function " << d << endl;
 	timeStart = clock();
 
@@ -207,20 +207,20 @@ int main()
 	// substantiveMatrix[ii][jj] * numbered_u[jj] = rightPartEequation[ii]
 
 	const size_t N_squared = (N + 1) * (N + 1);
-	vector<complex<float>> rightPartEquation(N_squared, (0.0f, 0.0f));
-	vector<complex<float>> numbered_u(N_squared);
-	vector<vector<complex<float>>> substantiveMatrix(N_squared, vector<complex<float>>(N_squared, (0.0f, 0.0f)));
-	vector<complex<float>> overline_u(N + 1, (0.0f, 0.0f));
+	vector<complex<double>> rightPartEquation(N_squared, { 0.0, 0.0 });
+	vector<complex<double>> numbered_u(N_squared);
+	vector<vector<complex<double>>> substantiveMatrix(N_squared, vector<complex<double>>(N_squared, { 0.0, 0.0 }));
+	vector<complex<double>> overline_u(N + 1, { 0.0, 0.0 });
 
 	//счет основной матрицы
 	size_t ii, jj;
-	complex<float> sumOfTheCoefficients;
+	complex<double> sumOfTheCoefficients;
 	for (size_t i = 0; i <= N; ++i)
 	{
 		for (size_t j = 0; j <= N; ++j)
 		{
 			ii = i * (N + 1) + j;
-			sumOfTheCoefficients = (0.0f, 0.0f);
+			sumOfTheCoefficients = { 0.0, 0.0 };
 			for (size_t p = 0; p < N; ++p)
 			{
 				for (size_t q = 0; q < N; ++q)
@@ -228,18 +228,18 @@ int main()
 					jj = p * (N + 1) + q;
 					if ((i != p) || (q != j))
 					{
-						substantiveMatrix[ii][jj] += a[i][j][p][q] * xi[p][q];  // вроде бы ошибка была
+						substantiveMatrix[ii][jj] += a[i][j][p][q] * xi[p][q];
 						sumOfTheCoefficients += a[i][j][p][q];
 					}
 				}
 			}
-			substantiveMatrix[ii][ii] += 1.0f;   // и здесь ошибка была
+			substantiveMatrix[ii][ii] += 1.0;
 			substantiveMatrix[ii][ii] -= sumOfTheCoefficients * xi[i][j];
 			substantiveMatrix[ii][ii] += b[i][j] * xi[i][j];
 		}
 	}
 	timeFinish = clock();
-	d = (float)(timeFinish - timeStart) / CLOCKS_PER_SEC;
+	d = (double)(timeFinish - timeStart) / CLOCKS_PER_SEC;
 	cout << "The computation time of the matrix inside the squared " << d << endl;
 	timeStart = clock();
 
@@ -269,7 +269,7 @@ int main()
 			u[coordinate_x][coordinate_y] = numbered_u[i];
 		}
 		timeFinish = clock();
-		d = (float)(timeFinish - timeStart) / CLOCKS_PER_SEC;
+		d = (double)(timeFinish - timeStart) / CLOCKS_PER_SEC;
 		cout << "Finding the acoustic pressure in R for " << count + 1 << " source " << d << endl;
 		timeStart = clock();
 
@@ -294,14 +294,14 @@ int main()
 			file_overline_u << fixed << setprecision(6) << overline_u[j] << " ";
 		}
 		timeFinish = clock();
-		d = (float)(timeFinish - timeStart) / CLOCKS_PER_SEC;
+		d = (double)(timeFinish - timeStart) / CLOCKS_PER_SEC;
 		cout << "Finding the acoustic pressure in X for " << count + 1 << " source " << d << endl;
 		timeStart = clock();
 	}
 	file_overline_u.close();
 
 	timeFinish = clock();
-	d = (float)(timeFinish - timeBegin) / CLOCKS_PER_SEC;
+	d = (double)(timeFinish - timeBegin) / CLOCKS_PER_SEC;
 	cout << "The total time of the program " << d << endl;
 
 	return 0;
