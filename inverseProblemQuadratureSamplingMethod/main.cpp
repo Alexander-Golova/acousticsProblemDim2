@@ -10,26 +10,26 @@ int main()
 	cout << "Enter the number of iterations ";
 	cin >> numberOfIterations;	
 
-	float alpha;
+	double alpha;
 	cout << "Enter alpha ";
 	cin >> alpha;
 
-	float q;
+	double q;
 	cout << "Enter q ";
 	cin >> q;
 
 	const size_t N = NUMBER_PARTITION_POsize_tS;
-	const float h = (float)DOMAIN_IN_HOMOGENEITY / N;
+	const double h = (double)DOMAIN_IN_HOMOGENEITY / N;
 
 	// выделяем память под основные матрицы
-	vector<vector<vector<vector<complex<float>>>>> a(N + 1,
-		vector<vector<vector<complex<float>>>>(N + 1, vector<vector<complex<float>>>(N + 1,
-			vector<complex<float>>(N + 1, complex<float>()))));
+	vector<vector<vector<vector<complex<double>>>>> a(N + 1,
+		vector<vector<vector<complex<double>>>>(N + 1, vector<vector<complex<double>>>(N + 1,
+			vector<complex<double>>(N + 1, complex<double>()))));
 
-	vector<vector<vector<complex<float>>>> overline_a(N + 1, vector<vector<complex<float>>>(N + 1,
-		vector<complex<float>>(N + 1, complex<float>())));
+	vector<vector<vector<complex<double>>>> overline_a(N + 1, vector<vector<complex<double>>>(N + 1,
+		vector<complex<double>>(N + 1, complex<double>())));
 
-	vector<vector<complex<float>>> b(N + 1, vector<complex<float>>(N + 1, complex<float>()));
+	vector<vector<complex<double>>> b(N + 1, vector<complex<double>>(N + 1, complex<double>()));
 
 	// начало счета времени
 	clock_t timeStart, timeFinish, timeBegin;
@@ -78,22 +78,22 @@ int main()
 
 	//печатаем время работы
 	timeFinish = clock();
-	float d;
-	d = (float)(timeFinish - timeStart) / CLOCKS_PER_SEC;
+	double d;
+	d = (double)(timeFinish - timeStart) / CLOCKS_PER_SEC;
 	cout << "Download time major arrays " << d << endl;
 	timeStart = clock();
 	
 	// выделяем память для значений источников
-	vector<vector<complex<float>>> f_Source_01(N + 1, vector<complex<float>>(N + 1, complex<float>()));
-	vector<complex<float>> f_Source_02(N + 1, complex<float>());
-	vector<vector<complex<float>>> f_Source_03(N + 1, vector<complex<float>>(N + 1, complex<float>()));
-	vector<complex<float>> f_Source_04(N + 1, complex<float>());
-	vector<vector<complex<float>>> f_Source_05(N + 1, vector<complex<float>>(N + 1, complex<float>()));
-	vector<complex<float>> f_Source_06(N + 1, complex<float>());
-	vector<vector<complex<float>>> f_Source_07(N + 1, vector<complex<float>>(N + 1, complex<float>()));
-	vector<complex<float>> f_Source_08(N + 1, complex<float>());
-	vector<vector<complex<float>>> f_Source_09(N + 1, vector<complex<float>>(N + 1, complex<float>()));
-	vector<complex<float>> f_Source_10(N + 1, complex<float>());
+	vector<vector<complex<double>>> f_Source_01(N + 1, vector<complex<double>>(N + 1, complex<double>()));
+	vector<complex<double>> f_Source_02(N + 1, complex<double>());
+	vector<vector<complex<double>>> f_Source_03(N + 1, vector<complex<double>>(N + 1, complex<double>()));
+	vector<complex<double>> f_Source_04(N + 1, complex<double>());
+	vector<vector<complex<double>>> f_Source_05(N + 1, vector<complex<double>>(N + 1, complex<double>()));
+	vector<complex<double>> f_Source_06(N + 1, complex<double>());
+	vector<vector<complex<double>>> f_Source_07(N + 1, vector<complex<double>>(N + 1, complex<double>()));
+	vector<complex<double>> f_Source_08(N + 1, complex<double>());
+	vector<vector<complex<double>>> f_Source_09(N + 1, vector<complex<double>>(N + 1, complex<double>()));
+	vector<complex<double>> f_Source_10(N + 1, complex<double>());
 
 	// загружаем значения источника
 	// первый источник
@@ -193,16 +193,16 @@ int main()
 
 	//печатаем время работы
 	timeFinish = clock();
-	d = (float)(timeFinish - timeStart) / CLOCKS_PER_SEC;
+	d = (double)(timeFinish - timeStart) / CLOCKS_PER_SEC;
 	cout << "Download Time arrays sources " << d << endl;
 	timeStart = clock();
 
 	// Выделяем память для поля в приемниках
-	vector<complex<float>> overline_u_1(N + 1, complex<float>());
-	vector<complex<float>> overline_u_2(N + 1, complex<float>());
-	vector<complex<float>> overline_u_3(N + 1, complex<float>());
-	vector<complex<float>> overline_u_4(N + 1, complex<float>());
-	vector<complex<float>> overline_u_5(N + 1, complex<float>());
+	vector<complex<double>> overline_u_1(N + 1, complex<double>());
+	vector<complex<double>> overline_u_2(N + 1, complex<double>());
+	vector<complex<double>> overline_u_3(N + 1, complex<double>());
+	vector<complex<double>> overline_u_4(N + 1, complex<double>());
+	vector<complex<double>> overline_u_5(N + 1, complex<double>());
 
 	// Загрузка акустического поля в приёмнике
 	ifstream file_overline_u_1("matrix_overline_u_1.txt");
@@ -242,7 +242,7 @@ int main()
 
 	//печатаем время работы
 	timeFinish = clock();
-	d = (float)(timeFinish - timeStart) / CLOCKS_PER_SEC;
+	d = (double)(timeFinish - timeStart) / CLOCKS_PER_SEC;
 	cout << "Loading time of the acoustic field in the receivers " << d << endl;
 	timeStart = clock();
 
@@ -250,77 +250,77 @@ int main()
 	const size_t N_squared = (N + 1) * (N + 1);
 
 	//выделение памяти под массивы производных  F_1, F_2, ...
-	vector<vector<complex<float>>> F_01(N_squared, vector<complex<float>>(N_squared, complex<float>()));
-	vector<vector<complex<float>>> F_03(N_squared, vector<complex<float>>(N_squared, complex<float>()));
-	vector<vector<complex<float>>> F_05(N_squared, vector<complex<float>>(N_squared, complex<float>()));
-	vector<vector<complex<float>>> F_07(N_squared, vector<complex<float>>(N_squared, complex<float>()));
-	vector<vector<complex<float>>> F_09(N_squared, vector<complex<float>>(N_squared, complex<float>()));
-	vector<vector<complex<float>>> F_o(N_squared, vector<complex<float>>(N_squared, complex<float>()));
-	vector<vector<complex<float>>> F_02(N + 1, vector<complex<float>>(N_squared, complex<float>()));
-	vector<vector<complex<float>>> F_04(N + 1, vector<complex<float>>(N_squared, complex<float>()));
-	vector<vector<complex<float>>> F_06(N + 1, vector<complex<float>>(N_squared, complex<float>()));
-	vector<vector<complex<float>>> F_08(N + 1, vector<complex<float>>(N_squared, complex<float>()));
-	vector<vector<complex<float>>> F_10(N + 1, vector<complex<float>>(N_squared, complex<float>()));
-	vector<vector<complex<float>>> F_oo(N + 1, vector<complex<float>>(N_squared, complex<float>()));
+	vector<vector<complex<double>>> F_01(N_squared, vector<complex<double>>(N_squared, complex<double>()));
+	vector<vector<complex<double>>> F_03(N_squared, vector<complex<double>>(N_squared, complex<double>()));
+	vector<vector<complex<double>>> F_05(N_squared, vector<complex<double>>(N_squared, complex<double>()));
+	vector<vector<complex<double>>> F_07(N_squared, vector<complex<double>>(N_squared, complex<double>()));
+	vector<vector<complex<double>>> F_09(N_squared, vector<complex<double>>(N_squared, complex<double>()));
+	vector<vector<complex<double>>> F_o(N_squared, vector<complex<double>>(N_squared, complex<double>()));
+	vector<vector<complex<double>>> F_02(N + 1, vector<complex<double>>(N_squared, complex<double>()));
+	vector<vector<complex<double>>> F_04(N + 1, vector<complex<double>>(N_squared, complex<double>()));
+	vector<vector<complex<double>>> F_06(N + 1, vector<complex<double>>(N_squared, complex<double>()));
+	vector<vector<complex<double>>> F_08(N + 1, vector<complex<double>>(N_squared, complex<double>()));
+	vector<vector<complex<double>>> F_10(N + 1, vector<complex<double>>(N_squared, complex<double>()));
+	vector<vector<complex<double>>> F_oo(N + 1, vector<complex<double>>(N_squared, complex<double>()));
 
 	//выделение памяти под массивы A и B
-	vector<vector<complex<float>>> A_00(N_squared, vector<complex<float>>(N_squared, complex<float>()));
-	vector<vector<complex<float>>> A_01(N_squared, vector<complex<float>>(N_squared, complex<float>()));
-	vector<vector<complex<float>>> A_02(N_squared, vector<complex<float>>(N_squared, complex<float>()));
-	vector<vector<complex<float>>> A_03(N_squared, vector<complex<float>>(N_squared, complex<float>()));
-	vector<vector<complex<float>>> A_04(N_squared, vector<complex<float>>(N_squared, complex<float>()));
-	vector<vector<complex<float>>> A_05(N_squared, vector<complex<float>>(N_squared, complex<float>()));
-	vector<vector<complex<float>>> B(N_squared, vector<complex<float>>(N_squared, complex<float>()));
-	vector<vector<complex<float>>> inverseMatrixB(N_squared, vector<complex<float>>(N_squared, complex<float>()));
-	vector<vector<complex<float>>> auxiliaryMatrix(N_squared, vector<complex<float>>(N_squared, complex<float>()));
-	vector<vector<complex<float>>> secondAuxiliaryMatrix(N_squared, vector<complex<float>>(N_squared, complex<float>()));
+	vector<vector<complex<double>>> A_00(N_squared, vector<complex<double>>(N_squared, complex<double>()));
+	vector<vector<complex<double>>> A_01(N_squared, vector<complex<double>>(N_squared, complex<double>()));
+	vector<vector<complex<double>>> A_02(N_squared, vector<complex<double>>(N_squared, complex<double>()));
+	vector<vector<complex<double>>> A_03(N_squared, vector<complex<double>>(N_squared, complex<double>()));
+	vector<vector<complex<double>>> A_04(N_squared, vector<complex<double>>(N_squared, complex<double>()));
+	vector<vector<complex<double>>> A_05(N_squared, vector<complex<double>>(N_squared, complex<double>()));
+	vector<vector<complex<double>>> B(N_squared, vector<complex<double>>(N_squared, complex<double>()));
+	vector<vector<complex<double>>> inverseMatrixB(N_squared, vector<complex<double>>(N_squared, complex<double>()));
+	vector<vector<complex<double>>> auxiliaryMatrix(N_squared, vector<complex<double>>(N_squared, complex<double>()));
+	vector<vector<complex<double>>> secondAuxiliaryMatrix(N_squared, vector<complex<double>>(N_squared, complex<double>()));
 
 	// память для хранения значений основного оператора
-	vector<complex<float>> F_part_01(N_squared, complex<float>());
-	vector<complex<float>> F_part_02(N + 1, complex<float>());
-	vector<complex<float>> F_part_03(N_squared, complex<float>());
-	vector<complex<float>> F_part_04(N + 1, complex<float>());
-	vector<complex<float>> F_part_05(N_squared, complex<float>());
-	vector<complex<float>> F_part_06(N + 1, complex<float>());
-	vector<complex<float>> F_part_07(N_squared, complex<float>());
-	vector<complex<float>> F_part_08(N + 1, complex<float>());
-	vector<complex<float>> F_part_09(N_squared, complex<float>());
-	vector<complex<float>> F_part_10(N + 1, complex<float>());
+	vector<complex<double>> F_part_01(N_squared, complex<double>());
+	vector<complex<double>> F_part_02(N + 1, complex<double>());
+	vector<complex<double>> F_part_03(N_squared, complex<double>());
+	vector<complex<double>> F_part_04(N + 1, complex<double>());
+	vector<complex<double>> F_part_05(N_squared, complex<double>());
+	vector<complex<double>> F_part_06(N + 1, complex<double>());
+	vector<complex<double>> F_part_07(N_squared, complex<double>());
+	vector<complex<double>> F_part_08(N + 1, complex<double>());
+	vector<complex<double>> F_part_09(N_squared, complex<double>());
+	vector<complex<double>> F_part_10(N + 1, complex<double>());
 
 	// память для b_0, b_1,...
-	vector<complex<float>> b0(N_squared, complex<float>());
-	vector<complex<float>> b1(N_squared, complex<float>());
-	vector<complex<float>> b2(N_squared, complex<float>());
-	vector<complex<float>> b3(N_squared, complex<float>());
-	vector<complex<float>> b4(N_squared, complex<float>());
-	vector<complex<float>> b5(N_squared, complex<float>());
+	vector<complex<double>> b0(N_squared, complex<double>());
+	vector<complex<double>> b1(N_squared, complex<double>());
+	vector<complex<double>> b2(N_squared, complex<double>());
+	vector<complex<double>> b3(N_squared, complex<double>());
+	vector<complex<double>> b4(N_squared, complex<double>());
+	vector<complex<double>> b5(N_squared, complex<double>());
 
 	// память для u^(1), u^(2), u^(3)
-	vector<vector<complex<float>>> u_1(N + 1, vector<complex<float>>(N + 1, complex<float>()));
-	vector<vector<complex<float>>> u_2(N + 1, vector<complex<float>>(N + 1, complex<float>()));
-	vector<vector<complex<float>>> u_3(N + 1, vector<complex<float>>(N + 1, complex<float>()));
-	vector<vector<complex<float>>> u_4(N + 1, vector<complex<float>>(N + 1, complex<float>()));
-	vector<vector<complex<float>>> u_5(N + 1, vector<complex<float>>(N + 1, complex<float>()));
+	vector<vector<complex<double>>> u_1(N + 1, vector<complex<double>>(N + 1, complex<double>()));
+	vector<vector<complex<double>>> u_2(N + 1, vector<complex<double>>(N + 1, complex<double>()));
+	vector<vector<complex<double>>> u_3(N + 1, vector<complex<double>>(N + 1, complex<double>()));
+	vector<vector<complex<double>>> u_4(N + 1, vector<complex<double>>(N + 1, complex<double>()));
+	vector<vector<complex<double>>> u_5(N + 1, vector<complex<double>>(N + 1, complex<double>()));
 
 	// память для xi
-	vector<vector<complex<float>>> xi(N + 1, vector<complex<float>>(N + 1, complex<float>()));
+	vector<vector<complex<double>>> xi(N + 1, vector<complex<double>>(N + 1, complex<double>()));
 
 	// память для перенумерованных переменных и вспомогательного вектора
-	vector<complex<float>> numbered_u_1(N_squared, complex<float>());
-	vector<complex<float>> numbered_u_2(N_squared, complex<float>());
-	vector<complex<float>> numbered_u_3(N_squared, complex<float>());
-	vector<complex<float>> numbered_u_4(N_squared, complex<float>());
-	vector<complex<float>> numbered_u_5(N_squared, complex<float>());
+	vector<complex<double>> numbered_u_1(N_squared, complex<double>());
+	vector<complex<double>> numbered_u_2(N_squared, complex<double>());
+	vector<complex<double>> numbered_u_3(N_squared, complex<double>());
+	vector<complex<double>> numbered_u_4(N_squared, complex<double>());
+	vector<complex<double>> numbered_u_5(N_squared, complex<double>());
 
-	vector<complex<float>> numbered_xi(N_squared, complex<float>());
+	vector<complex<double>> numbered_xi(N_squared, complex<double>());
 
-	vector<complex<float>> supportingVector_square(N_squared, complex<float>());
-	vector<complex<float>> secondSupportingVector_square(N_squared, complex<float>());
-	vector<complex<float>> supportingVector(N_squared, complex<float>());
+	vector<complex<double>> supportingVector_square(N_squared, complex<double>());
+	vector<complex<double>> secondSupportingVector_square(N_squared, complex<double>());
+	vector<complex<double>> supportingVector(N_squared, complex<double>());
 
 	//печатаем время работы
 	timeFinish = clock();
-	d = (float)(timeFinish - timeStart) / CLOCKS_PER_SEC;
+	d = (double)(timeFinish - timeStart) / CLOCKS_PER_SEC;
 	cout << "Time allocation " << d << endl;
 	timeStart = clock();
 
@@ -349,7 +349,7 @@ int main()
 	size_t coordinate_x;
 	size_t coordinate_y;
 	size_t ii, jj;
-	complex<float> sumOfTheCoefficients;
+	complex<double> sumOfTheCoefficients;
 
 	// начало основных итераций
 	for(size_t iteration = 0; iteration < numberOfIterations; ++iteration)
@@ -481,7 +481,7 @@ int main()
 			B[ii][ii] += alpha;
 		}
 		timeFinish = clock();
-		d = (float)(timeFinish - timeStart) / CLOCKS_PER_SEC;
+		d = (double)(timeFinish - timeStart) / CLOCKS_PER_SEC;
 		cout << "Calculation time left side " << d << endl;
 		timeStart = clock();
 		//////////////////////////////////////////////////////////////////////////
@@ -764,7 +764,7 @@ int main()
 		MultTransposedMatrixVector(F_oo, F_part_10, supportingVector_square);
 		AddVectors(b5, supportingVector_square);
 		timeFinish = clock();
-		d = (float)(timeFinish - timeStart) / CLOCKS_PER_SEC;
+		d = (double)(timeFinish - timeStart) / CLOCKS_PER_SEC;
 		cout << "Calculation time right side " << d << endl;
 		timeStart = clock();
 
@@ -845,7 +845,7 @@ int main()
 		MultMatrixVector(inverseMatrixB, b5, numbered_u_5);
 
 		timeFinish = clock();
-		d = (float)(timeFinish - timeStart) / CLOCKS_PER_SEC;
+		d = (double)(timeFinish - timeStart) / CLOCKS_PER_SEC;
 		cout << "Calculation time solutions " << d << endl;
 
 		// изменяем alpha для следующей итерации
@@ -887,7 +887,7 @@ int main()
 		f_xi.close();
 	}
 
-	d = (float)(timeFinish - timeBegin) / CLOCKS_PER_SEC;
+	d = (double)(timeFinish - timeBegin) / CLOCKS_PER_SEC;
 	cout << "The total time of the program " << d << endl;
 
 	return 0;
