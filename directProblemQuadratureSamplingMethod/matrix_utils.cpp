@@ -87,67 +87,6 @@ void SolveSlauGaussa(const vector<vector<complex<double>>> & matrix, const vecto
 }
 
 
-
-/*
-void SolveSlauGaussa(const vector<vector<complex<double>>> & matrix, const vector<complex<double>> & rhs,
-						vector<complex<double>> & exactSolution)
-{
-	const size_t dim = (size_t)rhs.size();
-	vector<vector<complex<double>>> a(dim, vector<complex<double>>(dim + 1, complex<double>()));
-
-	for (size_t row = 0; row < dim; ++row)
-	{
-		for (size_t col = 0; col < dim; ++col)
-		{
-			a[row][col] = matrix[row][col];
-		}
-		a[row][dim] = rhs[row];
-	}
-
-	vector<size_t> where(dim);
-	size_t sel;
-
-	for (size_t col = 0, row = 0; col < dim && row <= dim; ++col)
-	{
-		sel = row;
-		for (size_t i = row; i < dim; ++i)
-		{
-			if (abs(a[i][col]) > abs(a[sel][col]))
-			{
-				sel = i;
-			}
-		}
-
-		swap(a[sel], a[row]);
-		/*for (size_t i = col; i <= dim; ++i)
-		{
-			swap(a[sel][i], a[row][i]);
-		}*//*
-		where[col] = row;
-
-		for (size_t i = 0; i < dim; ++i)
-		{
-			if (i != row)
-			{
-				complex<double> c = a[i][col] / a[row][col];
-				for (size_t j = col; j <= dim; ++j)
-				{
-					a[i][j] -= a[row][j] * c;
-				}
-			}
-		}
-		++row;
-	}
-
-	exactSolution.assign(dim, complex<double>());
-	for (size_t i = 0; i < dim; ++i)
-	{
-		exactSolution[i] = a[where[i]][dim] / a[where[i]][i];
-	}
-}
-
-*/
-
 void InvertMatrix(vector<vector<complex<double>>> matrix, vector<vector<complex<double>>> & invertedMatrix)
 {
 	const size_t dim = (size_t)matrix.size();
@@ -156,55 +95,50 @@ void InvertMatrix(vector<vector<complex<double>>> matrix, vector<vector<complex<
 	complex<double> maxElement;
 	complex<double> multiplier;
 
-	size_t maxNumber;
-
 	GetNullMatrix(invertedMatrix);
 	for (size_t row = 0; row < dim; ++row)
 	{
 		invertedMatrix[row][row] = { 1.0, 0.0 };
 	}
 
-	for (size_t row = 0; row < dim; ++row)
+	for (size_t k = 0; k < dim; k++)
 	{
-		maxElement = matrix[row][row];
-		maxNumber = row;
-		for (size_t col = row; col < dim; ++col)
-		{
-			if (abs(matrix[col][row]) > abs(maxElement))
-			{
-				maxElement = matrix[col][row];
-				maxNumber = col;
-			}
-		}
-		for (size_t col = 0; col < dim; ++col)
-		{
-			temp = matrix[row][col];
-			matrix[row][col] = matrix[maxNumber][col];
-			matrix[maxNumber][col] = temp;
-		}
-		for (size_t col = 0; col < dim; ++col)
-		{
-			temp = invertedMatrix[row][col];
-			invertedMatrix[row][col] = invertedMatrix[maxNumber][col];
-			invertedMatrix[maxNumber][col] = temp;
-		}
+		temp = matrix[k][k];
 
-		for (size_t col = 0; col < dim; ++col)
+		for (size_t j = 0; j < dim; j++)
 		{
-			if (row != col)
+			matrix[k][j] /= temp;
+			invertedMatrix[k][j] /= temp;
+		}
+		for (size_t i = k + 1; i < dim; i++)
+		{
+			temp = matrix[i][k];
+			for (size_t j = 0; j < dim; j++)
 			{
-				multiplier = matrix[col][row] / matrix[row][row];
-				for (size_t i = 0; i < dim; ++i)
-				{
-					matrix[col][i] -= matrix[row][i] * multiplier;
-					invertedMatrix[col][i] -= invertedMatrix[row][i] * multiplier;
-				}
+				matrix[i][j] -= matrix[k][j] * temp;
+				invertedMatrix[i][j] -= invertedMatrix[k][j] * temp;
 			}
 		}
 	}
-	for (size_t row = 0; row < dim; ++row)
+	for (size_t k = dim - 1; k > 0; k--)
 	{
-		invertedMatrix[row][row] /= matrix[row][row];
+		for (size_t i = k - 1; i > 0; i--)
+		{
+			temp = matrix[i][k];
+			for (size_t j = 0; j < dim; j++)
+			{
+				matrix[i][j] -= matrix[k][j] * temp;
+				invertedMatrix[i][j] -= invertedMatrix[k][j] * temp;
+			}
+		}
+		{
+			temp = matrix[0][k];
+			for (size_t j = 0; j < dim; j++)
+			{
+				matrix[0][j] -= matrix[k][j] * temp;
+				invertedMatrix[0][j] -= invertedMatrix[k][j] * temp;
+			}
+		}
 	}
 }
 
@@ -337,18 +271,17 @@ void MultTransposedMatrix(const vector<vector<complex<double>>> & lhs,
 	const size_t dim2 = (size_t)lhs[0].size();
 	const size_t dim3 = (size_t)rhs.size();
 
-	GetNullMatrix(result);
+	vector<vector<complex<double>>> a(dim2, vector<complex<double>>(dim3, complex<double>()));
 
-	for (size_t row = 0; row < dim2; ++row)
+	for (size_t i = 0; i < dim2; ++i)
 	{
-		for (size_t col = 0; col < dim3; ++col)
+		for (size_t j = 0; j < dim3; ++j)
 		{
-			for (size_t inner = 0; inner < dim1; ++inner)
-			{
-				result[row][col] += conj(lhs[inner][row]) * rhs[inner][col];
-			}
+			a[i][j] = conj(lhs[j][i]);
 		}
 	}
+
+	MultMatrix(a, rhs, result);
 }
 
 void MultMatrixTransposed(const vector<vector<complex<double>>> & lhs,
