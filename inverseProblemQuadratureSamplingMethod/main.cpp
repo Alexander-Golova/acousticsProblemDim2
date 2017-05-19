@@ -14,11 +14,11 @@ int main()
 	cout << "Enter alpha ";
 	cin >> alpha;
 
-	double q;
+	double multiplier;
 	cout << "Enter q ";
-	cin >> q;
+	cin >> multiplier;
 
-	const size_t N = NUMBER_PARTITION_POsize_tS;
+	const size_t N = NUMBER_PARTITION_Posize;
 	const double h = (double)DOMAIN_IN_HOMOGENEITY / N;
 
 	// выделяем память под основные матрицы
@@ -342,7 +342,7 @@ int main()
 	{
 		for(size_t j = 0; j <= N; ++j)
 		{
-			xi[i][j] = 0.1f;
+			xi[i][j] = 0.1;
 		}
 	}
 
@@ -368,7 +368,7 @@ int main()
 			for (size_t j = 0; j <= N; ++j)
 			{
 				ii = i * (N + 1) + j;
-				sumOfTheCoefficients = { 0.0f, 0.0f };
+				sumOfTheCoefficients = { 0.0, 0.0 };
 				for (size_t p = 0; p < N; ++p)
 				{
 					for (size_t q = 0; q < N; ++q)
@@ -391,7 +391,7 @@ int main()
 				F_05[ii][ii] = u_3[i][j] * (b[i][j] - sumOfTheCoefficients);
 				F_07[ii][ii] = u_4[i][j] * (b[i][j] - sumOfTheCoefficients);
 				F_09[ii][ii] = u_5[i][j] * (b[i][j] - sumOfTheCoefficients);
-				F_o[ii][ii] = 1.0f;
+				F_o[ii][ii] = 1.0;
 				F_o[ii][ii] += xi[i][j] * (b[i][j] - sumOfTheCoefficients);
 			}
 		}
@@ -475,10 +475,10 @@ int main()
 		AddSquareMatrices(B, auxiliaryMatrix);
 
 		//добавляем alpha к диагонали
-		for (size_t ii = 0; ii < N_squared; ++ii)
+		for (size_t l = 0; l < N_squared; ++l)
 		{
-			A_00[ii][ii] += alpha;
-			B[ii][ii] += alpha;
+			A_00[l][l] += alpha;
+			B[l][l] += alpha;
 		}
 		timeFinish = clock();
 		d = (double)(timeFinish - timeStart) / CLOCKS_PER_SEC;
@@ -569,24 +569,24 @@ int main()
 			}
 		}
 		MultMatrixVector(F_01, numbered_xi, supportingVector_square);
-		for (size_t ii = 0; ii < N_squared; ++ii)
+		for (size_t l = 0; l < N_squared; ++l)
 		{
-			F_part_01[ii] = supportingVector_square[ii] - F_part_01[ii];
+			F_part_01[l] = supportingVector_square[l] - F_part_01[l];
 		}
 		MultMatrixVector(F_o, numbered_u_1, supportingVector_square);
-		for (size_t ii = 0; ii < N_squared; ++ii)
+		for (size_t l = 0; l < N_squared; ++l)
 		{
-			F_part_01[ii] += supportingVector_square[ii];
+			F_part_01[l] += supportingVector_square[l];
 		}
 		MultMatrixVector(F_02, numbered_xi, supportingVector);
-		for (size_t ii = 0; ii <= N; ++ii)
+		for (size_t l = 0; l <= N; ++l)
 		{
-			F_part_02[ii] = supportingVector_square[ii] - F_part_02[ii];
+			F_part_02[l] = supportingVector_square[l] - F_part_02[l];
 		}
 		MultMatrixVector(F_oo, numbered_u_1, supportingVector);
-		for (size_t ii = 0; ii <= N; ++ii)
+		for (size_t l = 0; l <= N; ++l)
 		{
-			F_part_02[ii] += supportingVector_square[ii];
+			F_part_02[l] += supportingVector_square[l];
 		}
 
 		//второй источник
@@ -600,24 +600,24 @@ int main()
 			}
 		}
 		MultMatrixVector(F_03, numbered_xi, supportingVector_square);
-		for (size_t ii = 0; ii < N_squared; ++ii)
+		for (size_t l = 0; l < N_squared; ++l)
 		{
-			F_part_03[ii] = supportingVector_square[ii] - F_part_03[ii];
+			F_part_03[l] = supportingVector_square[l] - F_part_03[l];
 		}
 		MultMatrixVector(F_o, numbered_u_2, supportingVector_square);
-		for (size_t ii = 0; ii < N_squared; ++ii)
+		for (size_t l = 0; l < N_squared; ++l)
 		{
-			F_part_03[ii] += supportingVector_square[ii];
+			F_part_03[l] += supportingVector_square[l];
 		}
 		MultMatrixVector(F_04, numbered_xi, supportingVector);
-		for (size_t ii = 0; ii <= N; ++ii)
+		for (size_t l = 0; l <= N; ++l)
 		{
-			F_part_04[ii] = supportingVector_square[ii] - F_part_04[ii];
+			F_part_04[l] = supportingVector_square[l] - F_part_04[l];
 		}
 		MultMatrixVector(F_oo, numbered_u_2, supportingVector);
-		for (size_t ii = 0; ii <= N; ++ii)
+		for (size_t l = 0; l <= N; ++l)
 		{
-			F_part_04[ii] += supportingVector_square[ii];
+			F_part_04[l] += supportingVector_square[l];
 		}
 
 		//третий источник
@@ -631,24 +631,24 @@ int main()
 			}
 		}
 		MultMatrixVector(F_05, numbered_xi, supportingVector_square);
-		for (size_t ii = 0; ii < N_squared; ++ii)
+		for (size_t l = 0; l < N_squared; ++l)
 		{
-			F_part_05[ii] = supportingVector_square[ii] - F_part_05[ii];
+			F_part_05[l] = supportingVector_square[l] - F_part_05[l];
 		}
 		MultMatrixVector(F_o, numbered_u_3, supportingVector_square);
-		for (size_t ii = 0; ii < N_squared; ++ii)
+		for (size_t l = 0; l < N_squared; ++l)
 		{
-			F_part_05[ii] += supportingVector_square[ii];
+			F_part_05[l] += supportingVector_square[l];
 		}
 		MultMatrixVector(F_06, numbered_xi, supportingVector);
-		for (size_t ii = 0; ii <= N; ++ii)
+		for (size_t l = 0; ii <= N; ++l)
 		{
-			F_part_06[ii] = supportingVector_square[ii] - F_part_06[ii];
+			F_part_06[l] = supportingVector_square[l] - F_part_06[l];
 		}
 		MultMatrixVector(F_oo, numbered_u_3, supportingVector);
-		for (size_t ii = 0; ii <= N; ++ii)
+		for (size_t l = 0; l <= N; ++l)
 		{
-			F_part_06[ii] += supportingVector_square[ii];
+			F_part_06[l] += supportingVector_square[l];
 		}
 
 		// четвертый источник
@@ -662,24 +662,24 @@ int main()
 			}
 		}
 		MultMatrixVector(F_07, numbered_xi, supportingVector_square);
-		for (size_t ii = 0; ii < N_squared; ++ii)
+		for (size_t l = 0; l < N_squared; ++l)
 		{
-			F_part_07[ii] = supportingVector_square[ii] - F_part_07[ii];
+			F_part_07[l] = supportingVector_square[l] - F_part_07[l];
 		}
 		MultMatrixVector(F_o, numbered_u_4, supportingVector_square);
-		for (size_t ii = 0; ii < N_squared; ++ii)
+		for (size_t l = 0; l < N_squared; ++l)
 		{
-			F_part_07[ii] += supportingVector_square[ii];
+			F_part_07[l] += supportingVector_square[l];
 		}
 		MultMatrixVector(F_08, numbered_xi, supportingVector);
-		for (size_t ii = 0; ii <= N; ++ii)
+		for (size_t l = 0; l <= N; ++l)
 		{
-			F_part_08[ii] = supportingVector_square[ii] - F_part_08[ii];
+			F_part_08[l] = supportingVector_square[l] - F_part_08[l];
 		}
 		MultMatrixVector(F_oo, numbered_u_4, supportingVector);
-		for (size_t ii = 0; ii <= N; ++ii)
+		for (size_t l = 0; l <= N; ++l)
 		{
-			F_part_08[ii] += supportingVector_square[ii];
+			F_part_08[l] += supportingVector_square[l];
 		}
 
 		// пятый источник
@@ -693,24 +693,24 @@ int main()
 			}
 		}
 		MultMatrixVector(F_09, numbered_xi, supportingVector_square);
-		for (size_t ii = 0; ii < N_squared; ++ii)
+		for (size_t l = 0; l < N_squared; ++l)
 		{
-			F_part_09[ii] = supportingVector_square[ii] - F_part_09[ii];
+			F_part_09[l] = supportingVector_square[l] - F_part_09[l];
 		}
 		MultMatrixVector(F_o, numbered_u_5, supportingVector_square);
-		for (size_t ii = 0; ii < N_squared; ++ii)
+		for (size_t l = 0; l < N_squared; ++l)
 		{
-			F_part_09[ii] += supportingVector_square[ii];
+			F_part_09[l] += supportingVector_square[l];
 		}
 		MultMatrixVector(F_10, numbered_xi, supportingVector);
-		for (size_t ii = 0; ii <= N; ++ii)
+		for (size_t l = 0; l <= N; ++l)
 		{
-			F_part_10[ii] = supportingVector_square[ii] - F_part_10[ii];
+			F_part_10[l] = supportingVector_square[l] - F_part_10[l];
 		}
 		MultMatrixVector(F_oo, numbered_u_5, supportingVector);
-		for (size_t ii = 0; ii <= N; ++ii)
+		for (size_t l = 0; l <= N; ++l)
 		{
-			F_part_10[ii] += supportingVector_square[ii];
+			F_part_10[l] += supportingVector_square[l];
 		}
 
 		// находим окончательно правую часть b0, b1,...
@@ -793,9 +793,8 @@ int main()
 		MultMatrix(A_05, inverseMatrixB, auxiliaryMatrix);
 		MultMatrixTransposed(auxiliaryMatrix, A_05, secondAuxiliaryMatrix);
 		SubSquareMatrices(A_00, secondAuxiliaryMatrix);
-		//
+
 		//для правой части уравнения с xi все складываем в b0 
-		//
 		MultMatrixVector(inverseMatrixB, b1, supportingVector_square);
 		MultMatrixVector(A_01, supportingVector_square, secondSupportingVector_square);
 		SubVectors(b0, secondSupportingVector_square);
@@ -849,18 +848,18 @@ int main()
 		cout << "Calculation time solutions " << d << endl;
 
 		// изменяем alpha для следующей итерации
-		alpha = alpha * q;
+		alpha = alpha * multiplier;
 		// Обратная перенумерация u^{1}, u^{2}, u^{3}, u^{4}, u^{5}, xi
-		for (size_t ii = 0; ii < N_squared; ++ii)
+		for (size_t l = 0; l < N_squared; ++l)
 		{
-			coordinate_x = ii / (N + 1);
-			coordinate_y = ii % (N + 1);
-			u_1[coordinate_x][coordinate_y] = numbered_u_1[ii];
-			u_2[coordinate_x][coordinate_y] = numbered_u_2[ii];
-			u_3[coordinate_x][coordinate_y] = numbered_u_3[ii];
-			u_4[coordinate_x][coordinate_y] = numbered_u_4[ii];
-			u_5[coordinate_x][coordinate_y] = numbered_u_5[ii];
-			xi[coordinate_x][coordinate_y] = numbered_xi[ii];
+			coordinate_x = l / (N + 1);
+			coordinate_y = l % (N + 1);
+			u_1[coordinate_x][coordinate_y] = numbered_u_1[l];
+			u_2[coordinate_x][coordinate_y] = numbered_u_2[l];
+			u_3[coordinate_x][coordinate_y] = numbered_u_3[l];
+			u_4[coordinate_x][coordinate_y] = numbered_u_4[l];
+			u_5[coordinate_x][coordinate_y] = numbered_u_5[l];
+			xi[coordinate_x][coordinate_y] = numbered_xi[l];
 		}
 		// проекция xi >= 0
 		for (size_t i = 0; i <= N; ++i)
@@ -869,7 +868,7 @@ int main()
 			{
 				if (real(xi[i][j]) <= 0)
 				{
-					xi[i][j] = { 0.0f, 0.0f };
+					xi[i][j] = { 0.0, 0.0 };
 				}
 			}
 		}
@@ -889,6 +888,4 @@ int main()
 
 	d = (double)(timeFinish - timeBegin) / CLOCKS_PER_SEC;
 	cout << "The total time of the program " << d << endl;
-
-	return 0;
 }
