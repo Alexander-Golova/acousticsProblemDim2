@@ -291,16 +291,15 @@ void MultMatrixTransposed(const vector<vector<complex<double>>> & lhs,
 	const size_t dim2 = (size_t)lhs[0].size();
 	const size_t dim3 = (size_t)rhs.size();
 
-	GetNullMatrix(result);
+	vector<vector<complex<double>>> a(dim1, vector<complex<double>>(dim3, complex<double>()));
 
-	for (size_t row = 0; row < dim1; ++row)
+	for (size_t i = 0; i < dim1; ++i)
 	{
-		for (size_t col = 0; col < dim3; ++col)
+		for (size_t j = 0; j < dim3; ++j)
 		{
-			for (size_t inner = 0; inner < dim2; ++inner)
-			{
-				result[row][col] += lhs[row][inner] * conj(rhs[inner][col]);
-			}
+			a[i][j] = conj(rhs[j][i]);
 		}
 	}
+
+	MultMatrix(lhs, a, result);
 }
