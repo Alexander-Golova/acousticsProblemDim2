@@ -4,7 +4,7 @@ using namespace std;
 
 const size_t dim = 500;
 
-void Prsize_tMatrix(const vector<vector<complex<float>>> & matrix)
+void Prsize_tMatrix(const vector<vector<complex<double>>> & matrix)
 {
 	const size_t dim1 = (size_t)matrix.size();
 	const size_t dim2 = (size_t)matrix[0].size();
@@ -19,7 +19,7 @@ void Prsize_tMatrix(const vector<vector<complex<float>>> & matrix)
 	}
 }
 
-void GetNullMatrix(vector<vector<complex<float>>> & matrix)
+void GetNullMatrix(vector<vector<complex<double>>> & matrix)
 {
 	const size_t dim1 = (size_t)matrix.size();
 	const size_t dim2 = (size_t)matrix[0].size();
@@ -28,14 +28,14 @@ void GetNullMatrix(vector<vector<complex<float>>> & matrix)
 	{
 		for (size_t col = 0; col < dim2; ++col)
 		{
-			matrix[row][col] = { 0.0f, 0.0f };
+			matrix[row][col] = { 0.0, 0.0 };
 		}
 	}
 }
 
 // Обычное умножение матриц
-void MultMatrix(const vector<vector<complex<float>>> & lhs, const vector<vector<complex<float>>> & rhs,
-	vector<vector<complex<float>>> & result)
+void MultMatrix(const vector<vector<complex<double>>> & lhs, const vector<vector<complex<double>>> & rhs,
+	vector<vector<complex<double>>> & result)
 {
 	const size_t dim1 = (size_t)lhs.size();
 	const size_t dim2 = (size_t)lhs[0].size();
@@ -56,8 +56,8 @@ void MultMatrix(const vector<vector<complex<float>>> & lhs, const vector<vector<
 }
 
 // умножение матриц, предварительно транспонировав вторую матрицу
-void MultTransMatrix(const vector<vector<complex<float>>> & lhs, const vector<vector<complex<float>>> & rhs,
-	vector<vector<complex<float>>> & result)
+void MultTransMatrix(const vector<vector<complex<double>>> & lhs, const vector<vector<complex<double>>> & rhs,
+	vector<vector<complex<double>>> & result)
 {
 	const size_t dim1 = (size_t)lhs.size();
 	const size_t dim2 = (size_t)lhs[0].size();
@@ -65,9 +65,9 @@ void MultTransMatrix(const vector<vector<complex<float>>> & lhs, const vector<ve
 
 	GetNullMatrix(result);
 
-	vector<complex<float>> thatColumn(dim3);
-	vector<complex<float>> thisRow(dim2);
-	complex<float> summand;
+	vector<complex<double>> thatColumn(dim3);
+	vector<complex<double>> thisRow(dim2);
+	complex<double> summand;
 
 	for (size_t col = 0; col < dim3; ++col)
 	{
@@ -78,7 +78,7 @@ void MultTransMatrix(const vector<vector<complex<float>>> & lhs, const vector<ve
 		for (size_t row = 0; row < dim1; ++row)
 		{
 			thisRow = lhs[row];
-			summand = { 0.0f, 0.0f };
+			summand = { 0.0, 0.0 };
 			for (size_t inner = 0; inner < dim2; ++inner)
 			{
 				summand += thisRow[inner] * thatColumn[inner];
@@ -90,8 +90,8 @@ void MultTransMatrix(const vector<vector<complex<float>>> & lhs, const vector<ve
 
 
 // блочное умножение матриц 
-void MultMatrixBlock(const vector<vector<complex<float>>> & lhs, const vector<vector<complex<float>>> & rhs,
-	vector<vector<complex<float>>> & result)
+void MultMatrixBlock(const vector<vector<complex<double>>> & lhs, const vector<vector<complex<double>>> & rhs,
+	vector<vector<complex<double>>> & result)
 {
 	const size_t dim1 = (size_t)lhs.size();
 	const size_t dim2 = (size_t)lhs[0].size();
@@ -99,8 +99,8 @@ void MultMatrixBlock(const vector<vector<complex<float>>> & lhs, const vector<ve
 
 	GetNullMatrix(result);
 
-	const register size_t SIZE_BLOCK = 20;
-	complex<float> r;
+	const register size_t SIZE_BLOCK = 16;
+	complex<double> r;
 
 	for (size_t jj = 0; jj < dim3; jj += SIZE_BLOCK)
 	{
@@ -108,11 +108,11 @@ void MultMatrixBlock(const vector<vector<complex<float>>> & lhs, const vector<ve
 		{
 			for (size_t row = 0; row < dim1; ++row)
 			{
-				vector<complex<float>> &ptr = result[row];
+				vector<complex<double>> &ptr = result[row];
 
 				for (size_t col = jj; col < min(jj + SIZE_BLOCK, dim3); ++col)
 				{
-					r = { 0.0f, 0.0f };
+					r = { 0.0, 0.0 };
 					for (size_t inner = kk; inner < min(kk + SIZE_BLOCK, dim2); ++inner)
 					{
 						r += lhs[row][inner] * rhs[inner][col];
@@ -127,12 +127,12 @@ void MultMatrixBlock(const vector<vector<complex<float>>> & lhs, const vector<ve
 
 
 // возвращает евклидову норму матрицы в квадрате
-float GetEuclideanNorm(vector<vector<complex<float>>> & matrix)
+double GetEuclideanNorm(vector<vector<complex<double>>> & matrix)
 {
 	const size_t dim1 = (size_t)matrix.size();
 	const size_t dim2 = (size_t)matrix[0].size();
 
-	float euclideanNorm = 0.0f;
+	double euclideanNorm = 0.0;
 
 	for (size_t row = 0; row < dim1; ++row)
 	{
@@ -145,8 +145,8 @@ float GetEuclideanNorm(vector<vector<complex<float>>> & matrix)
 }
 
 // Вычитание квадратных матриц lhs = lhs - rhs
-void SubtractionOfSquareMatrices(vector<vector<complex<float>>> & lhs,
-	const vector<vector<complex<float>>> & rhs)
+void SubtractionOfSquareMatrices(vector<vector<complex<double>>> & lhs,
+	const vector<vector<complex<double>>> & rhs)
 {
 	const size_t dim = (size_t)lhs.size();
 
@@ -161,10 +161,10 @@ void SubtractionOfSquareMatrices(vector<vector<complex<float>>> & lhs,
 
 int main()
 {
-	vector<vector<complex<float>>> matrix1(dim, vector<complex<float>>(dim, complex<float>()));
-	vector<vector<complex<float>>> matrix2(dim, vector<complex<float>>(dim, complex<float>()));
-	vector<vector<complex<float>>> matrix3(dim, vector<complex<float>>(dim, complex<float>()));
-	vector<vector<complex<float>>> matrix4(dim, vector<complex<float>>(dim, complex<float>()));
+	vector<vector<complex<double>>> matrix1(dim, vector<complex<double>>(dim, complex<double>()));
+	vector<vector<complex<double>>> matrix2(dim, vector<complex<double>>(dim, complex<double>()));
+	vector<vector<complex<double>>> matrix3(dim, vector<complex<double>>(dim, complex<double>()));
+	vector<vector<complex<double>>> matrix4(dim, vector<complex<double>>(dim, complex<double>()));
 
 	//matrix1 = { { {1.0f, 0.0f}, {1.0f, 0.0f}, {0.0f, 0.0f} },
 	//			{ {0.0f, 0.0f}, {1.0f, 0.0f}, {1.0f, 0.0f} } };
@@ -177,34 +177,34 @@ int main()
 	{
 		for (size_t col = 0; col < dim; ++col)
 		{
-			matrix1[row][col] = (1.0f * (rand() / 1000), 1.0f * (rand() / 1000));
-			matrix2[row][col] = (1.0f * (rand() / 1000), 1.0f * (rand() / 1000));
+			matrix1[row][col] = (1.0 * (rand() / 1000), 1.0 * (rand() / 1000));
+			matrix2[row][col] = (1.0 * (rand() / 1000), 1.0 * (rand() / 1000));
 		}
 	}
 	
 	// начало счета времени
-	float d;
+	double d;
 	clock_t timeStart, timeFinish;
 	timeStart = clock();
 
 	MultMatrix(matrix1, matrix2, matrix3);
 
 	timeFinish = clock();
-	d = (float)(timeFinish - timeStart) / CLOCKS_PER_SEC;
+	d = (double)(timeFinish - timeStart) / CLOCKS_PER_SEC;
 	cout << "MultMatrix " << d << endl;
 	timeStart = clock();
 
 	MultTransMatrix(matrix1, matrix2, matrix3);
 	
 	timeFinish = clock();
-	d = (float)(timeFinish - timeStart) / CLOCKS_PER_SEC;
+	d = (double)(timeFinish - timeStart) / CLOCKS_PER_SEC;
 	cout << "MultTransMatrix " << d << endl;
 	timeStart = clock();
 
 	MultMatrixBlock(matrix1, matrix2, matrix4);
 
 	timeFinish = clock();
-	d = (float)(timeFinish - timeStart) / CLOCKS_PER_SEC;
+	d = (double)(timeFinish - timeStart) / CLOCKS_PER_SEC;
 	cout << "MultMatrixBlock " << d << endl;
 
 	//Prsize_tMatrix(matrix3);
