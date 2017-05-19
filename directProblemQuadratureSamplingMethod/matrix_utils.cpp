@@ -3,7 +3,6 @@
 
 using namespace std;
 
-
 void GetNullMatrix(vector<vector<complex<double>>> & matrix)
 {
 	const size_t dim1 = (size_t)matrix.size();
