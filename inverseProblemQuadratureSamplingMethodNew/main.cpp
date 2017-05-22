@@ -26,7 +26,7 @@ int main()
 
 	const Source source;
 
-	const size_t N = NUMBER_PARTITION_POSIZE;
+	const size_t N = NUMBER_PARTITION_POINT;
 	const size_t N_squared = (N + 1) * (N + 1);
 	const double h = (double)DOMAIN_IN_HOMOGENEITY / N;
 

@@ -8,7 +8,7 @@ using namespace std;
 
 int main()
 {
-	const size_t N = NUMBER_PARTITION_POSIZE;
+	const size_t N = NUMBER_PARTITION_POINT;
 	const double h = (double)DOMAIN_IN_HOMOGENEITY / N;
 
 	const Source source;

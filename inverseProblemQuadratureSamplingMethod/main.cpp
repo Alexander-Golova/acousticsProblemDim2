@@ -18,7 +18,7 @@ int main()
 	cout << "Enter q ";
 	cin >> multiplier;
 
-	const size_t N = NUMBER_PARTITION_Posize;
+	const size_t N = NUMBER_PARTITION_POINT;
 	const double h = (double)DOMAIN_IN_HOMOGENEITY / N;
 
 	// выделяем память под основные матрицы

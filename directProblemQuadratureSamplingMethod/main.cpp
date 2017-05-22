@@ -7,7 +7,7 @@ using namespace std;
 
 int main()
 {
-	const size_t N = NUMBER_PARTITION_Posize;
+	const size_t N = NUMBER_PARTITION_POINT;
 	const double h = DOMAIN_IN_HOMOGENEITY / N;
 
 	// выделение памяти для акустического поля u

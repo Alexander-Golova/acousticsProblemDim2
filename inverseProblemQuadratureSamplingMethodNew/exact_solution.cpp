@@ -36,11 +36,11 @@ void PrintXi(std::vector<std::vector<std::complex<double>>> & xi, size_t iterati
 void Renumbering(const vector<vector<complex<double>>> & xi, vector<complex<double>> & numbered_xi)
 {
 	size_t ii;
-	for (size_t i = 0; i <= NUMBER_PARTITION_POSIZE; ++i)
+	for (size_t i = 0; i <= NUMBER_PARTITION_POINT; ++i)
 	{
-		for (size_t j = 0; j <= NUMBER_PARTITION_POSIZE; ++j)
+		for (size_t j = 0; j <= NUMBER_PARTITION_POINT; ++j)
 		{
-			ii = i * (NUMBER_PARTITION_POSIZE + 1) + j;
+			ii = i * (NUMBER_PARTITION_POINT + 1) + j;
 			numbered_xi[ii] = xi[i][j];
 		}
 	}
@@ -49,11 +49,11 @@ void Renumbering(const vector<vector<complex<double>>> & xi, vector<complex<doub
 void InverseRenumbering(const vector<complex<double>> & numbered_xi, vector<vector<complex<double>>> & xi)
 {
 	size_t ii;
-	for (size_t i = 0; i <= NUMBER_PARTITION_POSIZE; ++i)
+	for (size_t i = 0; i <= NUMBER_PARTITION_POINT; ++i)
 	{
-		for (size_t j = 0; j <= NUMBER_PARTITION_POSIZE; ++j)
+		for (size_t j = 0; j <= NUMBER_PARTITION_POINT; ++j)
 		{
-			ii = i * (NUMBER_PARTITION_POSIZE + 1) + j;
+			ii = i * (NUMBER_PARTITION_POINT + 1) + j;
 			xi[i][j] = numbered_xi[ii];
 		}
 	}

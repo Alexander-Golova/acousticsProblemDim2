@@ -19,7 +19,7 @@ int main()
 	cout << "Enter q ";
 	cin >> multiplier;
 
-	size_t N = numberPartitionPosize_ts_N;
+	size_t N = NUMBER_PARTITION_POINT;
 
 	//
 	// выделяем память под основные матрицы
@@ -943,7 +943,7 @@ int main()
 			{
 				for (size_t j = 0; j <= numberPartitionPosize_ts_N; ++j)
 				{
-					f_xi << fixed << setprecision(7) << real(xi[i][j]) << " ";
+					f_xi << fixed << setprecision(6) << real(xi[i][j]) << " ";
 				}
 			}
 			f_xi.close();
@@ -955,7 +955,7 @@ int main()
 			{
 				for (size_t j = 0; j <= numberPartitionPosize_ts_N; ++j)
 				{
-					f_xi << fixed << setprecision(7) << real(xi[i][j]) << " ";
+					f_xi << fixed << setprecision(6) << real(xi[i][j]) << " ";
 				}
 			}
 			f_xi.close();
@@ -967,7 +967,7 @@ int main()
 			{
 				for (size_t j = 0; j <= numberPartitionPosize_ts_N; ++j)
 				{
-					f_xi << fixed << setprecision(7) << real(xi[i][j]) << " ";
+					f_xi << fixed << setprecision(6) << real(xi[i][j]) << " ";
 				}
 			}
 			f_xi.close();
@@ -979,7 +979,7 @@ int main()
 			{
 				for (size_t j = 0; j <= numberPartitionPosize_ts_N; ++j)
 				{
-					f_xi << fixed << setprecision(7) << real(xi[i][j]) << " ";
+					f_xi << fixed << setprecision(6) << real(xi[i][j]) << " ";
 				}
 			}
 			f_xi.close();
@@ -991,7 +991,7 @@ int main()
 			{
 				for (size_t j = 0; j <= numberPartitionPosize_ts_N; ++j)
 				{
-					f_xi << fixed << setprecision(7) << real(xi[i][j]) << " ";
+					f_xi << fixed << setprecision(6) << real(xi[i][j]) << " ";
 				}
 			}
 			f_xi.close();
@@ -1004,7 +1004,7 @@ int main()
 	{
 		for (size_t j = 0; j <= numberPartitionPosize_ts_N; ++j)
 		{
-			f_xi << fixed << setprecision(7) << real(xi[i][j]) << " ";
+			f_xi << fixed << setprecision(6) << real(xi[i][j]) << " ";
 		}
 	}
 	f_xi.close();

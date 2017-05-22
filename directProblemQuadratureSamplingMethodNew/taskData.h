@@ -14,7 +14,7 @@ const double C_0 = 1.0;
 const double receiver = 11.0;
 
 // количество квадратиков по каждому измерению
-const size_t NUMBER_PARTITION_POSIZE = 50;
+const size_t NUMBER_PARTITION_POINT = 50;
 
 // размер квадрата в котором находится неоднородность
 const double DOMAIN_IN_HOMOGENEITY = 10.0;
