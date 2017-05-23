@@ -5,7 +5,7 @@
 
 using namespace std;
 
-const complex<double> I(0.0, 1.0);
+const complex<double> I{ 0.0, 1.0 };
 
 const double omega = 1.0;
 const double c_0 = 1.0;
