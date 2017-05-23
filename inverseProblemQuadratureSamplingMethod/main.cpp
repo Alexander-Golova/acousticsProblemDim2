@@ -8,7 +8,7 @@ int main()
 {
 	size_t numberOfIterations;
 	cout << "Enter the number of iterations ";
-	cin >> numberOfIterations;	
+	cin >> numberOfIterations;
 
 	double alpha;
 	cout << "Enter alpha ";
