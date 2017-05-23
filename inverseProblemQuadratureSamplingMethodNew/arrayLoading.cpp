@@ -52,7 +52,7 @@ void ArrayLoadingB(vector<vector<complex<double>>> & b)
 }
 
 void ArrayLoadingSource(const size_t numberSource, vector<vector<vector<complex<double>>>> & Source_R,
-	vector<vector<complex<double>>>Source_X)
+	vector<vector<complex<double>>> & Source_X)
 {
 	ifstream fileSource("Source.txt");
 	for (size_t count = 0; count < numberSource; ++count)

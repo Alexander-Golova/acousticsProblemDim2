@@ -4,8 +4,8 @@
 
 using namespace std;
 
-void InitialValueU(const size_t numberSource, vector<vector<vector<complex<double>>>> &u,
-	vector<vector<vector<complex<double>>>> Source_R)
+void InitialValueU(const size_t numberSource, vector<vector<vector<complex<double>>>> & u,
+	vector<vector<vector<complex<double>>>> & Source_R)
 {
 	for (size_t count = 0; count < numberSource; ++count)
 	{

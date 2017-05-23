@@ -10,6 +10,6 @@ void ArrayLoadingOverlineA(std::vector<std::vector<std::vector<std::complex<doub
 
 void ArrayLoadingB(std::vector<std::vector<std::complex<double>>> & b);
 
-void ArrayLoadingSource(const size_t numberSource, std::vector<std::vector<std::vector<std::complex<double>>>> & Source_R, std::vector<std::vector<std::complex<double>>>Source_X);
+void ArrayLoadingSource(const size_t numberSource, std::vector<std::vector<std::vector<std::complex<double>>>> & Source_R, std::vector<std::vector<std::complex<double>>> & Source_X);
 
 void ArrayLoadingOverlineU(const size_t numberSource, std::vector<std::vector<std::complex<double>>> & overline_u);
