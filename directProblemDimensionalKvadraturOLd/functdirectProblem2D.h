@@ -5,7 +5,7 @@
 
 using namespace std;
 
-complex<double> I(0.0, 1.0);
+const complex<double> I(0.0, 1.0);
 
 const double omega = 1.0;
 const double c_0 = 1.0;
@@ -14,7 +14,7 @@ const double PI = 3.1415926;
 // количество источников
 size_t numberSource = 5;
 // количество квадратиков по каждому измерению
-size_t numberPartitionPosize_ts_N = 50;
+size_t numberPartitionPoint = 50;
 // размер квадрата в котором находится неоднородность
 double domainInHomogeneity_R = 10.0;
 
@@ -42,35 +42,35 @@ complex<double> G(double x_1, double x_2, double y_1, double y_2)
 complex<double> f_01(double x_1, double x_2)
 {
 	//физическое местоположение 1 источника
-	double q_1 = -1.0f; double q_2 = 0.0f;
+	double q_1 = -1.0; double q_2 = 0.0;
 	double dist = sqrt(pow(x_1 - q_1, 2) + pow(x_2 - q_2, 2));
 	return -0.25 * I * Hankel(omega * dist / c_0);
 }
 // задаём 2 источник
 complex<double> f_02(double x_1, double x_2)
 {
-	double q_1 = -1.0f; double q_2 = 2.5f;                      //физическое местоположение 1 источника
+	double q_1 = -1.0; double q_2 = 2.5;                      //физическое местоположение 1 источника
 	double dist = sqrt(pow(x_1 - q_1, 2) + pow(x_2 - q_2, 2));
 	return -0.25 * I * Hankel(omega * dist / c_0);
 }
 // задаём 3 источник
 complex<double> f_03(double x_1, double x_2)
 {
-	double q_1 = -1.0f; double q_2 = 5.0f;                      //физическое местоположение 1 источника
+	double q_1 = -1.0; double q_2 = 5.0;                      //физическое местоположение 1 источника
 	double dist = sqrt(pow(x_1 - q_1, 2) + pow(x_2 - q_2, 2));
 	return -0.25 * I * Hankel(omega * dist / c_0);
 }
 // задаём 4 источник
 complex<double> f_04(double x_1, double x_2)
 {
-	double q_1 = -1.0f; double q_2 = 7.5f;                      //физическое местоположение 1 источника
+	double q_1 = -1.0; double q_2 = 7.5;                      //физическое местоположение 1 источника
 	double dist = sqrt(pow(x_1 - q_1, 2) + pow(x_2 - q_2, 2));
 	return -0.25 * I * Hankel(omega * dist / c_0);
 }
 // задаём 5 источник
 complex<double> f_05(double x_1, double x_2)
 {
-	double q_1 = -1.0f; double q_2 = 10.0f;                      //физическое местоположение 1 источника
+	double q_1 = -1.0; double q_2 = 10.0;                      //физическое местоположение 1 источника
 	double dist = sqrt(pow(x_1 - q_1, 2) + pow(x_2 - q_2, 2));
 	return -0.25 * I * Hankel(omega * dist / c_0);
 }

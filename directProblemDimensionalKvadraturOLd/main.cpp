@@ -5,8 +5,8 @@ using namespace std;
 
 int main()
 {
-	size_t N = numberPartitionPosize_ts_N;
-	double h = (double)domainInHomogeneity_R / numberPartitionPosize_ts_N;
+	size_t N = numberPartitionPoint;
+	double h = (double)domainInHomogeneity_R / numberPartitionPoint;
 
 	// выделение памяти для точного решения xi и акустического поля u
 	double **xi;
@@ -84,15 +84,15 @@ int main()
 	{
 		if (i % 2 != 0)
 		{
-			index[i] = 4 / 3;
+			index[i] = 4.0 / 3;
 		}
 		else
 		{
-			index[i] = 2 / 3;
+			index[i] = 2.0 / 3;
 		}
 	}
-	index[0] = 1 / 3;
-	index[N] = 1 / 3;
+	index[0] = 1.0 / 3;
+	index[N] = 1.0 / 3;
 	// нахождение массива a
 	for (size_t i = 0; i <= N; ++i)
 	{
@@ -120,7 +120,7 @@ int main()
 			for (size_t q = 0; q < N; ++q)
 			{
 				overline_a[j][p][q] = index[p] * index[q];
-				overline_a[j][p][q] = overline_a[j][p][q] * G(11.0f, j * h, p * h, q * h);
+				overline_a[j][p][q] = overline_a[j][p][q] * G(11.0, j * h, p * h, q * h);
 				overline_a[j][p][q] = overline_a[j][p][q] * h * h;
 			}
 		}
@@ -322,7 +322,7 @@ int main()
 		for (size_t j = 0; j <= N; ++j)
 		{
 			ii = i * (N + 1) + j;
-			complex<double> sumOfTheCoefficients = 0.0;
+			complex<double> sumOfTheCoefficients = { 0.0, 0.0 };
 			for (size_t p = 0; p < N; ++p)
 			{
 				for (size_t q = 0; q < N; ++q)
