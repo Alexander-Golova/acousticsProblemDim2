@@ -114,7 +114,7 @@ int main()
 	f_Source_05 = new complex<double> *[N + 1];
 	f_Source_07 = new complex<double> *[N + 1];
 	f_Source_09 = new complex<double> *[N + 1];
-	for (size_t i = 0; i <= numberPartitionPosize_ts_N; ++i)
+	for (size_t i = 0; i <= NUMBER_PARTITION_POINT; ++i)
 	{
 		f_Source_01[i] = new complex<double>[N + 1];
 		f_Source_03[i] = new complex<double>[N + 1];
@@ -460,7 +460,7 @@ int main()
 			{
 				for (size_t q = 0; q < N; ++q)
 				{
-					jj = p*(N + 1) + q;
+					jj = p * (N + 1) + q;
 					F_02[j][jj] = overline_a[j][p][q] * u_1[p][q];
 					F_04[j][jj] = overline_a[j][p][q] * u_2[p][q];
 					F_06[j][jj] = overline_a[j][p][q] * u_3[p][q];
@@ -926,9 +926,9 @@ int main()
 			xi[coordinate_x][coordinate_y] = numbered_xi[l];
 		}
 		// проекция xi>=0
-		for (size_t i = 0; i <= numberPartitionPosize_ts_N; ++i)
+		for (size_t i = 0; i <= NUMBER_PARTITION_POINT; ++i)
 		{
-			for (size_t j = 0; j <= numberPartitionPosize_ts_N; ++j)
+			for (size_t j = 0; j <= NUMBER_PARTITION_POINT; ++j)
 			{
 				if (real(xi[i][j]) <= 0)
 				{
@@ -939,9 +939,9 @@ int main()
 		if (iteration == 0)
 		{
 			ofstream f_xi("approximate_xi_1.txt");
-			for (size_t i = 0; i <= numberPartitionPosize_ts_N; ++i)
+			for (size_t i = 0; i <= NUMBER_PARTITION_POINT; ++i)
 			{
-				for (size_t j = 0; j <= numberPartitionPosize_ts_N; ++j)
+				for (size_t j = 0; j <= NUMBER_PARTITION_POINT; ++j)
 				{
 					f_xi << fixed << setprecision(6) << real(xi[i][j]) << " ";
 				}
@@ -951,9 +951,9 @@ int main()
 		if (iteration == 1)
 		{
 			ofstream f_xi("approximate_xi_2.txt");
-			for (size_t i = 0; i <= numberPartitionPosize_ts_N; ++i)
+			for (size_t i = 0; i <= NUMBER_PARTITION_POINT; ++i)
 			{
-				for (size_t j = 0; j <= numberPartitionPosize_ts_N; ++j)
+				for (size_t j = 0; j <= NUMBER_PARTITION_POINT; ++j)
 				{
 					f_xi << fixed << setprecision(6) << real(xi[i][j]) << " ";
 				}
@@ -963,9 +963,9 @@ int main()
 		if (iteration == 2)
 		{
 			ofstream f_xi("approximate_xi_3.txt");
-			for (size_t i = 0; i <= numberPartitionPosize_ts_N; ++i)
+			for (size_t i = 0; i <= NUMBER_PARTITION_POINT; ++i)
 			{
-				for (size_t j = 0; j <= numberPartitionPosize_ts_N; ++j)
+				for (size_t j = 0; j <= NUMBER_PARTITION_POINT; ++j)
 				{
 					f_xi << fixed << setprecision(6) << real(xi[i][j]) << " ";
 				}
@@ -975,9 +975,9 @@ int main()
 		if (iteration == 3)
 		{
 			ofstream f_xi("approximate_xi_4.txt");
-			for (size_t i = 0; i <= numberPartitionPosize_ts_N; ++i)
+			for (size_t i = 0; i <= NUMBER_PARTITION_POINT; ++i)
 			{
-				for (size_t j = 0; j <= numberPartitionPosize_ts_N; ++j)
+				for (size_t j = 0; j <= NUMBER_PARTITION_POINT; ++j)
 				{
 					f_xi << fixed << setprecision(6) << real(xi[i][j]) << " ";
 				}
@@ -987,9 +987,9 @@ int main()
 		if (iteration == 4)
 		{
 			ofstream f_xi("approximate_xi_5.txt");
-			for (size_t i = 0; i <= numberPartitionPosize_ts_N; ++i)
+			for (size_t i = 0; i <= NUMBER_PARTITION_POINT; ++i)
 			{
-				for (size_t j = 0; j <= numberPartitionPosize_ts_N; ++j)
+				for (size_t j = 0; j <= NUMBER_PARTITION_POINT; ++j)
 				{
 					f_xi << fixed << setprecision(6) << real(xi[i][j]) << " ";
 				}
@@ -1000,9 +1000,9 @@ int main()
 
 	//печатаем приближенное решение в файл
 	ofstream f_xi("approximate_xi.txt");
-	for (size_t i = 0; i <= numberPartitionPosize_ts_N; ++i)
+	for (size_t i = 0; i <= NUMBER_PARTITION_POINT; ++i)
 	{
-		for (size_t j = 0; j <= numberPartitionPosize_ts_N; ++j)
+		for (size_t j = 0; j <= NUMBER_PARTITION_POINT; ++j)
 		{
 			f_xi << fixed << setprecision(6) << real(xi[i][j]) << " ";
 		}

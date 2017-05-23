@@ -5,8 +5,8 @@ using namespace std;
 
 int main()
 {
-	size_t N = numberPartitionPoint;
-	double h = (double)domainInHomogeneity_R / numberPartitionPoint;
+	size_t N = NUMBER_PARTITION_POINT;
+	double h = (double)domainInHomogeneity_R / NUMBER_PARTITION_POINT;
 
 	// выделение памяти для точного решения xi и акустического поля u
 	double **xi;

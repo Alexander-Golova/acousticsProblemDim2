@@ -14,7 +14,7 @@ const double PI = 3.1415926;
 // количество источников
 size_t numberSource = 5;
 // количество квадратиков по каждому измерению
-size_t numberPartitionPoint = 50;
+size_t NUMBER_PARTITION_POINT = 50;
 // размер квадрата в котором находится неоднородность
 double domainInHomogeneity_R = 10.0;
 
