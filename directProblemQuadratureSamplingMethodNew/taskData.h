@@ -1,6 +1,6 @@
 #pragma once
 
-struct Posize_t
+struct Point
 {
 	double x;
 	double y;

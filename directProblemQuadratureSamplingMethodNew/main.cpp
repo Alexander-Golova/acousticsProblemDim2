@@ -63,15 +63,15 @@ int main()
 	{
 		if (i % 2 != 0)
 		{
-			index[i] = (double)4 / 3;
+			index[i] = 4.0 / 3;
 		}
 		else
 		{
-			index[i] = (double)2 / 3;
+			index[i] = 2.0 / 3;
 		}
 	}
-	index[0] = (double)1 / 3;
-	index[N] = (double)1 / 3;
+	index[0] = 1.0 / 3;
+	index[N] = 1.0 / 3;
 
 	// нахождение массива a
 	for (size_t i = 0; i <= N; ++i)
@@ -207,10 +207,10 @@ int main()
 	// substantiveMatrix[ii][jj] * numbered_u[jj] = rightPartEequation[ii]
 
 	const size_t N_squared = (N + 1) * (N + 1);
-	vector<complex<double>> rightPartEquation(N_squared, { 0.0, 0.0 });
+	vector<complex<double>> rightPartEquation(N_squared, complex<double>());
 	vector<complex<double>> numbered_u(N_squared);
-	vector<vector<complex<double>>> substantiveMatrix(N_squared, vector<complex<double>>(N_squared, { 0.0, 0.0 }));
-	vector<complex<double>> overline_u(N + 1, { 0.0, 0.0 });
+	vector<vector<complex<double>>> substantiveMatrix(N_squared, vector<complex<double>>(N_squared, complex<double>()));
+	vector<complex<double>> overline_u(N + 1, complex<double>());
 
 	//счет основной матрицы
 	size_t ii, jj;
@@ -220,7 +220,7 @@ int main()
 		for (size_t j = 0; j <= N; ++j)
 		{
 			ii = i * (N + 1) + j;
-			sumOfTheCoefficients = { 0.0, 0.0 };
+			sumOfTheCoefficients = complex<double>();
 			for (size_t p = 0; p < N; ++p)
 			{
 				for (size_t q = 0; q < N; ++q)

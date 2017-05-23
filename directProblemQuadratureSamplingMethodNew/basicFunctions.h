@@ -1,6 +1,6 @@
 #pragma once
 
-const std::complex<double> I(0.0, 1.0);
+const std::complex<double> I{ 0.0, 1.0 };
 
 //функция Ханкеля
 std::complex<double> Hankel(const double x);
