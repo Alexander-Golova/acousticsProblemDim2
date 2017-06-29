@@ -20,7 +20,7 @@ void ProjectionXi(vector<vector<complex<double>>> & xi)
 
 void PrintXi(std::vector<std::vector<std::complex<double>>> & xi, size_t iteration)
 {
-	const size_t N = (size_t)xi.size();
+	const size_t N = static_cast<size_t>(xi.size());
 	ofstream f_xi("approximate_xi_" + to_string(iteration + 1) + ".txt");
 	f_xi << fixed << setprecision(6);
 	for (size_t i = 0; i < N; ++i)

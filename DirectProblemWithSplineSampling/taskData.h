@@ -11,7 +11,7 @@ const double OMEGA = 1.0;
 const double C_0 = 1.0;
 
 // координаты приемников
-const double receiver = 1.1;
+const double RECEIVER = 1.1;
 
 // количество квадратиков по каждому измерению
 const size_t NUMBER_PARTITION_POINT = 20;

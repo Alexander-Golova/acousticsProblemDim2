@@ -17,7 +17,7 @@ int main()
 	// выделение памяти для акустического поля u
 	vector<vector<complex<double>>> u(N + 1, vector<complex<double>>(N + 1, complex<double>()));
 
-	// задание точного решения \xi
+	// задание точного решения xi
 	vector<vector<double>> xi(N + 1, vector<double>(N + 1, 0.0));
 	for (size_t i = 0; i <= N; ++i)
 	{
@@ -145,6 +145,7 @@ int main()
 	// нахождение массивов aa1, ab1,...,cc1
 	// квадратурные формулы третьего порядка
 	double x1, x2;
+	complex<double> temp;
 	for (size_t i = 0; i <= N; ++i)
 	{
 		for (size_t j = 0; j <= N; ++j)
@@ -156,19 +157,21 @@ int main()
 					//первые треугольники
 					x1 = h / 3.0 + p * h;
 					x2 = h / 3.0 + s * h;
-					aa_1[i][j][p][s] = -27.0 * G(i * h, j * h, x1, x2) / 9.0;
-					ab_1[i][j][p][s] = -27.0 * G(i * h, j * h, x1, x2) / 9.0;
-					ac_1[i][j][p][s] = -27.0 * G(i * h, j * h, x1, x2) / 9.0;
-					bb_1[i][j][p][s] = -27.0 * G(i * h, j * h, x1, x2) / 9.0;
-					bc_1[i][j][p][s] = -27.0 * G(i * h, j * h, x1, x2) / 9.0;
-					cc_1[i][j][p][s] = -27.0 * G(i * h, j * h, x1, x2) / 9.0;
+					temp = -27.0 * G(i * h, j * h, x1, x2) / 9.0;
+					aa_1[i][j][p][s] = temp;
+					ab_1[i][j][p][s] = temp;
+					ac_1[i][j][p][s] = temp;
+					bb_1[i][j][p][s] = temp;
+					bc_1[i][j][p][s] = temp;
+					cc_1[i][j][p][s] = temp;
 
-					overline_aa_1[i][j][p][s] = -27.0 * G(1.1 + i * stepReceiver, j * h, x1, x2) / 9.0;
-					overline_ab_1[i][j][p][s] = -27.0 * G(1.1 + i * stepReceiver, j * h, x1, x2) / 9.0;
-					overline_ac_1[i][j][p][s] = -27.0 * G(1.1 + i * stepReceiver, j * h, x1, x2) / 9.0;
-					overline_bb_1[i][j][p][s] = -27.0 * G(1.1 + i * stepReceiver, j * h, x1, x2) / 9.0;
-					overline_bc_1[i][j][p][s] = -27.0 * G(1.1 + i * stepReceiver, j * h, x1, x2) / 9.0;
-					overline_cc_1[i][j][p][s] = -27.0 * G(1.1 + i * stepReceiver, j * h, x1, x2) / 9.0;
+					temp = -27.0 * G(1.1 + i * stepReceiver, j * h, x1, x2) / 9.0;
+					overline_aa_1[i][j][p][s] = temp;
+					overline_ab_1[i][j][p][s] = temp;
+					overline_ac_1[i][j][p][s] = temp;
+					overline_bb_1[i][j][p][s] = temp;
+					overline_bc_1[i][j][p][s] = temp;
+					overline_cc_1[i][j][p][s] = temp;
 
 					x1 = h * 0.2 + p * h;
 					x2 = h * 0.2 + s * h;
@@ -179,15 +182,15 @@ int main()
 					bc_1[i][j][p][s] += 25.0*G(i*h, j*h, x1, x2)*(0.2*0.6);
 					cc_1[i][j][p][s] += 25.0*G(i*h, j*h, x1, x2)*(0.6*0.6);
 
-					overline_aa_1[i][j][p][s] += 25.0*G(1.1 + i*stepReceiver, j*h, x1, x2)*(0.2*0.2);
-					overline_ab_1[i][j][p][s] += 25.0*G(1.1 + i*stepReceiver, j*h, x1, x2)*(0.2*0.2);
-					overline_ac_1[i][j][p][s] += 25.0*G(1.1 + i*stepReceiver, j*h, x1, x2)*(0.2*0.6);
-					overline_bb_1[i][j][p][s] += 25.0*G(1.1 + i*stepReceiver, j*h, x1, x2)*(0.2*0.2);
-					overline_bc_1[i][j][p][s] += 25.0*G(1.1 + i*stepReceiver, j*h, x1, x2)*(0.2*0.6);
-					overline_cc_1[i][j][p][s] += 25.0*G(1.1 + i*stepReceiver, j*h, x1, x2)*(0.6*0.6);
+					overline_aa_1[i][j][p][s] += 25.0 * G(RECEIVER + i * stepReceiver, j * h, x1, x2) * (0.2 * 0.2);
+					overline_ab_1[i][j][p][s] += 25.0*G(RECEIVER + i*stepReceiver, j*h, x1, x2)*(0.2*0.2);
+					overline_ac_1[i][j][p][s] += 25.0*G(RECEIVER + i*stepReceiver, j*h, x1, x2)*(0.2*0.6);
+					overline_bb_1[i][j][p][s] += 25.0*G(RECEIVER + i*stepReceiver, j*h, x1, x2)*(0.2*0.2);
+					overline_bc_1[i][j][p][s] += 25.0*G(RECEIVER + i*stepReceiver, j*h, x1, x2)*(0.2*0.6);
+					overline_cc_1[i][j][p][s] += 25.0*G(RECEIVER + i*stepReceiver, j*h, x1, x2)*(0.6*0.6);
 
-					x1 = h*0.6 + p*h;
-					x2 = h*0.2 + s*h;
+					x1 = h * 0.6 + p * h;
+					x2 = h * 0.2 + s * h;
 					aa_1[i][j][p][s] += 25.0*G(i*h, j*h, x1, x2)*(0.6*0.6);
 					ab_1[i][j][p][s] += 25.0*G(i*h, j*h, x1, x2)*(0.6*0.2);
 					ac_1[i][j][p][s] += 25.0*G(i*h, j*h, x1, x2)*(0.6*0.2);
@@ -195,12 +198,12 @@ int main()
 					bc_1[i][j][p][s] += 25.0*G(i*h, j*h, x1, x2)*(0.2*0.2);
 					cc_1[i][j][p][s] += 25.0*G(i*h, j*h, x1, x2)*(0.2*0.2);
 
-					overline_aa_1[i][j][p][s] += 25.0*G(1.1 + i*stepReceiver, j*h, x1, x2)*(0.6*0.6);
-					overline_ab_1[i][j][p][s] += 25.0*G(1.1 + i*stepReceiver, j*h, x1, x2)*(0.6*0.2);
-					overline_ac_1[i][j][p][s] += 25.0*G(1.1 + i*stepReceiver, j*h, x1, x2)*(0.6*0.2);
-					overline_bb_1[i][j][p][s] += 25.0*G(1.1 + i*stepReceiver, j*h, x1, x2)*(0.2*0.2);
-					overline_bc_1[i][j][p][s] += 25.0*G(1.1 + i*stepReceiver, j*h, x1, x2)*(0.2*0.2);
-					overline_cc_1[i][j][p][s] += 25.0*G(1.1 + i*stepReceiver, j*h, x1, x2)*(0.2*0.2);
+					overline_aa_1[i][j][p][s] += 25.0*G(RECEIVER + i*stepReceiver, j*h, x1, x2)*(0.6*0.6);
+					overline_ab_1[i][j][p][s] += 25.0*G(RECEIVER + i*stepReceiver, j*h, x1, x2)*(0.6*0.2);
+					overline_ac_1[i][j][p][s] += 25.0*G(RECEIVER + i*stepReceiver, j*h, x1, x2)*(0.6*0.2);
+					overline_bb_1[i][j][p][s] += 25.0*G(RECEIVER + i*stepReceiver, j*h, x1, x2)*(0.2*0.2);
+					overline_bc_1[i][j][p][s] += 25.0*G(RECEIVER + i*stepReceiver, j*h, x1, x2)*(0.2*0.2);
+					overline_cc_1[i][j][p][s] += 25.0*G(RECEIVER + i*stepReceiver, j*h, x1, x2)*(0.2*0.2);
 
 					x1 = h*0.2 + p*h;
 					x2 = h*0.6 + s*h;
@@ -211,12 +214,12 @@ int main()
 					bc_1[i][j][p][s] += 25.0*G(i*h, j*h, x1, x2)*(0.6*0.2);
 					cc_1[i][j][p][s] += 25.0*G(i*h, j*h, x1, x2)*(0.2*0.2);
 
-					overline_aa_1[i][j][p][s] += 25.0*G(1.1 + i*stepReceiver, j*h, x1, x2)*(0.2*0.2);
-					overline_ab_1[i][j][p][s] += 25.0*G(1.1 + i*stepReceiver, j*h, x1, x2)*(0.2*0.6);
-					overline_ac_1[i][j][p][s] += 25.0*G(1.1 + i*stepReceiver, j*h, x1, x2)*(0.2*0.2);
-					overline_bb_1[i][j][p][s] += 25.0*G(1.1 + i*stepReceiver, j*h, x1, x2)*(0.6*0.6);
-					overline_bc_1[i][j][p][s] += 25.0*G(1.1 + i*stepReceiver, j*h, x1, x2)*(0.6*0.2);
-					overline_cc_1[i][j][p][s] += 25.0*G(1.1 + i*stepReceiver, j*h, x1, x2)*(0.2*0.2);
+					overline_aa_1[i][j][p][s] += 25.0*G(RECEIVER + i*stepReceiver, j*h, x1, x2)*(0.2*0.2);
+					overline_ab_1[i][j][p][s] += 25.0*G(RECEIVER + i*stepReceiver, j*h, x1, x2)*(0.2*0.6);
+					overline_ac_1[i][j][p][s] += 25.0*G(RECEIVER + i*stepReceiver, j*h, x1, x2)*(0.2*0.2);
+					overline_bb_1[i][j][p][s] += 25.0*G(RECEIVER + i*stepReceiver, j*h, x1, x2)*(0.6*0.6);
+					overline_bc_1[i][j][p][s] += 25.0*G(RECEIVER + i*stepReceiver, j*h, x1, x2)*(0.6*0.2);
+					overline_cc_1[i][j][p][s] += 25.0*G(RECEIVER + i*stepReceiver, j*h, x1, x2)*(0.2*0.2);
 
 					aa_1[i][j][p][s] *= 0.01041667*h*h;
 					ab_1[i][j][p][s] *= 0.01041667*h*h;

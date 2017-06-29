@@ -18,6 +18,6 @@ complex<double> G(const double x_1, const double x_2, const double y_1, const do
 void Lasting(const string & st, const clock_t timeStart, const clock_t timeFinish)
 {
 	double d;
-	d = (double)(timeFinish - timeStart) / CLOCKS_PER_SEC;
+	d = static_cast<double>(timeFinish - timeStart) / CLOCKS_PER_SEC;
 	cout << st << " " << d << endl;
 }
