@@ -209,8 +209,8 @@ int main()
 					overline_bc_1[i][j][p][s] += temp * 0.04;
 					overline_cc_1[i][j][p][s] += temp * 0.04;
 
-					x1 = h*0.2 + p*h;
-					x2 = h*0.6 + s*h;
+					x1 = h * 0.2 + p * h;
+					x2 = h * 0.6 + s * h;
 					temp = 25.0 * G(i * h, j * h, x1, x2);
 					aa_1[i][j][p][s] += temp * 0.04;
 					ab_1[i][j][p][s] += temp * 0.12;
@@ -261,8 +261,8 @@ int main()
 					overline_bc_2[i][j][p][s] = temp;
 					overline_cc_2[i][j][p][s] = temp;
 
-					x1 = -h*0.2 + p*h + h;
-					x2 = -h*0.2 + s*h + h;
+					x1 = -h * 0.2 + p * h + h;
+					x2 = -h * 0.2 + s * h + h;
 					temp = 25.0 * G(i * h, j * h, x1, x2);
 					aa_2[i][j][p][s] += temp * 0.04;
 					ab_2[i][j][p][s] += temp * 0.04;
@@ -279,8 +279,8 @@ int main()
 					overline_bc_2[i][j][p][s] += temp * 0.12;
 					overline_cc_2[i][j][p][s] += temp * 0.36;
 
-					x1 = -h*0.2 + p*h + h;
-					x2 = -h*0.6 + s*h + h;
+					x1 = -h * 0.2 + p * h + h;
+					x2 = -h * 0.6 + s * h + h;
 					temp = 25.0 * G(i * h, j * h, x1, x2);
 					aa_2[i][j][p][s] += temp * 0.36;
 					ab_2[i][j][p][s] += temp * 0.12;
@@ -297,8 +297,8 @@ int main()
 					overline_bc_2[i][j][p][s] += temp * 0.04;
 					overline_cc_2[i][j][p][s] += temp * 0.04;
 
-					x1 = -h*0.6 + p*h + h;
-					x2 = -h*0.2 + s*h + h;
+					x1 = -h * 0.6 + p * h + h;
+					x2 = -h * 0.2 + s * h + h;
 					temp = 25.0 * G(i * h, j * h, x1, x2);
 					aa_2[i][j][p][s] += temp * 0.04;
 					ab_2[i][j][p][s] += temp * 0.12;
@@ -336,8 +336,7 @@ int main()
 
 	//печатаем время работы
 	timeFinish = clock();
-	double d = (double)(timeFinish - timeStart) / CLOCKS_PER_SEC;
-	cout << "Time calculation of basic matrices " << d << endl;
+	Lasting("Time calculation of basic matrices", timeStart, timeFinish);
 	timeStart = clock();
 
 	//печатаем коэффициенты в файлы
@@ -657,8 +656,7 @@ int main()
 	f_matrix.close();
 	//печатаем время работы
 	timeFinish = clock();
-	d = (double)(timeFinish - timeStart) / CLOCKS_PER_SEC;
-	cout << "Time recording the basic matrix file " << d << endl;
+	Lasting("Time recording the basic matrix file", timeStart, timeFinish);
 	timeStart = clock();
 
 	// счет функции источника в R и X
@@ -685,8 +683,7 @@ int main()
 
 	//печатаем время работы
 	timeFinish = clock();
-	d = (double)(timeFinish - timeStart) / CLOCKS_PER_SEC;
-	cout << "The computation time of the source function " << d << endl;
+	Lasting("The computation time of the source function", timeStart, timeFinish);
 	timeStart = clock();
 
 	// для нахождения u^(1) составляем СЛАУ основная матрица * u^(1) = правой части
@@ -783,9 +780,9 @@ int main()
 			}
 
 			// сторона OB(0; s)
-			for (int s = 1; s<N; s++)
+			for (size_t s = 1; s < N; ++s)
 			{
-				int auxInd = s;
+				auxInd = s;
 				//1 треугольник
 				substantiveMatrix[ii][auxInd] = aa_1[i][j][0][s] * xi[0][s];
 				substantiveMatrix[ii][auxInd] += ab_1[i][j][0][s - 1] * xi[0][s - 1];
@@ -882,13 +879,13 @@ int main()
 	}
 
 	// Добавляем единицу к главной диагонали
-	for (size_t ii = 0; ii < N_squared; ++ii)
+	for (size_t i = 0; i < N_squared; ++i)
 	{
-		substantiveMatrix[ii][ii] += 1.0;
+		substantiveMatrix[i][i] += 1.0;
 	}
+
 	timeFinish = clock();
-	d = (double)(timeFinish - timeStart) / CLOCKS_PER_SEC;
-	cout << "The computation time of the matrix inside the cube " << d << endl;
+	Lasting("The computation time of the matrix inside the cube", timeStart, timeFinish);
 	timeStart = clock();
 
 	// Находим акустическое поле в приемниках
@@ -919,8 +916,7 @@ int main()
 		}
 
 		timeFinish = clock();
-		d = (double)(timeFinish - timeStart) / CLOCKS_PER_SEC;
-		cout << "Finding the acoustic pressure in R for " << count + 1 << " source " << d << endl;
+		Lasting("Finding the acoustic pressure in R", timeStart, timeFinish);
 		timeStart = clock();
 
 		// находим overline_u_0
@@ -971,15 +967,13 @@ int main()
 				file_overline_u << fixed << setprecision(6) << overline_u[i][j] << " ";
 			}
 		}
+
 		timeFinish = clock();
-		d = (double)(timeFinish - timeStart) / CLOCKS_PER_SEC;
-		cout << "Finding the acoustic pressure in X for " << count + 1 << " source " << d << endl;
+		Lasting("Finding the acoustic pressure in X", timeStart, timeFinish);
 		timeStart = clock();
 	}
 	file_overline_u.close();
 
 	timeFinish = clock();
-	d = (double)(timeFinish - timeBegin) / CLOCKS_PER_SEC;
-	cout << "The total time of the program " << d << endl;
-
+	Lasting("FThe total time of the program", timeBegin, timeFinish);
 }
