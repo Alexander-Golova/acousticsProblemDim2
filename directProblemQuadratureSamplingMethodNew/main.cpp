@@ -12,7 +12,6 @@ using namespace std;
 
 int main()
 {
-	const size_t N = NUMBER_PARTITION_POINT;
 	const Source source;
 
 	vector<vector<complex<double>>> u(NUMBER_PARTITION_POINT + 1,
@@ -90,7 +89,7 @@ int main()
 
 		GetOverlineU(source, count, overline_a, xi, u, overline_u);
 
-		for (size_t j = 0; j <= N; ++j)
+		for (size_t j = 0; j <= NUMBER_PARTITION_POINT; ++j)
 		{
 			file_overline_u << overline_u[j] << " ";
 		}
