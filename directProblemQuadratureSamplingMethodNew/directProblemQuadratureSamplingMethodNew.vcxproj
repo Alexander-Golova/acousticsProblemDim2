@@ -148,6 +148,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\directProblemQuadratureSamplingMethod\matrix_utils.h" />
+    <ClInclude Include="basicArrays.h" />
     <ClInclude Include="basicFunctions.h" />
     <ClInclude Include="Sources.h" />
     <ClInclude Include="stdafx.h" />
@@ -156,6 +157,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\directProblemQuadratureSamplingMethod\matrix_utils.cpp" />
+    <ClCompile Include="basicArrays.cpp" />
     <ClCompile Include="basicFunctions.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Sources.cpp" />

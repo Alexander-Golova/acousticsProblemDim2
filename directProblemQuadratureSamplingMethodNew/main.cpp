@@ -1,5 +1,6 @@
 ﻿#include "stdafx.h"
 #include "basicFunctions.h"
+#include "basicArrays.h"
 #include "Sources.h"
 #include "taskData.h"
 #include "../directProblemQuadratureSamplingMethod/matrix_utils.h"
@@ -9,8 +10,6 @@ using namespace std;
 int main()
 {
 	const size_t N = NUMBER_PARTITION_POINT;
-	const double h = (double)DOMAIN_IN_HOMOGENEITY / N;
-
 	const Source source;
 
 	// выделение памяти для акустического поля u
@@ -58,74 +57,7 @@ int main()
 	// выделение памяти под 2-х мерный квадратный комплексный массив
 	vector<vector<complex<double>>> b(N + 1, vector<complex<double>>(N + 1, complex<double>()));
 
-	// счет индексов метода квадратур
-	vector<double> index(N + 1);
-	for (size_t i = 1; i < N; ++i)
-	{
-		if (i % 2 != 0)
-		{
-			index[i] = 4.0 / 3;
-		}
-		else
-		{
-			index[i] = 2.0 / 3;
-		}
-	}
-	index[0] = 1.0 / 3;
-	index[N] = 1.0 / 3;
-
-	// нахождение массива a
-	for (size_t i = 0; i <= N; ++i)
-	{
-		for (size_t j = 0; j <= N; ++j)
-		{
-			for (size_t p = 0; p < N; ++p)
-			{
-				for (size_t q = 0; q < N; ++q)
-				{
-					if ((i != p) || (q != j))
-					{
-						a[i][j][p][q] = index[p] * index[q];
-						a[i][j][p][q] = a[i][j][p][q] * G(i * h, j * h, p * h, q * h);
-						a[i][j][p][q] = a[i][j][p][q] * h * h;
-					}
-				}
-			}
-		}
-	}
-
-	// нахождение массива overline_a
-	for (size_t j = 0; j <= N; ++j)
-	{
-		for (size_t p = 0; p < N; ++p)
-		{
-			for (size_t q = 0; q < N; ++q)
-			{
-				overline_a[j][p][q] = index[p] * index[q];
-				overline_a[j][p][q] = overline_a[j][p][q] * G(receiver, j * h, p * h, q * h);
-				overline_a[j][p][q] = overline_a[j][p][q] * h * h;
-			}
-		}
-	}
-
-	// нахождение массива b
-	for (size_t i = 0; i <= N; ++i)
-	{
-		for (size_t j = 0; j <= N; ++j)
-		{
-			for (size_t p = 0; p < N; ++p)
-			{
-				for (size_t q = 0; q < N; ++q)
-				{
-					if (i != p)
-					{
-						b[i][j] += G(i * h, j * h, p * h, q * h);
-					}
-				}
-				b[i][j] *= h * h;
-			}
-		}
-	}
+	GetBasicArrays(a, overline_a, b);
 
 	//печатаем время работы
 	timeFinish = clock();
@@ -237,8 +169,7 @@ int main()
 		}
 	}
 	timeFinish = clock();
-	d = (double)(timeFinish - timeStart) / CLOCKS_PER_SEC;
-	cout << "The computation time of the matrix inside the squared " << d << endl;
+	Lasting("The computation time of the matrix inside the squared", timeStart, timeFinish);
 	timeStart = clock();
 
 	// для каждого источника
