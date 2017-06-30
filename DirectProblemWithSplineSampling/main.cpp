@@ -339,400 +339,329 @@ int main()
 	double d = (double)(timeFinish - timeStart) / CLOCKS_PER_SEC;
 	cout << "Time calculation of basic matrices " << d << endl;
 	timeStart = clock();
-	//
+
 	//печатаем коэффициенты в файлы
-	//
-	ofstream f_aa_1("matrix_aa_1.txt");
-	for (int i = 0; i <= N; i++)
+	ofstream f_matrix("matrix.txt");
+	for (size_t i = 0; i <= N; ++i)
 	{
-		for (int j = 0; j <= N; j++)
+		for (size_t j = 0; j <= N; ++j)
 		{
-			for (int p = 0; p<N; p++)
+			for (size_t p = 0; p < N; ++p)
 			{
-				for (int s = 0; s<N; s++)
+				for (size_t s = 0; s < N; ++s)
 				{
-					f_aa_1 << fixed << setprecision(12) << aa_1[i][j][p][s] << " ";
+					f_matrix << fixed << setprecision(6) << aa_1[i][j][p][s] << " ";
 				}
 			}
 		}
 	}
-	f_aa_1.close();
-
-	ofstream f_ab_1("matrix_ab_1.txt");
-	for (int i = 0; i <= N; i++)
+	for (size_t i = 0; i <= N; ++i)
 	{
-		for (int j = 0; j <= N; j++)
+		for (size_t j = 0; j <= N; ++j)
 		{
-			for (int p = 0; p<N; p++)
+			for (size_t p = 0; p < N; ++p)
 			{
-				for (int s = 0; s<N; s++)
+				for (size_t s = 0; s < N; ++s)
 				{
-					f_ab_1 << fixed << setprecision(12) << ab_1[i][j][p][s] << " ";
+					f_matrix << fixed << setprecision(6) << ab_1[i][j][p][s] << " ";
 				}
 			}
 		}
 	}
-	f_ab_1.close();
-
-	ofstream f_ac_1("matrix_ac_1.txt");
-	for (int i = 0; i <= N; i++)
+	for (size_t i = 0; i <= N; ++i)
 	{
-		for (int j = 0; j <= N; j++)
+		for (size_t j = 0; j <= N; ++j)
 		{
-			for (int p = 0; p<N; p++)
+			for (size_t p = 0; p < N; ++p)
 			{
-				for (int s = 0; s<N; s++)
+				for (size_t s = 0; s < N; ++s)
 				{
-					f_ac_1 << fixed << setprecision(12) << ac_1[i][j][p][s] << " ";
+					f_matrix << fixed << setprecision(6) << ac_1[i][j][p][s] << " ";
 				}
 			}
 		}
 	}
-	f_ac_1.close();
-
-	ofstream f_bb_1("matrix_bb_1.txt");
-	for (int i = 0; i <= N; i++)
+	for (size_t i = 0; i <= N; ++i)
 	{
-		for (int j = 0; j <= N; j++)
+		for (size_t j = 0; j <= N; ++j)
 		{
-			for (int p = 0; p<N; p++)
+			for (size_t p = 0; p < N; ++p)
 			{
-				for (int s = 0; s<N; s++)
+				for (size_t s = 0; s < N; ++s)
 				{
-					f_bb_1 << fixed << setprecision(12) << bb_1[i][j][p][s] << " ";
+					f_matrix << fixed << setprecision(6) << bb_1[i][j][p][s] << " ";
 				}
 			}
 		}
 	}
-	f_bb_1.close();
-
-	ofstream f_bc_1("matrix_bc_1.txt");
-	for (int i = 0; i <= N; i++)
+	for (size_t i = 0; i <= N; ++i)
 	{
-		for (int j = 0; j <= N; j++)
+		for (size_t j = 0; j <= N; ++j)
 		{
-			for (int p = 0; p<N; p++)
+			for (size_t p = 0; p < N; ++p)
 			{
-				for (int s = 0; s<N; s++)
+				for (size_t s = 0; s < N; ++s)
 				{
-					f_bc_1 << fixed << setprecision(12) << bc_1[i][j][p][s] << " ";
+					f_matrix << fixed << setprecision(6) << bc_1[i][j][p][s] << " ";
 				}
 			}
 		}
 	}
-	f_bc_1.close();
-
-	ofstream f_cc_1("matrix_cc_1.txt");
-	for (int i = 0; i <= N; i++)
+	for (size_t i = 0; i <= N; ++i)
 	{
-		for (int j = 0; j <= N; j++)
+		for (size_t j = 0; j <= N; ++j)
 		{
-			for (int p = 0; p<N; p++)
+			for (size_t p = 0; p < N; ++p)
 			{
-				for (int s = 0; s<N; s++)
+				for (size_t s = 0; s < N; ++s)
 				{
-					f_cc_1 << fixed << setprecision(12) << cc_1[i][j][p][s] << " ";
+					f_matrix << fixed << setprecision(6) << cc_1[i][j][p][s] << " ";
 				}
 			}
 		}
 	}
-	f_cc_1.close();
-
-	ofstream f_aa_2("matrix_aa_2.txt");
-	for (int i = 0; i <= N; i++)
+	for (size_t i = 0; i <= N; ++i)
 	{
-		for (int j = 0; j <= N; j++)
+		for (size_t j = 0; j <= N; ++j)
 		{
-			for (int p = 0; p<N; p++)
+			for (size_t p = 0; p < N; ++p)
 			{
-				for (int s = 0; s<N; s++)
+				for (size_t s = 0; s < N; ++s)
 				{
-					f_aa_2 << fixed << setprecision(12) << aa_2[i][j][p][s] << " ";
+					f_matrix << fixed << setprecision(6) << aa_2[i][j][p][s] << " ";
 				}
 			}
 		}
 	}
-	f_aa_2.close();
-
-	ofstream f_ab_2("matrix_ab_2.txt");
-	for (int i = 0; i <= N; i++)
+	for (size_t i = 0; i <= N; ++i)
 	{
-		for (int j = 0; j <= N; j++)
+		for (size_t j = 0; j <= N; ++j)
 		{
-			for (int p = 0; p<N; p++)
+			for (size_t p = 0; p < N; ++p)
 			{
-				for (int s = 0; s<N; s++)
+				for (size_t s = 0; s < N; ++s)
 				{
-					f_ab_2 << fixed << setprecision(12) << ab_2[i][j][p][s] << " ";
+					f_matrix << fixed << setprecision(6) << ab_2[i][j][p][s] << " ";
 				}
 			}
 		}
 	}
-	f_ab_2.close();
-
-	ofstream f_ac_2("matrix_ac_2.txt");
-	for (int i = 0; i <= N; i++)
+	for (size_t i = 0; i <= N; ++i)
 	{
-		for (int j = 0; j <= N; j++)
+		for (size_t j = 0; j <= N; ++j)
 		{
-			for (int p = 0; p<N; p++)
+			for (size_t p = 0; p < N; ++p)
 			{
-				for (int s = 0; s<N; s++)
+				for (size_t s = 0; s < N; ++s)
 				{
-					f_ac_2 << fixed << setprecision(12) << ac_2[i][j][p][s] << " ";
+					f_matrix << fixed << setprecision(6) << ac_2[i][j][p][s] << " ";
 				}
 			}
 		}
 	}
-	f_ac_2.close();
-
-	ofstream f_bb_2("matrix_bb_2.txt");
-	for (int i = 0; i <= N; i++)
+	for (size_t i = 0; i <= N; ++i)
 	{
-		for (int j = 0; j <= N; j++)
+		for (size_t j = 0; j <= N; ++j)
 		{
-			for (int p = 0; p<N; p++)
+			for (size_t p = 0; p < N; ++p)
 			{
-				for (int s = 0; s<N; s++)
+				for (size_t s = 0; s < N; ++s)
 				{
-					f_bb_2 << fixed << setprecision(12) << bb_2[i][j][p][s] << " ";
+					f_matrix << fixed << setprecision(6) << bb_2[i][j][p][s] << " ";
 				}
 			}
 		}
 	}
-	f_bb_2.close();
-
-	ofstream f_bc_2("matrix_bc_2.txt");
-	for (int i = 0; i <= N; i++)
+	for (size_t i = 0; i <= N; ++i)
 	{
-		for (int j = 0; j <= N; j++)
+		for (size_t j = 0; j <= N; ++j)
 		{
-			for (int p = 0; p<N; p++)
+			for (size_t p = 0; p < N; ++p)
 			{
-				for (int s = 0; s<N; s++)
+				for (size_t s = 0; s < N; ++s)
 				{
-					f_bc_2 << fixed << setprecision(12) << bc_2[i][j][p][s] << " ";
+					f_matrix << fixed << setprecision(6) << bc_2[i][j][p][s] << " ";
 				}
 			}
 		}
 	}
-	f_bc_2.close();
-
-	ofstream f_cc_2("matrix_cc_2.txt");
-	for (int i = 0; i <= N; i++)
+	for (size_t i = 0; i <= N; ++i)
 	{
-		for (int j = 0; j <= N; j++)
+		for (size_t j = 0; j <= N; ++j)
 		{
-			for (int p = 0; p<N; p++)
+			for (size_t p = 0; p < N; ++p)
 			{
-				for (int s = 0; s<N; s++)
+				for (size_t s = 0; s < N; ++s)
 				{
-					f_cc_2 << fixed << setprecision(12) << cc_2[i][j][p][s] << " ";
+					f_matrix << fixed << setprecision(6) << cc_2[i][j][p][s] << " ";
 				}
 			}
 		}
 	}
-	f_cc_2.close();
-
-	ofstream f_overline_aa_1("matrix_overline_aa_1.txt");
-	for (int i = 0; i <= N; i++)
+	for (size_t i = 0; i <= N; ++i)
 	{
-		for (int j = 0; j <= N; j++)
+		for (size_t j = 0; j <= N; ++j)
 		{
-			for (int p = 0; p<N; p++)
+			for (size_t p = 0; p < N; ++p)
 			{
-				for (int s = 0; s<N; s++)
+				for (size_t s = 0; s < N; ++s)
 				{
-					f_overline_aa_1 << fixed << setprecision(12) << overline_aa_1[i][j][p][s] << " ";
+					f_matrix << fixed << setprecision(6) << overline_aa_1[i][j][p][s] << " ";
 				}
 			}
 		}
 	}
-	f_overline_aa_1.close();
-
-	ofstream f_overline_ab_1("matrix_overline_ab_1.txt");
-	for (int i = 0; i <= N; i++)
+	for (size_t i = 0; i <= N; ++i)
 	{
-		for (int j = 0; j <= N; j++)
+		for (size_t j = 0; j <= N; ++j)
 		{
-			for (int p = 0; p<N; p++)
+			for (size_t p = 0; p < N; ++p)
 			{
-				for (int s = 0; s<N; s++)
+				for (size_t s = 0; s < N; ++s)
 				{
-					f_overline_ab_1 << fixed << setprecision(12) << overline_ab_1[i][j][p][s] << " ";
+					f_matrix << fixed << setprecision(6) << overline_ab_1[i][j][p][s] << " ";
 				}
 			}
 		}
 	}
-	f_overline_ab_1.close();
-
-	ofstream f_overline_ac_1("matrix_overline_ac_1.txt");
-	for (int i = 0; i <= N; i++)
+	for (size_t i = 0; i <= N; ++i)
 	{
-		for (int j = 0; j <= N; j++)
+		for (size_t j = 0; j <= N; ++j)
 		{
-			for (int p = 0; p<N; p++)
+			for (size_t p = 0; p < N; ++p)
 			{
-				for (int s = 0; s<N; s++)
+				for (size_t s = 0; s < N; ++s)
 				{
-					f_overline_ac_1 << fixed << setprecision(12) << overline_ac_1[i][j][p][s] << " ";
+					f_matrix << fixed << setprecision(6) << overline_ac_1[i][j][p][s] << " ";
 				}
 			}
 		}
 	}
-	f_overline_ac_1.close();
-
-	ofstream f_overline_bb_1("matrix_overline_bb_1.txt");
-	for (int i = 0; i <= N; i++)
+	for (size_t i = 0; i <= N; ++i)
 	{
-		for (int j = 0; j <= N; j++)
+		for (size_t j = 0; j <= N; ++j)
 		{
-			for (int p = 0; p<N; p++)
+			for (size_t p = 0; p < N; ++p)
 			{
-				for (int s = 0; s<N; s++)
+				for (size_t s = 0; s < N; ++s)
 				{
-					f_overline_bb_1 << fixed << setprecision(12) << overline_bb_1[i][j][p][s] << " ";
+					f_matrix << fixed << setprecision(6) << overline_bb_1[i][j][p][s] << " ";
 				}
 			}
 		}
 	}
-	f_overline_bb_1.close();
-
-	ofstream f_overline_bc_1("matrix_overline_bc_1.txt");
-	for (int i = 0; i <= N; i++)
+	for (size_t i = 0; i <= N; ++i)
 	{
-		for (int j = 0; j <= N; j++)
+		for (size_t j = 0; j <= N; ++j)
 		{
-			for (int p = 0; p<N; p++)
+			for (size_t p = 0; p < N; ++p)
 			{
-				for (int s = 0; s<N; s++)
+				for (size_t s = 0; s < N; ++s)
 				{
-					f_overline_bc_1 << fixed << setprecision(12) << overline_bc_1[i][j][p][s] << " ";
+					f_matrix << fixed << setprecision(6) << overline_bc_1[i][j][p][s] << " ";
 				}
 			}
 		}
 	}
-	f_overline_bc_1.close();
-
-	ofstream f_overline_cc_1("matrix_overline_cc_1.txt");
-	for (int i = 0; i <= N; i++)
+	for (size_t i = 0; i <= N; ++i)
 	{
-		for (int j = 0; j <= N; j++)
+		for (size_t j = 0; j <= N; ++j)
 		{
-			for (int p = 0; p<N; p++)
+			for (size_t p = 0; p < N; ++p)
 			{
-				for (int s = 0; s<N; s++)
+				for (size_t s = 0; s < N; ++s)
 				{
-					f_overline_cc_1 << fixed << setprecision(12) << overline_cc_1[i][j][p][s] << " ";
+					f_matrix << fixed << setprecision(6) << overline_cc_1[i][j][p][s] << " ";
 				}
 			}
 		}
 	}
-	f_overline_cc_1.close();
-
-	ofstream f_overline_aa_2("matrix_overline_aa_2.txt");
-	for (int i = 0; i <= N; i++)
+	for (size_t i = 0; i <= N; ++i)
 	{
-		for (int j = 0; j <= N; j++)
+		for (size_t j = 0; j <= N; ++j)
 		{
-			for (int p = 0; p<N; p++)
+			for (size_t p = 0; p < N; ++p)
 			{
-				for (int s = 0; s<N; s++)
+				for (size_t s = 0; s < N; ++s)
 				{
-					f_overline_aa_2 << fixed << setprecision(12) << overline_aa_2[i][j][p][s] << " ";
+					f_matrix << fixed << setprecision(6) << overline_aa_2[i][j][p][s] << " ";
 				}
 			}
 		}
 	}
-	f_overline_aa_2.close();
-
-	ofstream f_overline_ab_2("matrix_overline_ab_2.txt");
-	for (int i = 0; i <= N; i++)
+	for (size_t i = 0; i <= N; ++i)
 	{
-		for (int j = 0; j <= N; j++)
+		for (size_t j = 0; j <= N; ++j)
 		{
-			for (int p = 0; p<N; p++)
+			for (size_t p = 0; p < N; ++p)
 			{
-				for (int s = 0; s<N; s++)
+				for (size_t s = 0; s < N; ++s)
 				{
-					f_overline_ab_2 << fixed << setprecision(12) << overline_ab_2[i][j][p][s] << " ";
+					f_matrix << fixed << setprecision(6) << overline_ab_2[i][j][p][s] << " ";
 				}
 			}
 		}
 	}
-	f_overline_ab_2.close();
-
-	ofstream f_overline_ac_2("matrix_overline_ac_2.txt");
-	for (int i = 0; i <= N; i++)
+	for (size_t i = 0; i <= N; ++i)
 	{
-		for (int j = 0; j <= N; j++)
+		for (size_t j = 0; j <= N; ++j)
 		{
-			for (int p = 0; p<N; p++)
+			for (size_t p = 0; p < N; ++p)
 			{
-				for (int s = 0; s<N; s++)
+				for (size_t s = 0; s < N; ++s)
 				{
-					f_overline_ac_2 << fixed << setprecision(12) << overline_ac_2[i][j][p][s] << " ";
+					f_matrix << fixed << setprecision(6) << overline_ac_2[i][j][p][s] << " ";
 				}
 			}
 		}
 	}
-	f_overline_ac_2.close();
-
-	ofstream f_overline_bb_2("matrix_overline_bb_2.txt");
-	for (int i = 0; i <= N; i++)
+	for (size_t i = 0; i <= N; ++i)
 	{
-		for (int j = 0; j <= N; j++)
+		for (size_t j = 0; j <= N; ++j)
 		{
-			for (int p = 0; p<N; p++)
+			for (size_t p = 0; p < N; ++p)
 			{
-				for (int s = 0; s<N; s++)
+				for (size_t s = 0; s < N; ++s)
 				{
-					f_overline_bb_2 << fixed << setprecision(12) << overline_bb_2[i][j][p][s] << " ";
+					f_matrix << fixed << setprecision(6) << overline_bb_2[i][j][p][s] << " ";
 				}
 			}
 		}
 	}
-	f_overline_bb_2.close();
-
-	ofstream f_overline_bc_2("matrix_overline_bc_2.txt");
-	for (int i = 0; i <= N; i++)
+	for (size_t i = 0; i <= N; ++i)
 	{
-		for (int j = 0; j <= N; j++)
+		for (size_t j = 0; j <= N; ++j)
 		{
-			for (int p = 0; p<N; p++)
+			for (size_t p = 0; p < N; ++p)
 			{
-				for (int s = 0; s<N; s++)
+				for (size_t s = 0; s < N; ++s)
 				{
-					f_overline_bc_2 << fixed << setprecision(12) << overline_bc_2[i][j][p][s] << " ";
+					f_matrix << fixed << setprecision(6) << overline_bc_2[i][j][p][s] << " ";
 				}
 			}
 		}
 	}
-	f_overline_bc_2.close();
-
-	ofstream f_overline_cc_2("matrix_overline_cc_2.txt");
-	for (int i = 0; i <= N; i++)
+	for (size_t i = 0; i <= N; ++i)
 	{
-		for (int j = 0; j <= N; j++)
+		for (size_t j = 0; j <= N; ++j)
 		{
-			for (int p = 0; p<N; p++)
+			for (size_t p = 0; p < N; ++p)
 			{
-				for (int s = 0; s<N; s++)
+				for (size_t s = 0; s < N; ++s)
 				{
-					f_overline_cc_2 << fixed << setprecision(12) << overline_cc_2[i][j][p][s] << " ";
+					f_matrix << fixed << setprecision(6) << overline_cc_2[i][j][p][s] << " ";
 				}
 			}
 		}
 	}
-	f_overline_cc_2.close();
+	f_matrix.close();
 	//печатаем время работы
 	timeFinish = clock();
 	d = (double)(timeFinish - timeStart) / CLOCKS_PER_SEC;
 	cout << "Time recording the basic matrix file " << d << endl;
 	timeStart = clock();
-	//
+
 	// счет функции источника в R и X
-	//
 	// первый источник
 	ofstream f_Source_01("f_Source_01.txt");
 	for (int i = 0; i <= N; i++)
