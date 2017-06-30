@@ -129,8 +129,7 @@ int main()
 
 	//печатаем время работы
 	timeFinish = clock();
-	double d = (double)(timeFinish - timeStart) / CLOCKS_PER_SEC;
-	cout << "Time calculation of basic matrices " << d << endl;
+	Lasting("Time calculation of basic matrices", timeStart, timeFinish);
 	timeStart = clock();
 
 	// записываем массивы в файлы
@@ -175,8 +174,7 @@ int main()
 
 	//печатаем время работы
 	timeFinish = clock();
-	d = (double)(timeFinish - timeStart) / CLOCKS_PER_SEC;
-	cout << "Download time major arrays " << d << endl;
+	Lasting("Download time major arrays", timeStart, timeFinish);
 	timeStart = clock();
 
 	// счет функции источника в R и X
@@ -200,8 +198,7 @@ int main()
 
 	//печатаем время работы
 	timeFinish = clock();
-	d = (double)(timeFinish - timeStart) / CLOCKS_PER_SEC;
-	cout << "The computation time of the source function " << d << endl;
+	Lasting("The computation time of the source function", timeStart, timeFinish);
 	timeStart = clock();
 
 	// для нахождения u^(1) составляем СЛАУ основная матрица * u^(1) = правой части
@@ -269,9 +266,9 @@ int main()
 			coordinate_y = i % (N + 1);
 			u[coordinate_x][coordinate_y] = numbered_u[i];
 		}
+
 		timeFinish = clock();
-		d = (double)(timeFinish - timeStart) / CLOCKS_PER_SEC;
-		cout << "Finding the acoustic pressure in R for " << count + 1 << " source " << d << endl;
+		Lasting("Finding the acoustic pressure in R", timeStart, timeFinish);
 		timeStart = clock();
 
 		// находим overline_u_0
@@ -294,16 +291,13 @@ int main()
 		{
 			file_overline_u << fixed << setprecision(6) << overline_u[j] << " ";
 		}
+
 		timeFinish = clock();
-		d = (double)(timeFinish - timeStart) / CLOCKS_PER_SEC;
-		cout << "Finding the acoustic pressure in X for " << count + 1 << " source " << d << endl;
+		Lasting("Finding the acoustic pressure in X", timeStart, timeFinish);
 		timeStart = clock();
 	}
 	file_overline_u.close();
 
 	timeFinish = clock();
-	d = (double)(timeFinish - timeBegin) / CLOCKS_PER_SEC;
-	cout << "The total time of the program " << d << endl;
-
-	return 0;
+	Lasting("The total time of the program", timeBegin, timeFinish);
 }
