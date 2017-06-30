@@ -150,6 +150,7 @@
     <ClInclude Include="..\directProblemQuadratureSamplingMethod\matrix_utils.h" />
     <ClInclude Include="basicArrays.h" />
     <ClInclude Include="basicFunctions.h" />
+    <ClInclude Include="exact_solution.h" />
     <ClInclude Include="Sources.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
@@ -159,6 +160,7 @@
     <ClCompile Include="..\directProblemQuadratureSamplingMethod\matrix_utils.cpp" />
     <ClCompile Include="basicArrays.cpp" />
     <ClCompile Include="basicFunctions.cpp" />
+    <ClCompile Include="exact_solution.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Sources.cpp" />
     <ClCompile Include="stdafx.cpp">

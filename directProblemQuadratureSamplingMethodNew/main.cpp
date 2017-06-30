@@ -3,6 +3,7 @@
 #include "basicArrays.h"
 #include "Sources.h"
 #include "taskData.h"
+#include"exact_solution.h"
 #include "../directProblemQuadratureSamplingMethod/matrix_utils.h"
 
 using namespace std;
@@ -12,38 +13,23 @@ int main()
 	const size_t N = NUMBER_PARTITION_POINT;
 	const Source source;
 
-	// выделение памяти для акустического поля u
+	// выделение памяти
 	vector<vector<complex<double>>> u(N + 1, vector<complex<double>>(N + 1, complex<double>()));
-
-	// задание точного решения \xi
 	vector<vector<double>> xi(N + 1, vector<double>(N + 1, 0.0));
-	for (size_t i = 0; i <= N; ++i)
-	{
-		for (size_t j = 0; j <= N; ++j)
-		{
-			xi[i][j] = 0.8 * exp(-(i * h - 6.0) * (i * h - 6.0) - (j * h - 6.0) * (j * h - 6.0)) +
-				0.2 * exp(-(i * h - 2.0) * (i * h - 2.0) - (j * h - 2.0) * (j * h - 2.0));
-		}
-	}
-	//печатаем точное решение в файл
-	ofstream f_xi("exact_xi.txt");
-	for (size_t i = 0; i <= N; ++i)
-	{
-		for (size_t j = 0; j <= N; ++j)
-		{
-			f_xi << fixed << setprecision(6) << xi[i][j] << " ";
-		}
-	}
-	f_xi.close();
 
-	// 
+	// задание точного решения xi
+	GetExactSolution(xi);
+
+	ofstream file_xi("exact_xi.txt");
+	WriteSolutionFile(file_xi, xi);
+	file_xi.close();
+
 	// Начало вычислений основных матриц
 	//
 	// начало счета времени
 	clock_t timeStart, timeFinish, timeBegin;
 	timeBegin = clock();
 	timeStart = clock();
-
 
 	// выделение памяти под 4-х мерный "квадратный" комплексный массив
 	vector<vector<vector<vector<complex<double>>>>> a(N + 1,
