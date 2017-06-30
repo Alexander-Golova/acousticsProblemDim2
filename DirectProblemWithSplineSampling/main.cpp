@@ -662,105 +662,26 @@ int main()
 	timeStart = clock();
 
 	// счет функции источника в R и X
-	// первый источник
-	ofstream f_Source_01("f_Source_01.txt");
-	for (int i = 0; i <= N; i++)
+	ofstream fileSource("Source.txt");
+	for (size_t count = 0; count < source.numberSource; ++count)
 	{
-		for (int j = 0; j <= N; j++)
+		for (size_t i = 0; i <= N; ++i)
 		{
-			f_Source_01 << fixed << setprecision(12) << f_01(i*h, j*h) << " ";
+			for (size_t j = 0; j <= N; ++j)
+			{
+				fileSource << fixed << setprecision(6) << source.Function(source.node[count], i * h, j * h) << " ";
+			}
 		}
-	}
-	f_Source_01.close();
-	ofstream f_Source_02("f_Source_02.txt");
-	for (int i = 0; i <= N; i++)
-	{
-		for (int j = 0; j <= N; j++)
-		{
-			f_Source_02 << fixed << setprecision(12) << f_01(1.1 + i*stepReceiver, j*h) << " ";
-		}
-	}
-	f_Source_02.close();
 
-	// второй источник
-	ofstream f_Source_03("f_Source_03.txt");
-	for (int i = 0; i <= N; i++)
-	{
-		for (int j = 0; j <= N; j++)
+		for (size_t i = 0; i <= N; ++i)
 		{
-			f_Source_03 << fixed << setprecision(12) << f_02(i*h, j*h) << " ";
+			for (size_t j = 0; j <= N; ++j)
+			{
+				fileSource << fixed << setprecision(6) << source.Function(source.node[count], RECEIVER + i * stepReceiver, j * h) << " ";
+			}
 		}
 	}
-	f_Source_03.close();
-	ofstream f_Source_04("f_Source_04.txt");
-	for (int i = 0; i <= N; i++)
-	{
-		for (int j = 0; j <= N; j++)
-		{
-			f_Source_04 << fixed << setprecision(12) << f_02(1.1 + i*stepReceiver, j*h) << " ";
-		}
-	}
-	f_Source_04.close();
-
-	// третий источник
-	ofstream f_Source_05("f_Source_05.txt");
-	for (int i = 0; i <= N; i++)
-	{
-		for (int j = 0; j <= N; j++)
-		{
-			f_Source_05 << fixed << setprecision(12) << f_03(i*h, j*h) << " ";
-		}
-	}
-	f_Source_05.close();
-	ofstream f_Source_06("f_Source_06.txt");
-	for (int i = 0; i <= N; i++)
-	{
-		for (int j = 0; j <= N; j++)
-		{
-			f_Source_06 << fixed << setprecision(12) << f_03(1.1 + i*stepReceiver, j*h) << " ";
-		}
-	}
-	f_Source_06.close();
-
-	// четвертый источник
-	ofstream f_Source_07("f_Source_07.txt");
-	for (int i = 0; i <= N; i++)
-	{
-		for (int j = 0; j <= N; j++)
-		{
-			f_Source_07 << fixed << setprecision(12) << f_04(i*h, j*h) << " ";
-		}
-	}
-	f_Source_07.close();
-	ofstream f_Source_08("f_Source_08.txt");
-	for (int i = 0; i <= N; i++)
-	{
-		for (int j = 0; j <= N; j++)
-		{
-			f_Source_08 << fixed << setprecision(12) << f_04(1.1 + i*stepReceiver, j*h) << " ";
-		}
-	}
-	f_Source_08.close();
-
-	// пятый источник
-	ofstream f_Source_09("f_Source_09.txt");
-	for (int i = 0; i <= N; i++)
-	{
-		for (int j = 0; j <= N; j++)
-		{
-			f_Source_09 << fixed << setprecision(12) << f_05(i*h, j*h) << " ";
-		}
-	}
-	f_Source_09.close();
-	ofstream f_Source_10("f_Source_10.txt");
-	for (int i = 0; i <= N; i++)
-	{
-		for (int j = 0; j <= N; j++)
-		{
-			f_Source_10 << fixed << setprecision(12) << f_05(1.1 + i*stepReceiver, j*h) << " ";
-		}
-	}
-	f_Source_10.close();
+	fileSource.close();
 
 	//печатаем время работы
 	timeFinish = clock();
