@@ -688,56 +688,36 @@ int main()
 	d = (double)(timeFinish - timeStart) / CLOCKS_PER_SEC;
 	cout << "The computation time of the source function " << d << endl;
 	timeStart = clock();
-	//
+
 	// для нахождения u^(1) составляем СЛАУ основная матрица * u^(1) = правой части
-	//
 	// substantiveMatrix[ii][jj] * numbered_u[jj] = rightPartEequation[ii]
-	//
-	int N_squared;
-	N_squared = (N + 1)*(N + 1);
-	//
-	// память под перенумерованный массив и правую часть
-	complex<double> *numbered_u, *rightPartEquation;
-	rightPartEquation = new complex<double>[N_squared];
-	numbered_u = new complex<double>[N_squared];
-	//память под основную матрицу
-	complex<double> **substantiveMatrix;
-	substantiveMatrix = new complex<double> *[N_squared];
-	for (int i = 0; i<N_squared; i++)
-	{
-		substantiveMatrix[i] = new complex<double>[N_squared];
-	}
-	// выделение памяти для overline_u_0
-	complex<double> **overline_u;
-	overline_u = new complex<double> *[N + 1];
-	for (int i = 0; i <= N; i++)
-	{
-		overline_u[i] = new complex<double>[N + 1];
-	}
-	//
+
+	const size_t N_squared = (N + 1) * (N + 1);
+	vector<complex<double>> rightPartEquation(N_squared, complex<double>());
+	vector<complex<double>> numbered_u(N_squared);
+	vector<vector<complex<double>>> substantiveMatrix(N_squared, vector<complex<double>>(N_squared, complex<double>()));
+	vector<vector<complex<double>>> overline_u(N + 1, vector<complex<double>>(N + 1, complex<double>()));
+
 	//счет основной матрицы
-	//
-	int ii, jj;
-	//
+	size_t ii, jj;
+	size_t auxInd;
+
 	// считаем для вершин квадрата
-	//
-	for (int i = 0; i <= N; i++)
+	for (size_t i = 0; i <= N; ++i)
 	{
-		for (int j = 0; j <= N; j++)
+		for (size_t j = 0; j <= N; ++j)
 		{
-			ii = i*(N + 1) + j;
-			//
+			ii = i * (N + 1) + j;
+
 			// вершина O(0; 0)
-			//
 			//1 треугольник
 			substantiveMatrix[ii][0] = aa_1[i][j][0][0] * xi[0][0];
 			substantiveMatrix[ii][0] += ab_1[i][j][0][0] * xi[0][1];
 			substantiveMatrix[ii][0] += ac_1[i][j][0][0] * xi[1][0];
+
 			//2 треугольник
-			//
 			// вершина A(N; 0)
-			//
-			int auxInd = N*(N + 1);
+			auxInd = N * (N + 1);
 			//1 треугольник
 			substantiveMatrix[ii][auxInd] = aa_1[i][j][N][0] * xi[N][0];
 			substantiveMatrix[ii][auxInd] += ab_1[i][j][N][0] * xi[N][1];
@@ -748,9 +728,8 @@ int main()
 			substantiveMatrix[ii][auxInd] += ac_2[i][j][N - 1][0] * xi[N][1];
 			substantiveMatrix[ii][auxInd] += bc_2[i][j][N - 1][0] * xi[N - 1][1];
 			substantiveMatrix[ii][auxInd] += cc_2[i][j][N - 1][0] * xi[N][0];
-			//
+
 			// вершина B(0; N)
-			//
 			auxInd = N;
 			//1 треугольник
 			substantiveMatrix[ii][auxInd] = aa_1[i][j][0][N] * xi[0][N];
@@ -762,10 +741,9 @@ int main()
 			substantiveMatrix[ii][auxInd] += ab_2[i][j][0][N - 1] * xi[1][N];
 			substantiveMatrix[ii][auxInd] += bb_2[i][j][0][N - 1] * xi[0][N];
 			substantiveMatrix[ii][auxInd] += bc_2[i][j][0][N - 1] * xi[1][N - 1];
-			//
+
 			// вершина C(N; N)
-			//
-			auxInd = N*(N + 1) + N;
+			auxInd = N * (N + 1) + N;
 			//1 треугольник
 			substantiveMatrix[ii][auxInd] = aa_1[i][j][N][N] * xi[N][N];
 			substantiveMatrix[ii][auxInd] += ac_1[i][j][N - 1][N] * xi[N - 1][N];
@@ -779,20 +757,18 @@ int main()
 			substantiveMatrix[ii][auxInd] += cc_2[i][j][N - 1][N] * xi[N][N];
 		}
 	}
-	//
+
 	// считаем для сторон квадрата
-	//
-	for (int i = 0; i <= N; i++)
+	for (size_t i = 0; i <= N; ++i)
 	{
-		for (int j = 0; j <= N; j++)
+		for (size_t j = 0; j <= N; ++j)
 		{
-			ii = i*(N + 1) + j;
-			//
+			ii = i * (N + 1) + j;
+
 			// сторона OA(p; 0)
-			//
-			for (int p = 1; p<N; p++)
+			for (size_t p = 1; p < N; ++p)
 			{
-				int auxInd = p*(N + 1);
+				auxInd = p * (N + 1);
 				//1 треугольник
 				substantiveMatrix[ii][auxInd] = aa_1[i][j][p][0] * xi[p][0];
 				substantiveMatrix[ii][auxInd] += ab_1[i][j][p][0] * xi[p][1];
@@ -805,9 +781,8 @@ int main()
 				substantiveMatrix[ii][auxInd] += bc_2[i][j][p - 1][0] * xi[p - 1][1];
 				substantiveMatrix[ii][auxInd] += cc_2[i][j][p - 1][0] * xi[p][0];
 			}
-			//
+
 			// сторона OB(0; s)
-			//
 			for (int s = 1; s<N; s++)
 			{
 				int auxInd = s;
@@ -826,9 +801,9 @@ int main()
 			//
 			// сторона BC(p; N)
 			//
-			for (int p = 1; p<N; p++)
+			for (size_t p = 1; p < N; ++p)
 			{
-				int auxInd = p*(N + 1) + N;
+				auxInd = p * (N + 1) + N;
 				//1 треугольник
 				substantiveMatrix[ii][auxInd] = aa_1[i][j][p][N] * xi[p][N];
 				substantiveMatrix[ii][auxInd] += ac_1[i][j][p - 1][N] * xi[p - 1][N];
@@ -845,12 +820,11 @@ int main()
 				substantiveMatrix[ii][auxInd] += bc_2[i][j][p][N - 1] * xi[p + 1][N - 1];
 				substantiveMatrix[ii][auxInd] += cc_2[i][j][p - 1][N] * xi[p][N];
 			}
-			//
+
 			// сторона AC(N; s)
-			//
-			for (int s = 1; s<N; s++)
+			for (size_t s = 1; s < N; ++s)
 			{
-				int auxInd = N*(N + 1) + s;
+				auxInd = N * (N + 1) + s;
 				//1 треугольник
 				substantiveMatrix[ii][auxInd] = aa_1[i][j][N][s] * xi[N][s];
 				substantiveMatrix[ii][auxInd] += ab_1[i][j][N][s - 1] * xi[N][s - 1];
@@ -870,19 +844,18 @@ int main()
 			}
 		}
 	}
-	//
+
 	// считаем для внутренних точек квадрата
-	//
-	for (int i = 1; i<N; i++)
+	for (size_t i = 1; i < N; ++i)
 	{
-		for (int j = 1; j<N; j++)
+		for (size_t j = 1; j < N; ++j)
 		{
-			ii = i*(N + 1) + j;
-			for (int p = 1; p<N; p++)
+			ii = i * (N + 1) + j;
+			for (size_t p = 1; p < N; ++p)
 			{
-				for (int s = 1; s<N; s++)
+				for (size_t s = 1; s < N; ++s)
 				{
-					jj = p*(N + 1) + s;
+					jj = p * (N + 1) + s;
 					//1 треугольник
 					substantiveMatrix[ii][jj] = aa_1[i][j][p][s] * xi[p][s];
 					substantiveMatrix[ii][jj] += ab_1[i][j][p][s - 1] * xi[p][s - 1];
@@ -907,442 +880,106 @@ int main()
 			}
 		}
 	}
-	//
+
 	// Добавляем единицу к главной диагонали
-	//
-	for (int ii = 0; ii<N_squared; ii++)
+	for (size_t ii = 0; ii < N_squared; ++ii)
 	{
-		substantiveMatrix[ii][ii] += 1;
+		substantiveMatrix[ii][ii] += 1.0;
 	}
 	timeFinish = clock();
 	d = (double)(timeFinish - timeStart) / CLOCKS_PER_SEC;
 	cout << "The computation time of the matrix inside the cube " << d << endl;
 	timeStart = clock();
-	//
+
 	// Находим акустическое поле в приемниках
-	//
-	////////////////////////////////////////////////////////
-	///Для первого источника
-	///////////////////////////////////////////////////////
-	// нахождение правой части
-	for (int i = 0; i <= N; i++)
+	// для каждого источника
+	ofstream file_overline_u("matrix_overline_u.txt");
+	for (size_t count = 0; count < source.numberSource; ++count)
 	{
-		for (int j = 0; j <= N; j++)
+		// нахождение правой части
+		for (size_t i = 0; i <= N; ++i)
 		{
-			ii = i*(N + 1) + j;
-			rightPartEquation[ii] = f_01(i*h, j*h);
-		}
-	}
-	// нахождение u^{(1)}
-	SolveSlauGaussa(substantiveMatrix, N_squared, rightPartEquation, numbered_u);
-	//
-	// Обратная перенумерация
-	//
-	for (int ii = 0; ii<N_squared; ii++)
-	{
-		int coordinate_x = ii / (N + 1);
-		int coordinate_y = ii % (N + 1);
-		u[coordinate_x][coordinate_y] = numbered_u[ii];
-	}
-	timeFinish = clock();
-	d = (double)(timeFinish - timeStart) / CLOCKS_PER_SEC;
-	cout << "Finding the acoustic pressure in R for 1 source " << d << endl;
-	timeStart = clock();
-	//
-	// находим overline_u_0
-	//
-	for (int i = 0; i <= N; i++)
-	{
-		for (int j = 0; j <= N; j++)
-		{
-			overline_u[i][j] = f_01(1.1 + i*stepReceiver, j*h);
-		}
-	}
-
-	for (int i = 0; i <= N; i++)
-	{
-		for (int j = 0; j <= N; j++)
-		{
-			for (int p = 0; p<N; p++)
+			for (size_t j = 0; j <= N; ++j)
 			{
-				for (int s = 0; s<N; s++)
+				ii = i * (N + 1) + j;
+				rightPartEquation[ii] = source.Function(source.node[count], i * h, j * h);
+			}
+		}
+		// нахождение u^{(count)}
+		SolveSlauGaussa(substantiveMatrix, rightPartEquation, numbered_u);
+
+		// Обратная перенумерация
+		size_t coordinate_x;
+		size_t coordinate_y;
+		for (size_t i = 0; i < N_squared; ++i)
+		{
+			coordinate_x = i / (N + 1);
+			coordinate_y = i % (N + 1);
+			u[coordinate_x][coordinate_y] = numbered_u[i];
+		}
+
+		timeFinish = clock();
+		d = (double)(timeFinish - timeStart) / CLOCKS_PER_SEC;
+		cout << "Finding the acoustic pressure in R for " << count + 1 << " source " << d << endl;
+		timeStart = clock();
+
+		// находим overline_u_0
+		for (size_t i = 0; i <= N; ++i)
+		{
+			for (size_t j = 0; j <= N; ++j)
+			{
+				overline_u[i][j] = source.Function(source.node[count], RECEIVER + i * stepReceiver, j * h);
+			}
+		}
+		for (size_t i = 0; i <= N; ++i)
+		{
+			for (size_t j = 0; j <= N; ++j)
+			{
+				for (size_t p = 0; p < N; ++p)
 				{
-					//1 треугольник
-					overline_u[i][j] -= overline_aa_1[i][j][p][s] * xi[p][s] * u[p][s];
-					overline_u[i][j] -= overline_ab_1[i][j][p][s] * xi[p][s] * u[p][s + 1];
-					overline_u[i][j] -= overline_ab_1[i][j][p][s] * xi[p][s + 1] * u[p][s];
-					overline_u[i][j] -= overline_ac_1[i][j][p][s] * xi[p][s] * u[p + 1][s];
-					overline_u[i][j] -= overline_ac_1[i][j][p][s] * xi[p + 1][s] * u[p][s];
-					overline_u[i][j] -= overline_bb_1[i][j][p][s] * xi[p][s + 1] * u[p][s + 1];
-					overline_u[i][j] -= overline_bc_1[i][j][p][s] * xi[p][s + 1] * u[p + 1][s];
-					overline_u[i][j] -= overline_bc_1[i][j][p][s] * xi[p + 1][s] * u[p][s + 1];
-					overline_u[i][j] -= overline_cc_1[i][j][p][s] * xi[p + 1][s] * u[p + 1][s];
-					//2 треугольник
-					overline_u[i][j] -= overline_aa_2[i][j][p][s] * xi[p + 1][s + 1] * u[p + 1][s + 1];
-					overline_u[i][j] -= overline_ab_2[i][j][p][s] * xi[p + 1][s + 1] * u[p][s + 1];
-					overline_u[i][j] -= overline_ab_2[i][j][p][s] * xi[p][s + 1] * u[p + 1][s + 1];
-					overline_u[i][j] -= overline_ac_2[i][j][p][s] * xi[p + 1][s + 1] * u[p + 1][s];
-					overline_u[i][j] -= overline_ac_2[i][j][p][s] * xi[p + 1][s] * u[p + 1][s + 1];
-					overline_u[i][j] -= overline_bb_2[i][j][p][s] * xi[p][s + 1] * u[p][s + 1];
-					overline_u[i][j] -= overline_bc_2[i][j][p][s] * xi[p][s + 1] * u[p + 1][s];
-					overline_u[i][j] -= overline_bc_2[i][j][p][s] * xi[p + 1][s] * u[p][s + 1];
-					overline_u[i][j] -= overline_cc_2[i][j][p][s] * xi[p + 1][s] * u[p + 1][s];
+					for (size_t s = 0; s < N; ++s)
+					{
+						//1 треугольник
+						overline_u[i][j] -= overline_aa_1[i][j][p][s] * xi[p][s] * u[p][s];
+						overline_u[i][j] -= overline_ab_1[i][j][p][s] * xi[p][s] * u[p][s + 1];
+						overline_u[i][j] -= overline_ab_1[i][j][p][s] * xi[p][s + 1] * u[p][s];
+						overline_u[i][j] -= overline_ac_1[i][j][p][s] * xi[p][s] * u[p + 1][s];
+						overline_u[i][j] -= overline_ac_1[i][j][p][s] * xi[p + 1][s] * u[p][s];
+						overline_u[i][j] -= overline_bb_1[i][j][p][s] * xi[p][s + 1] * u[p][s + 1];
+						overline_u[i][j] -= overline_bc_1[i][j][p][s] * xi[p][s + 1] * u[p + 1][s];
+						overline_u[i][j] -= overline_bc_1[i][j][p][s] * xi[p + 1][s] * u[p][s + 1];
+						overline_u[i][j] -= overline_cc_1[i][j][p][s] * xi[p + 1][s] * u[p + 1][s];
+						//2 треугольник
+						overline_u[i][j] -= overline_aa_2[i][j][p][s] * xi[p + 1][s + 1] * u[p + 1][s + 1];
+						overline_u[i][j] -= overline_ab_2[i][j][p][s] * xi[p + 1][s + 1] * u[p][s + 1];
+						overline_u[i][j] -= overline_ab_2[i][j][p][s] * xi[p][s + 1] * u[p + 1][s + 1];
+						overline_u[i][j] -= overline_ac_2[i][j][p][s] * xi[p + 1][s + 1] * u[p + 1][s];
+						overline_u[i][j] -= overline_ac_2[i][j][p][s] * xi[p + 1][s] * u[p + 1][s + 1];
+						overline_u[i][j] -= overline_bb_2[i][j][p][s] * xi[p][s + 1] * u[p][s + 1];
+						overline_u[i][j] -= overline_bc_2[i][j][p][s] * xi[p][s + 1] * u[p + 1][s];
+						overline_u[i][j] -= overline_bc_2[i][j][p][s] * xi[p + 1][s] * u[p][s + 1];
+						overline_u[i][j] -= overline_cc_2[i][j][p][s] * xi[p + 1][s] * u[p + 1][s];
+					}
 				}
 			}
 		}
-	}
-	// печать overline_u_0^(1) в файл в одну строчку
-	ofstream f_overline_u_1("matrix_overline_u_1.txt");
-	for (int i = 0; i <= N; i++)
-	{
-		for (int j = 0; j <= N; j++)
+		// печать overline_u_0^(count) в файл в одну строчку
+		for (size_t i = 0; i <= N; ++i)
 		{
-			f_overline_u_1 << fixed << setprecision(12) << overline_u[i][j] << " ";
-		}
-	}
-	f_overline_u_1.close();
-	timeFinish = clock();
-	d = (double)(timeFinish - timeStart) / CLOCKS_PER_SEC;
-	cout << "Finding the acoustic pressure in X for 1 source " << d << endl;
-	timeStart = clock();
-	////////////////////////////////////////////////////////
-	///Для второго источника
-	///////////////////////////////////////////////////////
-	// нахождение правой части
-	for (int i = 0; i <= N; i++)
-	{
-		for (int j = 0; j <= N; j++)
-		{
-			ii = i*(N + 1) + j;
-			rightPartEquation[ii] = f_02(i*h, j*h);
-		}
-	}
-	// нахождение u^{(2)}
-	SolveSlauGaussa(substantiveMatrix, N_squared, rightPartEquation, numbered_u);
-	//
-	// Обратная перенумерация
-	//
-	for (int ii = 0; ii<N_squared; ii++)
-	{
-		int coordinate_x = ii / (N + 1);
-		int coordinate_y = ii % (N + 1);
-		u[coordinate_x][coordinate_y] = numbered_u[ii];
-	}
-	timeFinish = clock();
-	d = (double)(timeFinish - timeStart) / CLOCKS_PER_SEC;
-	cout << "Finding the acoustic pressure in R for 2 source " << d << endl;
-	timeStart = clock();
-	//
-	// находим overline_u_0
-	//
-	for (int i = 0; i <= N; i++)
-	{
-		for (int j = 0; j <= N; j++)
-		{
-			overline_u[i][j] = f_02(1.1 + i*stepReceiver, j*h);
-		}
-	}
-
-	for (int i = 0; i <= N; i++)
-	{
-		for (int j = 0; j <= N; j++)
-		{
-			for (int p = 0; p<N; p++)
+			for (size_t j = 0; j <= N; ++j)
 			{
-				for (int s = 0; s<N; s++)
-				{
-					//1 треугольник
-					overline_u[i][j] -= overline_aa_1[i][j][p][s] * xi[p][s] * u[p][s];
-					overline_u[i][j] -= overline_ab_1[i][j][p][s] * xi[p][s] * u[p][s + 1];
-					overline_u[i][j] -= overline_ab_1[i][j][p][s] * xi[p][s + 1] * u[p][s];
-					overline_u[i][j] -= overline_ac_1[i][j][p][s] * xi[p][s] * u[p + 1][s];
-					overline_u[i][j] -= overline_ac_1[i][j][p][s] * xi[p + 1][s] * u[p][s];
-					overline_u[i][j] -= overline_bb_1[i][j][p][s] * xi[p][s + 1] * u[p][s + 1];
-					overline_u[i][j] -= overline_bc_1[i][j][p][s] * xi[p][s + 1] * u[p + 1][s];
-					overline_u[i][j] -= overline_bc_1[i][j][p][s] * xi[p + 1][s] * u[p][s + 1];
-					overline_u[i][j] -= overline_cc_1[i][j][p][s] * xi[p + 1][s] * u[p + 1][s];
-					//2 треугольник
-					overline_u[i][j] -= overline_aa_2[i][j][p][s] * xi[p + 1][s + 1] * u[p + 1][s + 1];
-					overline_u[i][j] -= overline_ab_2[i][j][p][s] * xi[p + 1][s + 1] * u[p][s + 1];
-					overline_u[i][j] -= overline_ab_2[i][j][p][s] * xi[p][s + 1] * u[p + 1][s + 1];
-					overline_u[i][j] -= overline_ac_2[i][j][p][s] * xi[p + 1][s + 1] * u[p + 1][s];
-					overline_u[i][j] -= overline_ac_2[i][j][p][s] * xi[p + 1][s] * u[p + 1][s + 1];
-					overline_u[i][j] -= overline_bb_2[i][j][p][s] * xi[p][s + 1] * u[p][s + 1];
-					overline_u[i][j] -= overline_bc_2[i][j][p][s] * xi[p][s + 1] * u[p + 1][s];
-					overline_u[i][j] -= overline_bc_2[i][j][p][s] * xi[p + 1][s] * u[p][s + 1];
-					overline_u[i][j] -= overline_cc_2[i][j][p][s] * xi[p + 1][s] * u[p + 1][s];
-				}
+				file_overline_u << fixed << setprecision(6) << overline_u[i][j] << " ";
 			}
 		}
+		timeFinish = clock();
+		d = (double)(timeFinish - timeStart) / CLOCKS_PER_SEC;
+		cout << "Finding the acoustic pressure in X for " << count + 1 << " source " << d << endl;
+		timeStart = clock();
 	}
-	// печать overline_u_0^(2) в файл в одну строчку
-	ofstream f_overline_u_2("matrix_overline_u_2.txt");
-	for (int i = 0; i <= N; i++)
-	{
-		for (int j = 0; j <= N; j++)
-		{
-			f_overline_u_2 << fixed << setprecision(12) << overline_u[i][j] << " ";
-		}
-	}
-	f_overline_u_2.close();
-	timeFinish = clock();
-	d = (double)(timeFinish - timeStart) / CLOCKS_PER_SEC;
-	cout << "Finding the acoustic pressure in X for 2 source " << d << endl;
-	timeStart = clock();
+	file_overline_u.close();
 
-	////////////////////////////////////////////////////////
-	///Для третьего источника
-	///////////////////////////////////////////////////////
-	// нахождение правой части
-	for (int i = 0; i <= N; i++)
-	{
-		for (int j = 0; j <= N; j++)
-		{
-			ii = i*(N + 1) + j;
-			rightPartEquation[ii] = f_03(i*h, j*h);
-		}
-	}
-	// нахождение u^{(3)}
-	SolveSlauGaussa(substantiveMatrix, N_squared, rightPartEquation, numbered_u);
-	//
-	// Обратная перенумерация
-	//
-	for (int ii = 0; ii<N_squared; ii++)
-	{
-		int coordinate_x = ii / (N + 1);
-		int coordinate_y = ii % (N + 1);
-		u[coordinate_x][coordinate_y] = numbered_u[ii];
-	}
 	timeFinish = clock();
-	d = (double)(timeFinish - timeStart) / CLOCKS_PER_SEC;
-	cout << "Finding the acoustic pressure in R for 3 source " << d << endl;
-	timeStart = clock();
-	//
-	// находим overline_u_0
-	//
-	for (int i = 0; i <= N; i++)
-	{
-		for (int j = 0; j <= N; j++)
-		{
-			overline_u[i][j] = f_03(1.1 + i*stepReceiver, j*h);
-		}
-	}
-
-	for (int i = 0; i <= N; i++)
-	{
-		for (int j = 0; j <= N; j++)
-		{
-			for (int p = 0; p<N; p++)
-			{
-				for (int s = 0; s<N; s++)
-				{
-					//1 треугольник
-					overline_u[i][j] -= overline_aa_1[i][j][p][s] * xi[p][s] * u[p][s];
-					overline_u[i][j] -= overline_ab_1[i][j][p][s] * xi[p][s] * u[p][s + 1];
-					overline_u[i][j] -= overline_ab_1[i][j][p][s] * xi[p][s + 1] * u[p][s];
-					overline_u[i][j] -= overline_ac_1[i][j][p][s] * xi[p][s] * u[p + 1][s];
-					overline_u[i][j] -= overline_ac_1[i][j][p][s] * xi[p + 1][s] * u[p][s];
-					overline_u[i][j] -= overline_bb_1[i][j][p][s] * xi[p][s + 1] * u[p][s + 1];
-					overline_u[i][j] -= overline_bc_1[i][j][p][s] * xi[p][s + 1] * u[p + 1][s];
-					overline_u[i][j] -= overline_bc_1[i][j][p][s] * xi[p + 1][s] * u[p][s + 1];
-					overline_u[i][j] -= overline_cc_1[i][j][p][s] * xi[p + 1][s] * u[p + 1][s];
-					//2 треугольник
-					overline_u[i][j] -= overline_aa_2[i][j][p][s] * xi[p + 1][s + 1] * u[p + 1][s + 1];
-					overline_u[i][j] -= overline_ab_2[i][j][p][s] * xi[p + 1][s + 1] * u[p][s + 1];
-					overline_u[i][j] -= overline_ab_2[i][j][p][s] * xi[p][s + 1] * u[p + 1][s + 1];
-					overline_u[i][j] -= overline_ac_2[i][j][p][s] * xi[p + 1][s + 1] * u[p + 1][s];
-					overline_u[i][j] -= overline_ac_2[i][j][p][s] * xi[p + 1][s] * u[p + 1][s + 1];
-					overline_u[i][j] -= overline_bb_2[i][j][p][s] * xi[p][s + 1] * u[p][s + 1];
-					overline_u[i][j] -= overline_bc_2[i][j][p][s] * xi[p][s + 1] * u[p + 1][s];
-					overline_u[i][j] -= overline_bc_2[i][j][p][s] * xi[p + 1][s] * u[p][s + 1];
-					overline_u[i][j] -= overline_cc_2[i][j][p][s] * xi[p + 1][s] * u[p + 1][s];
-				}
-			}
-		}
-	}
-	// печать overline_u_0^(3) в файл в одну строчку
-	ofstream f_overline_u_3("matrix_overline_u_3.txt");
-	for (int i = 0; i <= N; i++)
-	{
-		for (int j = 0; j <= N; j++)
-		{
-			f_overline_u_3 << fixed << setprecision(12) << overline_u[i][j] << " ";
-		}
-	}
-	f_overline_u_3.close();
-	timeFinish = clock();
-	d = (double)(timeFinish - timeStart) / CLOCKS_PER_SEC;
-	cout << "Finding the acoustic pressure in X for 3 source " << d << endl;
-	timeStart = clock();
-
-	////////////////////////////////////////////////////////
-	///Для четвёртого источника
-	///////////////////////////////////////////////////////
-	// нахождение правой части
-	for (int i = 0; i <= N; i++)
-	{
-		for (int j = 0; j <= N; j++)
-		{
-			ii = i*(N + 1) + j;
-			rightPartEquation[ii] = f_04(i*h, j*h);
-		}
-	}
-	// нахождение u^{(4)}
-	SolveSlauGaussa(substantiveMatrix, N_squared, rightPartEquation, numbered_u);
-	//
-	// Обратная перенумерация
-	//
-	for (int ii = 0; ii<N_squared; ii++)
-	{
-		int coordinate_x = ii / (N + 1);
-		int coordinate_y = ii % (N + 1);
-		u[coordinate_x][coordinate_y] = numbered_u[ii];
-	}
-	timeFinish = clock();
-	d = (double)(timeFinish - timeStart) / CLOCKS_PER_SEC;
-	cout << "Finding the acoustic pressure in R for 4 source " << d << endl;
-	timeStart = clock();
-	//
-	// находим overline_u_0
-	//
-	for (int i = 0; i <= N; i++)
-	{
-		for (int j = 0; j <= N; j++)
-		{
-			overline_u[i][j] = f_04(1.1 + i*stepReceiver, j*h);
-		}
-	}
-
-	for (int i = 0; i <= N; i++)
-	{
-		for (int j = 0; j <= N; j++)
-		{
-			for (int p = 0; p<N; p++)
-			{
-				for (int s = 0; s<N; s++)
-				{
-					//1 треугольник
-					overline_u[i][j] -= overline_aa_1[i][j][p][s] * xi[p][s] * u[p][s];
-					overline_u[i][j] -= overline_ab_1[i][j][p][s] * xi[p][s] * u[p][s + 1];
-					overline_u[i][j] -= overline_ab_1[i][j][p][s] * xi[p][s + 1] * u[p][s];
-					overline_u[i][j] -= overline_ac_1[i][j][p][s] * xi[p][s] * u[p + 1][s];
-					overline_u[i][j] -= overline_ac_1[i][j][p][s] * xi[p + 1][s] * u[p][s];
-					overline_u[i][j] -= overline_bb_1[i][j][p][s] * xi[p][s + 1] * u[p][s + 1];
-					overline_u[i][j] -= overline_bc_1[i][j][p][s] * xi[p][s + 1] * u[p + 1][s];
-					overline_u[i][j] -= overline_bc_1[i][j][p][s] * xi[p + 1][s] * u[p][s + 1];
-					overline_u[i][j] -= overline_cc_1[i][j][p][s] * xi[p + 1][s] * u[p + 1][s];
-					//2 треугольник
-					overline_u[i][j] -= overline_aa_2[i][j][p][s] * xi[p + 1][s + 1] * u[p + 1][s + 1];
-					overline_u[i][j] -= overline_ab_2[i][j][p][s] * xi[p + 1][s + 1] * u[p][s + 1];
-					overline_u[i][j] -= overline_ab_2[i][j][p][s] * xi[p][s + 1] * u[p + 1][s + 1];
-					overline_u[i][j] -= overline_ac_2[i][j][p][s] * xi[p + 1][s + 1] * u[p + 1][s];
-					overline_u[i][j] -= overline_ac_2[i][j][p][s] * xi[p + 1][s] * u[p + 1][s + 1];
-					overline_u[i][j] -= overline_bb_2[i][j][p][s] * xi[p][s + 1] * u[p][s + 1];
-					overline_u[i][j] -= overline_bc_2[i][j][p][s] * xi[p][s + 1] * u[p + 1][s];
-					overline_u[i][j] -= overline_bc_2[i][j][p][s] * xi[p + 1][s] * u[p][s + 1];
-					overline_u[i][j] -= overline_cc_2[i][j][p][s] * xi[p + 1][s] * u[p + 1][s];
-				}
-			}
-		}
-	}
-	// печать overline_u_0^(4) в файл в одну строчку
-	ofstream f_overline_u_4("matrix_overline_u_4.txt");
-	for (int i = 0; i <= N; i++)
-	{
-		for (int j = 0; j <= N; j++)
-		{
-			f_overline_u_4 << fixed << setprecision(12) << overline_u[i][j] << " ";
-		}
-	}
-	f_overline_u_4.close();
-	timeFinish = clock();
-	d = (double)(timeFinish - timeStart) / CLOCKS_PER_SEC;
-	cout << "Finding the acoustic pressure in X for 4 source " << d << endl;
-	timeStart = clock();
-
-	////////////////////////////////////////////////////////
-	///Для пятого источника
-	///////////////////////////////////////////////////////
-	// нахождение правой части
-	for (int i = 0; i <= N; i++)
-	{
-		for (int j = 0; j <= N; j++)
-		{
-			ii = i*(N + 1) + j;
-			rightPartEquation[ii] = f_05(i*h, j*h);
-		}
-	}
-	// нахождение u^{(5)}
-	SolveSlauGaussa(substantiveMatrix, N_squared, rightPartEquation, numbered_u);
-	//
-	// Обратная перенумерация
-	//
-	for (int ii = 0; ii<N_squared; ii++)
-	{
-		int coordinate_x = ii / (N + 1);
-		int coordinate_y = ii % (N + 1);
-		u[coordinate_x][coordinate_y] = numbered_u[ii];
-	}
-	timeFinish = clock();
-	d = (double)(timeFinish - timeStart) / CLOCKS_PER_SEC;
-	cout << "Finding the acoustic pressure in R for 5 source " << d << endl;
-	timeStart = clock();
-	//
-	// находим overline_u_0
-	//
-	for (int i = 0; i <= N; i++)
-	{
-		for (int j = 0; j <= N; j++)
-		{
-			overline_u[i][j] = f_05(1.1 + i*stepReceiver, j*h);
-		}
-	}
-
-	for (int i = 0; i <= N; i++)
-	{
-		for (int j = 0; j <= N; j++)
-		{
-			for (int p = 0; p<N; p++)
-			{
-				for (int s = 0; s<N; s++)
-				{
-					//1 треугольник
-					overline_u[i][j] -= overline_aa_1[i][j][p][s] * xi[p][s] * u[p][s];
-					overline_u[i][j] -= overline_ab_1[i][j][p][s] * xi[p][s] * u[p][s + 1];
-					overline_u[i][j] -= overline_ab_1[i][j][p][s] * xi[p][s + 1] * u[p][s];
-					overline_u[i][j] -= overline_ac_1[i][j][p][s] * xi[p][s] * u[p + 1][s];
-					overline_u[i][j] -= overline_ac_1[i][j][p][s] * xi[p + 1][s] * u[p][s];
-					overline_u[i][j] -= overline_bb_1[i][j][p][s] * xi[p][s + 1] * u[p][s + 1];
-					overline_u[i][j] -= overline_bc_1[i][j][p][s] * xi[p][s + 1] * u[p + 1][s];
-					overline_u[i][j] -= overline_bc_1[i][j][p][s] * xi[p + 1][s] * u[p][s + 1];
-					overline_u[i][j] -= overline_cc_1[i][j][p][s] * xi[p + 1][s] * u[p + 1][s];
-					//2 треугольник
-					overline_u[i][j] -= overline_aa_2[i][j][p][s] * xi[p + 1][s + 1] * u[p + 1][s + 1];
-					overline_u[i][j] -= overline_ab_2[i][j][p][s] * xi[p + 1][s + 1] * u[p][s + 1];
-					overline_u[i][j] -= overline_ab_2[i][j][p][s] * xi[p][s + 1] * u[p + 1][s + 1];
-					overline_u[i][j] -= overline_ac_2[i][j][p][s] * xi[p + 1][s + 1] * u[p + 1][s];
-					overline_u[i][j] -= overline_ac_2[i][j][p][s] * xi[p + 1][s] * u[p + 1][s + 1];
-					overline_u[i][j] -= overline_bb_2[i][j][p][s] * xi[p][s + 1] * u[p][s + 1];
-					overline_u[i][j] -= overline_bc_2[i][j][p][s] * xi[p][s + 1] * u[p + 1][s];
-					overline_u[i][j] -= overline_bc_2[i][j][p][s] * xi[p + 1][s] * u[p][s + 1];
-					overline_u[i][j] -= overline_cc_2[i][j][p][s] * xi[p + 1][s] * u[p + 1][s];
-				}
-			}
-		}
-	}
-	// печать overline_u_0^(5) в файл в одну строчку
-	ofstream f_overline_u_5("matrix_overline_u_5.txt");
-	for (int i = 0; i <= N; i++)
-	{
-		for (int j = 0; j <= N; j++)
-		{
-			f_overline_u_5 << fixed << setprecision(12) << overline_u[i][j] << " ";
-		}
-	}
-	f_overline_u_5.close();
-	timeFinish = clock();
-	d = (double)(timeFinish - timeStart) / CLOCKS_PER_SEC;
-	cout << "Finding the acoustic pressure in X for 5 source " << d << endl;
-	timeStart = clock();
+	d = (double)(timeFinish - timeBegin) / CLOCKS_PER_SEC;
+	cout << "The total time of the program " << d << endl;
 
 }
