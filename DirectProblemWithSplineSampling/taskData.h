@@ -18,3 +18,6 @@ const size_t NUMBER_PARTITION_POINT = 20;
 
 // размер квадрата в котором находится неоднородность
 const double DOMAIN_IN_HOMOGENEITY = 1.0;
+const double h = DOMAIN_IN_HOMOGENEITY / NUMBER_PARTITION_POINT;
+
+const double stepReceiver = 0.1 / NUMBER_PARTITION_POINT;

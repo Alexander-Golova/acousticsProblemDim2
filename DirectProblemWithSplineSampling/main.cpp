@@ -2,6 +2,7 @@
 #include "basicFunctions.h"
 #include "Sources.h"
 #include "taskData.h"
+#include "exact_solution.h"
 #include "../directProblemQuadratureSamplingMethod/matrix_utils.h"
 
 using namespace std;
@@ -9,33 +10,16 @@ using namespace std;
 int main()
 {
 	const size_t N = NUMBER_PARTITION_POINT;
-	const double h = DOMAIN_IN_HOMOGENEITY / N;
-	const double stepReceiver = 0.1 / N;
-
 	const Source source;
 
 	// выделение пам€ти дл€ акустического пол€ u
-	vector<vector<complex<double>>> u(N + 1, vector<complex<double>>(N + 1, complex<double>()));
+	vector<vector<complex<double>>> u(NUMBER_PARTITION_POINT + 1,
+		vector<complex<double>>(NUMBER_PARTITION_POINT + 1, complex<double>()));
 
 	// задание точного решени€ xi
-	vector<vector<double>> xi(N + 1, vector<double>(N + 1, 0.0));
-	for (size_t i = 0; i <= N; ++i)
-	{
-		for (size_t j = 0; j <= N; ++j)
-		{
-			xi[i][j] = exp(-64.0 * (i * h - 0.6) * (i * h - 0.6) - 64.0 * (j * h - 0.6) * (j * h - 0.6));
-		}
-	}
-	//печатаем точное решение в файл
-	ofstream f_xi("exact_xi.txt");
-	for (size_t i = 0; i <= N; ++i)
-	{
-		for (size_t j = 0; j <= N; ++j)
-		{
-			f_xi << fixed << setprecision(6) << xi[i][j] << " ";
-		}
-	}
-	f_xi.close();
+	vector<vector<double>> xi(NUMBER_PARTITION_POINT + 1, vector<double>(NUMBER_PARTITION_POINT + 1, 0.0));
+	GetExactSolution(xi);
+	WriteSolutionFile(xi);
 
 	// выдел€ем пам€ть под основные матрицы
 	vector<vector<vector<vector<complex<double>>>>> aa_1(N + 1,
@@ -134,7 +118,6 @@ int main()
 		vector<vector<vector<complex<double>>>>(N + 1, vector<vector<complex<double>>>(N + 1,
 			vector<complex<double>>(N + 1, complex<double>()))));
 
-	
 	// Ќачало вычислений основных матриц
 
 	// начало счета времени
