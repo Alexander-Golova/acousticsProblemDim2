@@ -121,9 +121,9 @@ int main()
 	// Начало вычислений основных матриц
 
 	// начало счета времени
-	clock_t timeStart, timeFinish, timeBegin;
+	clock_t time, timeBegin;
 	timeBegin = clock();
-	timeStart = clock();
+	time = clock();
 
 	// нахождение массивов aa1, ab1,...,cc1
 	// квадратурные формулы третьего порядка
@@ -318,9 +318,7 @@ int main()
 	}
 
 	//печатаем время работы
-	timeFinish = clock();
-	Lasting("Time calculation of basic matrices", timeStart, timeFinish);
-	timeStart = clock();
+	Lasting("Time calculation of basic matrices", time);
 
 	//печатаем коэффициенты в файлы
 	ofstream f_matrix("matrix.txt");
@@ -638,9 +636,7 @@ int main()
 	}
 	f_matrix.close();
 	//печатаем время работы
-	timeFinish = clock();
-	Lasting("Time recording the basic matrix file", timeStart, timeFinish);
-	timeStart = clock();
+	Lasting("Time recording the basic matrix file", time);
 
 	// счет функции источника в R и X
 	ofstream fileSource("Source.txt");
@@ -665,9 +661,7 @@ int main()
 	fileSource.close();
 
 	//печатаем время работы
-	timeFinish = clock();
-	Lasting("The computation time of the source function", timeStart, timeFinish);
-	timeStart = clock();
+	Lasting("The computation time of the source function", time);
 
 	// для нахождения u^(1) составляем СЛАУ основная матрица * u^(1) = правой части
 	// substantiveMatrix[ii][jj] * numbered_u[jj] = rightPartEequation[ii]
@@ -867,9 +861,7 @@ int main()
 		substantiveMatrix[i][i] += 1.0;
 	}
 
-	timeFinish = clock();
-	Lasting("The computation time of the matrix inside the cube", timeStart, timeFinish);
-	timeStart = clock();
+	Lasting("The computation time of the matrix inside the cube", time);
 
 	// Находим акустическое поле в приемниках
 	// для каждого источника
@@ -898,9 +890,7 @@ int main()
 			u[coordinate_x][coordinate_y] = numbered_u[i];
 		}
 
-		timeFinish = clock();
-		Lasting("Finding the acoustic pressure in R", timeStart, timeFinish);
-		timeStart = clock();
+		Lasting("Finding the acoustic pressure in R", time);
 
 		// находим overline_u_0
 		for (size_t i = 0; i <= N; ++i)
@@ -951,12 +941,9 @@ int main()
 			}
 		}
 
-		timeFinish = clock();
-		Lasting("Finding the acoustic pressure in X", timeStart, timeFinish);
-		timeStart = clock();
+		Lasting("Finding the acoustic pressure in X", time);
 	}
 	file_overline_u.close();
 
-	timeFinish = clock();
-	Lasting("FThe total time of the program", timeBegin, timeFinish);
+	Lasting("FThe total time of the program", timeBegin);
 }

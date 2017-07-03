@@ -15,9 +15,10 @@ complex<double> G(const double x_1, const double x_2, const double y_1, const do
 	return -0.25 * I * OMEGA * OMEGA * Hankel(OMEGA * dist / C_0);
 }
 
-void Lasting(const string & st, const clock_t timeStart, const clock_t timeFinish)
+void Lasting(const string & st, clock_t & time)
 {
-	double d;
-	d = (double)(timeFinish - timeStart) / CLOCKS_PER_SEC;
+	clock_t timeFinish = clock();
+	double d = static_cast<double>(timeFinish - time) / CLOCKS_PER_SEC;
 	cout << st << " " << d << endl;
+	time = clock();
 }
