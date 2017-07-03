@@ -176,4 +176,5 @@ int main()
 		PrintXi(xi, iteration);
 		Lasting("Calculation time solutions", time);
 	}
+	Lasting("The total time of the program", timeBegin);
 }

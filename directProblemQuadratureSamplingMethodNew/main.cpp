@@ -82,5 +82,5 @@ int main()
 	}
 	file_overline_u.close();
 
-	Lasting("The total time of the program", time);
+	Lasting("The total time of the program", timeBegin);
 }
