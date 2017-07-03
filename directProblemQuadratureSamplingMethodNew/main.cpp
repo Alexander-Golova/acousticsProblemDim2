@@ -24,9 +24,9 @@ int main()
 
 	WriteSolutionFile(xi);
 
-	clock_t timeStart, timeFinish, timeBegin;
+	clock_t time, timeBegin;
 	timeBegin = clock();
-	timeStart = clock();
+	time = clock();
 
 	vector<vector<vector<vector<complex<double>>>>> a(NUMBER_PARTITION_POINT + 1,
 		vector<vector<vector<complex<double>>>>(NUMBER_PARTITION_POINT + 1,
@@ -41,22 +41,13 @@ int main()
 		vector<complex<double>>(NUMBER_PARTITION_POINT + 1, complex<double>()));
 
 	GetBasicArrays(a, overline_a, b);
-
-	timeFinish = clock();
-	Lasting("Time calculation of basic matrices", timeStart, timeFinish);
-	timeStart = clock();
+	Lasting("Time calculation of basic matrices", time);
 
 	WriteBasicArraysFile(a, overline_a, b);
-
-	timeFinish = clock();
-	Lasting("Download time major arrays", timeStart, timeFinish);
-	timeStart = clock();
+	Lasting("Download time major arrays", time);
 
 	WriteSourceValues(source);
-
-	timeFinish = clock();
-	Lasting("The computation time of the source function", timeStart, timeFinish);
-	timeStart = clock();
+	Lasting("The computation time of the source function", time);
 
 	// для нахождения u^(1) составляем СЛАУ основная матрица * u^(1) = правой части
 	// substantiveMatrix[ii][jj] * numbered_u[jj] = rightPartEquation[ii]
@@ -68,10 +59,7 @@ int main()
 	vector<complex<double>> overline_u(NUMBER_PARTITION_POINT + 1, complex<double>());
 
 	GetSubstantiveMatrix(a, b, xi, substantiveMatrix);
-
-	timeFinish = clock();
-	Lasting("The computation time of the matrix inside the squared", timeStart, timeFinish);
-	timeStart = clock();
+	Lasting("The computation time of the matrix inside the squared", time);
 
 	ofstream file_overline_u("matrix_overline_u.txt");
 	file_overline_u << fixed << setprecision(6);
@@ -82,24 +70,17 @@ int main()
 		SolveSlauGaussa(substantiveMatrix, rightPartEquation, numbered_u);
 
 		InverseRenumbering(numbered_u, u);
-
-		timeFinish = clock();
-		Lasting("Finding the acoustic pressure in R", timeStart, timeFinish);
-		timeStart = clock();
+		Lasting("Finding the acoustic pressure in R", time);
 
 		GetOverlineU(source, count, overline_a, xi, u, overline_u);
-
 		for (size_t j = 0; j <= NUMBER_PARTITION_POINT; ++j)
 		{
 			file_overline_u << overline_u[j] << " ";
 		}
 
-		timeFinish = clock();
-		Lasting("Finding the acoustic pressure in X", timeStart, timeFinish);
-		timeStart = clock();
+		Lasting("Finding the acoustic pressure in X", time);
 	}
 	file_overline_u.close();
 
-	timeFinish = clock();
-	Lasting("The total time of the program", timeBegin, timeFinish);
+	Lasting("The total time of the program", time);
 }
