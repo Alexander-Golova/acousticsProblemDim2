@@ -28,12 +28,11 @@ int main()
 
 	const size_t N = NUMBER_PARTITION_POINT;
 	const size_t N_squared = (N + 1) * (N + 1);
-	const double h = (double)DOMAIN_IN_HOMOGENEITY / N;
 
 	// начало счета времени
-	clock_t timeStart, timeFinish, timeBegin;
+	clock_t time, timeBegin;
 	timeBegin = clock();
-	timeStart = clock();
+	time = clock();
 
 	// выделение памяти
 	// выделяем память под основные матрицы
@@ -79,9 +78,7 @@ int main()
 	vector<vector<complex<double>>> numbered_u(source.numberSource, vector<complex<double>>(N_squared, complex<double>()));
 	vector<complex<double>> numbered_xi(N_squared, complex<double>());
 
-	timeFinish = clock();
-	Lasting("Time allocation", timeStart, timeFinish);
-	timeStart = clock();
+	Lasting("Time allocation", time);
 
 	// Загрузка данных
 	ArrayLoadingA(a);
@@ -91,8 +88,7 @@ int main()
 	ArrayLoadingOverlineU(source.numberSource, overline_u);
 
 	//печатаем время работы
-	timeFinish = clock();
-	Lasting("Download time", timeStart, timeFinish);
+	Lasting("Download time", time);
 
 	// Начало вычислительной части
 	// начальные значения
@@ -105,35 +101,25 @@ int main()
 		cout << endl;
 		cout << "Iteration number " << (iteration + 1) << endl;
 		cout << "alpha= " << alpha << endl;
-		timeStart = clock();
 
 		//строим левую часть СЛАУ основного метода Ньютона
 		// получаем матрицы Якобиана
 		GetJacobian(source.numberSource, a, overline_a, b, xi, u, F_odd, F_even);
-		timeFinish = clock();
-		Lasting("The counting time of the Jacobian matrices", timeStart, timeFinish);
-		timeStart = clock();
+		Lasting("The counting time of the Jacobian matrices", time);
 
 		// находим матрицы А
 		GetMatrixA(source.numberSource, F_odd, F_even, A, alpha);
-		timeFinish = clock();
-		Lasting("Counting time of matrices A", timeStart, timeFinish);
-		timeStart = clock();
+		Lasting("Counting time of matrices A", time);
 
 		// находим матрицу В
 		GetMatrixB(F_odd, F_even, B, alpha);
-		timeFinish = clock();
-		Lasting("Counting time of matrices B", timeStart, timeFinish);
-		timeStart = clock();
-
+		Lasting("Counting time of matrices B", time);
 		cout << "Calculate the left side" << endl;
 
 		//строим правую часть СЛАУ основного метода Ньютона
 		// находим значения основного оператора F
 		GetOperatorF(source.numberSource, a, overline_a, b, xi, u, overline_u, Source_R, Source_X, F_part_odd, F_part_even);
-		timeFinish = clock();
-		Lasting("Counting time of the main matrix", timeStart, timeFinish);
-		timeStart = clock();
+		Lasting("Counting time of the main matrix", time);
 
 		// перенумерация xi, u
 		Renumbering(xi, numbered_xi);
@@ -147,22 +133,16 @@ int main()
 
 		// находим окончательно правую часть b0, b1,...
 		Getb(source.numberSource, F_odd, F_even, F_part_odd, F_part_even, b_right);
-		timeFinish = clock();
-		Lasting("Calculation time right side", timeStart, timeFinish);
-		timeStart = clock();
+		Lasting("Calculation time right side", time);
 
 		// Находим xi
 		InvertMatrix(B, inverseMatrixB);
 		GetXi(source.numberSource, A, inverseMatrixB, b_right, numbered_xi);
-		timeFinish = clock();
-		Lasting("Time of xi", timeStart, timeFinish);
-		timeStart = clock();
+		Lasting("Time of xi", time);
 
 		//находим u^{i}
 		GetU(source.numberSource, A, inverseMatrixB, b_right, numbered_xi, numbered_u);
-		timeFinish = clock();
-		Lasting("Time of u", timeStart, timeFinish);
-		timeStart = clock();
+		Lasting("Time of u", time);
 
 		// изменяем alpha для следующей итерации
 		alpha = alpha * multiplier;
@@ -179,9 +159,6 @@ int main()
 
 		// печать результатов итераций в файл
 		PrintXi(xi, iteration);
-
-		timeFinish = clock();
-		Lasting("Calculation time solutions", timeStart, timeFinish);
-		timeStart = clock();
+		Lasting("Calculation time solutions", time);
 	}
 }
