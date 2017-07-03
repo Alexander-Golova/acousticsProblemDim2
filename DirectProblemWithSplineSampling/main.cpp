@@ -22,111 +22,134 @@ int main()
 	WriteSolutionFile(xi);
 
 	// выделяем память под основные матрицы
-	vector<vector<vector<vector<complex<double>>>>> aa_1(N + 1,
-		vector<vector<vector<complex<double>>>>(N + 1, vector<vector<complex<double>>>(N + 1,
-			vector<complex<double>>(N + 1, complex<double>()))));
+	vector<vector<vector<vector<complex<double>>>>> aa_1(NUMBER_PARTITION_POINT + 1,
+		vector<vector<vector<complex<double>>>>(NUMBER_PARTITION_POINT + 1,
+			vector<vector<complex<double>>>(NUMBER_PARTITION_POINT + 1,
+				vector<complex<double>>(NUMBER_PARTITION_POINT + 1, complex<double>()))));
 
-	vector<vector<vector<vector<complex<double>>>>> ab_1(N + 1,
-		vector<vector<vector<complex<double>>>>(N + 1, vector<vector<complex<double>>>(N + 1,
-			vector<complex<double>>(N + 1, complex<double>()))));
+	vector<vector<vector<vector<complex<double>>>>> ab_1(NUMBER_PARTITION_POINT + 1,
+		vector<vector<vector<complex<double>>>>(NUMBER_PARTITION_POINT + 1,
+			vector<vector<complex<double>>>(NUMBER_PARTITION_POINT + 1,
+				vector<complex<double>>(NUMBER_PARTITION_POINT + 1, complex<double>()))));
 
-	vector<vector<vector<vector<complex<double>>>>> ac_1(N + 1,
-		vector<vector<vector<complex<double>>>>(N + 1, vector<vector<complex<double>>>(N + 1,
-			vector<complex<double>>(N + 1, complex<double>()))));
+	vector<vector<vector<vector<complex<double>>>>> ac_1(NUMBER_PARTITION_POINT + 1,
+		vector<vector<vector<complex<double>>>>(NUMBER_PARTITION_POINT + 1,
+			vector<vector<complex<double>>>(NUMBER_PARTITION_POINT + 1,
+				vector<complex<double>>(NUMBER_PARTITION_POINT + 1, complex<double>()))));
 
-	vector<vector<vector<vector<complex<double>>>>> bb_1(N + 1,
-		vector<vector<vector<complex<double>>>>(N + 1, vector<vector<complex<double>>>(N + 1,
-			vector<complex<double>>(N + 1, complex<double>()))));
+	vector<vector<vector<vector<complex<double>>>>> bb_1(NUMBER_PARTITION_POINT + 1,
+		vector<vector<vector<complex<double>>>>(NUMBER_PARTITION_POINT + 1,
+			vector<vector<complex<double>>>(NUMBER_PARTITION_POINT + 1,
+				vector<complex<double>>(NUMBER_PARTITION_POINT + 1, complex<double>()))));
 
-	vector<vector<vector<vector<complex<double>>>>> bc_1(N + 1,
-		vector<vector<vector<complex<double>>>>(N + 1, vector<vector<complex<double>>>(N + 1,
-			vector<complex<double>>(N + 1, complex<double>()))));
+	vector<vector<vector<vector<complex<double>>>>> bc_1(NUMBER_PARTITION_POINT + 1,
+		vector<vector<vector<complex<double>>>>(NUMBER_PARTITION_POINT + 1,
+			vector<vector<complex<double>>>(NUMBER_PARTITION_POINT + 1,
+				vector<complex<double>>(NUMBER_PARTITION_POINT + 1, complex<double>()))));
 
-	vector<vector<vector<vector<complex<double>>>>> cc_1(N + 1,
-		vector<vector<vector<complex<double>>>>(N + 1, vector<vector<complex<double>>>(N + 1,
-			vector<complex<double>>(N + 1, complex<double>()))));
+	vector<vector<vector<vector<complex<double>>>>> cc_1(NUMBER_PARTITION_POINT + 1,
+		vector<vector<vector<complex<double>>>>(NUMBER_PARTITION_POINT + 1,
+			vector<vector<complex<double>>>(NUMBER_PARTITION_POINT + 1,
+				vector<complex<double>>(NUMBER_PARTITION_POINT + 1, complex<double>()))));
 
-	vector<vector<vector<vector<complex<double>>>>> aa_2(N + 1,
-		vector<vector<vector<complex<double>>>>(N + 1, vector<vector<complex<double>>>(N + 1,
-			vector<complex<double>>(N + 1, complex<double>()))));
+	vector<vector<vector<vector<complex<double>>>>> aa_2(NUMBER_PARTITION_POINT + 1,
+		vector<vector<vector<complex<double>>>>(NUMBER_PARTITION_POINT + 1,
+			vector<vector<complex<double>>>(NUMBER_PARTITION_POINT + 1,
+				vector<complex<double>>(NUMBER_PARTITION_POINT + 1, complex<double>()))));
 
-	vector<vector<vector<vector<complex<double>>>>> ab_2(N + 1,
-		vector<vector<vector<complex<double>>>>(N + 1, vector<vector<complex<double>>>(N + 1,
-			vector<complex<double>>(N + 1, complex<double>()))));
+	vector<vector<vector<vector<complex<double>>>>> ab_2(NUMBER_PARTITION_POINT + 1,
+		vector<vector<vector<complex<double>>>>(NUMBER_PARTITION_POINT + 1,
+			vector<vector<complex<double>>>(NUMBER_PARTITION_POINT + 1,
+				vector<complex<double>>(NUMBER_PARTITION_POINT + 1, complex<double>()))));
 
-	vector<vector<vector<vector<complex<double>>>>> ac_2(N + 1,
-		vector<vector<vector<complex<double>>>>(N + 1, vector<vector<complex<double>>>(N + 1,
-			vector<complex<double>>(N + 1, complex<double>()))));
+	vector<vector<vector<vector<complex<double>>>>> ac_2(NUMBER_PARTITION_POINT + 1,
+		vector<vector<vector<complex<double>>>>(NUMBER_PARTITION_POINT + 1,
+			vector<vector<complex<double>>>(NUMBER_PARTITION_POINT + 1,
+				vector<complex<double>>(NUMBER_PARTITION_POINT + 1, complex<double>()))));
 
-	vector<vector<vector<vector<complex<double>>>>> bb_2(N + 1,
-		vector<vector<vector<complex<double>>>>(N + 1, vector<vector<complex<double>>>(N + 1,
-			vector<complex<double>>(N + 1, complex<double>()))));
+	vector<vector<vector<vector<complex<double>>>>> bb_2(NUMBER_PARTITION_POINT + 1,
+		vector<vector<vector<complex<double>>>>(NUMBER_PARTITION_POINT + 1,
+			vector<vector<complex<double>>>(NUMBER_PARTITION_POINT + 1,
+				vector<complex<double>>(NUMBER_PARTITION_POINT + 1, complex<double>()))));
 
-	vector<vector<vector<vector<complex<double>>>>> bc_2(N + 1,
-		vector<vector<vector<complex<double>>>>(N + 1, vector<vector<complex<double>>>(N + 1,
-			vector<complex<double>>(N + 1, complex<double>()))));
+	vector<vector<vector<vector<complex<double>>>>> bc_2(NUMBER_PARTITION_POINT + 1,
+		vector<vector<vector<complex<double>>>>(NUMBER_PARTITION_POINT + 1,
+			vector<vector<complex<double>>>(NUMBER_PARTITION_POINT + 1,
+				vector<complex<double>>(NUMBER_PARTITION_POINT + 1, complex<double>()))));
 
-	vector<vector<vector<vector<complex<double>>>>> cc_2(N + 1,
-		vector<vector<vector<complex<double>>>>(N + 1, vector<vector<complex<double>>>(N + 1,
-			vector<complex<double>>(N + 1, complex<double>()))));
+	vector<vector<vector<vector<complex<double>>>>> cc_2(NUMBER_PARTITION_POINT + 1,
+		vector<vector<vector<complex<double>>>>(NUMBER_PARTITION_POINT + 1,
+			vector<vector<complex<double>>>(NUMBER_PARTITION_POINT + 1,
+				vector<complex<double>>(NUMBER_PARTITION_POINT + 1, complex<double>()))));
 
-	vector<vector<vector<vector<complex<double>>>>> overline_aa_1(N + 1,
-		vector<vector<vector<complex<double>>>>(N + 1, vector<vector<complex<double>>>(N + 1,
-			vector<complex<double>>(N + 1, complex<double>()))));
+	vector<vector<vector<vector<complex<double>>>>> overline_aa_1(NUMBER_PARTITION_POINT + 1,
+		vector<vector<vector<complex<double>>>>(NUMBER_PARTITION_POINT + 1,
+			vector<vector<complex<double>>>(NUMBER_PARTITION_POINT + 1,
+				vector<complex<double>>(NUMBER_PARTITION_POINT + 1, complex<double>()))));
 
-	vector<vector<vector<vector<complex<double>>>>> overline_ab_1(N + 1,
-		vector<vector<vector<complex<double>>>>(N + 1, vector<vector<complex<double>>>(N + 1,
-			vector<complex<double>>(N + 1, complex<double>()))));
+	vector<vector<vector<vector<complex<double>>>>> overline_ab_1(NUMBER_PARTITION_POINT + 1,
+		vector<vector<vector<complex<double>>>>(NUMBER_PARTITION_POINT + 1,
+			vector<vector<complex<double>>>(NUMBER_PARTITION_POINT + 1,
+			vector<complex<double>>(NUMBER_PARTITION_POINT + 1, complex<double>()))));
 
-	vector<vector<vector<vector<complex<double>>>>> overline_ac_1(N + 1,
-		vector<vector<vector<complex<double>>>>(N + 1, vector<vector<complex<double>>>(N + 1,
-			vector<complex<double>>(N + 1, complex<double>()))));
+	vector<vector<vector<vector<complex<double>>>>> overline_ac_1(NUMBER_PARTITION_POINT + 1,
+		vector<vector<vector<complex<double>>>>(NUMBER_PARTITION_POINT + 1,
+			vector<vector<complex<double>>>(NUMBER_PARTITION_POINT + 1,
+				vector<complex<double>>(NUMBER_PARTITION_POINT + 1, complex<double>()))));
 
-	vector<vector<vector<vector<complex<double>>>>> overline_bb_1(N + 1,
-		vector<vector<vector<complex<double>>>>(N + 1, vector<vector<complex<double>>>(N + 1,
-			vector<complex<double>>(N + 1, complex<double>()))));
+	vector<vector<vector<vector<complex<double>>>>> overline_bb_1(NUMBER_PARTITION_POINT + 1,
+		vector<vector<vector<complex<double>>>>(NUMBER_PARTITION_POINT + 1,
+			vector<vector<complex<double>>>(NUMBER_PARTITION_POINT + 1,
+				vector<complex<double>>(NUMBER_PARTITION_POINT + 1, complex<double>()))));
 
-	vector<vector<vector<vector<complex<double>>>>> overline_bc_1(N + 1,
-		vector<vector<vector<complex<double>>>>(N + 1, vector<vector<complex<double>>>(N + 1,
-			vector<complex<double>>(N + 1, complex<double>()))));
+	vector<vector<vector<vector<complex<double>>>>> overline_bc_1(NUMBER_PARTITION_POINT + 1,
+		vector<vector<vector<complex<double>>>>(NUMBER_PARTITION_POINT + 1,
+			vector<vector<complex<double>>>(NUMBER_PARTITION_POINT + 1,
+			vector<complex<double>>(NUMBER_PARTITION_POINT + 1, complex<double>()))));
 
-	vector<vector<vector<vector<complex<double>>>>> overline_cc_1(N + 1,
-		vector<vector<vector<complex<double>>>>(N + 1, vector<vector<complex<double>>>(N + 1,
-			vector<complex<double>>(N + 1, complex<double>()))));
+	vector<vector<vector<vector<complex<double>>>>> overline_cc_1(NUMBER_PARTITION_POINT + 1,
+		vector<vector<vector<complex<double>>>>(NUMBER_PARTITION_POINT + 1,
+			vector<vector<complex<double>>>(NUMBER_PARTITION_POINT + 1,
+			vector<complex<double>>(NUMBER_PARTITION_POINT + 1, complex<double>()))));
 
-	vector<vector<vector<vector<complex<double>>>>> overline_aa_2(N + 1,
-		vector<vector<vector<complex<double>>>>(N + 1, vector<vector<complex<double>>>(N + 1,
-			vector<complex<double>>(N + 1, complex<double>()))));
+	vector<vector<vector<vector<complex<double>>>>> overline_aa_2(NUMBER_PARTITION_POINT + 1,
+		vector<vector<vector<complex<double>>>>(NUMBER_PARTITION_POINT + 1,
+			vector<vector<complex<double>>>(NUMBER_PARTITION_POINT + 1,
+			vector<complex<double>>(NUMBER_PARTITION_POINT + 1, complex<double>()))));
 
-	vector<vector<vector<vector<complex<double>>>>> overline_ab_2(N + 1,
-		vector<vector<vector<complex<double>>>>(N + 1, vector<vector<complex<double>>>(N + 1,
-			vector<complex<double>>(N + 1, complex<double>()))));
+	vector<vector<vector<vector<complex<double>>>>> overline_ab_2(NUMBER_PARTITION_POINT + 1,
+		vector<vector<vector<complex<double>>>>(NUMBER_PARTITION_POINT + 1,
+			vector<vector<complex<double>>>(NUMBER_PARTITION_POINT + 1,
+			vector<complex<double>>(NUMBER_PARTITION_POINT + 1, complex<double>()))));
 
-	vector<vector<vector<vector<complex<double>>>>> overline_ac_2(N + 1,
-		vector<vector<vector<complex<double>>>>(N + 1, vector<vector<complex<double>>>(N + 1,
-			vector<complex<double>>(N + 1, complex<double>()))));
+	vector<vector<vector<vector<complex<double>>>>> overline_ac_2(NUMBER_PARTITION_POINT + 1,
+		vector<vector<vector<complex<double>>>>(NUMBER_PARTITION_POINT + 1,
+			vector<vector<complex<double>>>(NUMBER_PARTITION_POINT + 1,
+			vector<complex<double>>(NUMBER_PARTITION_POINT + 1, complex<double>()))));
 
-	vector<vector<vector<vector<complex<double>>>>> overline_bb_2(N + 1,
-		vector<vector<vector<complex<double>>>>(N + 1, vector<vector<complex<double>>>(N + 1,
-			vector<complex<double>>(N + 1, complex<double>()))));
+	vector<vector<vector<vector<complex<double>>>>> overline_bb_2(NUMBER_PARTITION_POINT + 1,
+		vector<vector<vector<complex<double>>>>(NUMBER_PARTITION_POINT + 1,
+			vector<vector<complex<double>>>(NUMBER_PARTITION_POINT + 1,
+				vector<complex<double>>(NUMBER_PARTITION_POINT + 1, complex<double>()))));
 
-	vector<vector<vector<vector<complex<double>>>>> overline_bc_2(N + 1,
-		vector<vector<vector<complex<double>>>>(N + 1, vector<vector<complex<double>>>(N + 1,
-			vector<complex<double>>(N + 1, complex<double>()))));
+	vector<vector<vector<vector<complex<double>>>>> overline_bc_2(NUMBER_PARTITION_POINT + 1,
+		vector<vector<vector<complex<double>>>>(NUMBER_PARTITION_POINT + 1,
+			vector<vector<complex<double>>>(NUMBER_PARTITION_POINT + 1,
+			vector<complex<double>>(NUMBER_PARTITION_POINT + 1, complex<double>()))));
 
-	vector<vector<vector<vector<complex<double>>>>> overline_cc_2(N + 1,
-		vector<vector<vector<complex<double>>>>(N + 1, vector<vector<complex<double>>>(N + 1,
-			vector<complex<double>>(N + 1, complex<double>()))));
-
-	// Начало вычислений основных матриц
+	vector<vector<vector<vector<complex<double>>>>> overline_cc_2(NUMBER_PARTITION_POINT + 1,
+		vector<vector<vector<complex<double>>>>(NUMBER_PARTITION_POINT + 1,
+			vector<vector<complex<double>>>(NUMBER_PARTITION_POINT + 1,
+				vector<complex<double>>(NUMBER_PARTITION_POINT + 1, complex<double>()))));
 
 	// начало счета времени
 	clock_t time, timeBegin;
 	timeBegin = clock();
 	time = clock();
 
-	// нахождение массивов aa1, ab1,...,cc1
-	// квадратурные формулы третьего порядка
+	// Вычисление основных матриц
+
+	// Используются квадратурные формулы третьего порядка
 	double x1, x2;
 	complex<double> temp;
 	for (size_t i = 0; i <= N; ++i)
