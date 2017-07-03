@@ -85,3 +85,15 @@ void ArrayLoadingOverlineU(const size_t numberSource, vector<vector<complex<doub
 	}
 	file_overline_u.close();
 }
+
+void LoadData(const size_t numberSource, vector<vector<vector<vector<complex<double>>>>> & a,
+	vector<vector<vector<complex<double>>>> & overline_a, vector<vector<complex<double>>> & b,
+	vector<vector<vector<complex<double>>>> & Source_R, vector<vector<complex<double>>> & Source_X,
+	vector<vector<complex<double>>> & overline_u)
+{
+	ArrayLoadingA(a);
+	ArrayLoadingOverlineA(overline_a);
+	ArrayLoadingB(b);
+	ArrayLoadingSource(numberSource, Source_R, Source_X);
+	ArrayLoadingOverlineU(numberSource, overline_u);
+}
