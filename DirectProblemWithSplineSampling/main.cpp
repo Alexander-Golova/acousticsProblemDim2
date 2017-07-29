@@ -2,6 +2,7 @@
 #include "basicFunctions.h"
 #include "Sources.h"
 #include "taskData.h"
+#include "basicArrays.h"
 #include "exact_solution.h"
 #include "../directProblemQuadratureSamplingMethod/matrix_utils.h"
 
@@ -143,12 +144,11 @@ int main()
 				vector<complex<double>>(NUMBER_PARTITION_POINT + 1, complex<double>()))));
 
 	// начало счета времени
-	clock_t time, timeBegin;
-	timeBegin = clock();
-	time = clock();
+	clock_t time = clock();
+	clock_t timeBegin = clock();
 
 	// Вычисление основных матриц
-
+	GetBasicArrays();
 	// Используются квадратурные формулы третьего порядка
 	double x1, x2;
 	complex<double> temp;

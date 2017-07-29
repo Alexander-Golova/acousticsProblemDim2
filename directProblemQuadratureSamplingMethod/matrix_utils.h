@@ -49,7 +49,6 @@ void MultTransposedMatrix(const std::vector<std::vector<std::complex<double>>> &
 	const std::vector<std::vector<std::complex<double>>> & rhs,
 	std::vector<std::vector<std::complex<double>>> & result);
 
-
 // умножение обычной матрицы на транспонированную матрицу
 void MultMatrixTransposed(const std::vector<std::vector<std::complex<double>>> & lhs,
 	const std::vector<std::vector<std::complex<double>>> & rhs,
