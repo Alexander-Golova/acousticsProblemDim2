@@ -7,10 +7,13 @@
 
 struct Source
 {
+	// количество источников
 	const size_t numberSource = 5;
+	// координаты источников на двухмерной плоскости
 	const std::vector<Point> node = {
-		{ -0.1, 0.0 },{ -1.0, 2.5 },{ -1.0, 5.0 },{ -1.0, 7.5 },{ -1.0, 10.0 } };
+		{ -1.0, 0.0 },{ -1.0, 2.5 },{ -1.0, 5.0 },{ -1.0, 7.5 },{ -1.0, 10.0 } };
 	std::complex<double> Function(const Point source, const double x, const double y) const;
 };
 
+// печать значений источника в файл "Source.txt"
 void WriteSourceValues(const Source & source);

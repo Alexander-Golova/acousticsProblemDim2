@@ -5,7 +5,7 @@
 #include "directProblem_utils.h"
 #include "Sources.h"
 #include "taskData.h"
-#include"exact_solution.h"
+#include "exact_solution.h"
 #include "../directProblemQuadratureSamplingMethod/matrix_utils.h"
 
 using namespace std;
@@ -24,9 +24,8 @@ int main()
 
 	WriteSolutionFile(xi);
 
-	clock_t time, timeBegin;
-	timeBegin = clock();
-	time = clock();
+	clock_t time = clock();
+	clock_t timeBegin = clock();
 
 	vector<vector<vector<vector<complex<double>>>>> a(NUMBER_PARTITION_POINT + 1,
 		vector<vector<vector<complex<double>>>>(NUMBER_PARTITION_POINT + 1,
@@ -39,6 +38,7 @@ int main()
 
 	vector<vector<complex<double>>> b(NUMBER_PARTITION_POINT + 1,
 		vector<complex<double>>(NUMBER_PARTITION_POINT + 1, complex<double>()));
+
 
 	GetBasicArrays(a, overline_a, b);
 	Lasting("Time calculation of basic matrices", time);
