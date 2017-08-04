@@ -22,135 +22,16 @@ int main()
 	GetExactSolution(xi);
 	WriteSolutionFile(xi);
 
-	// выделяем память под основные матрицы
-	vector<vector<vector<vector<complex<double>>>>> aa_1(NUMBER_PARTITION_POINT + 1,
-		vector<vector<vector<complex<double>>>>(NUMBER_PARTITION_POINT + 1,
-			vector<vector<complex<double>>>(NUMBER_PARTITION_POINT + 1,
-				vector<complex<double>>(NUMBER_PARTITION_POINT + 1, complex<double>()))));
-
-	vector<vector<vector<vector<complex<double>>>>> ab_1(NUMBER_PARTITION_POINT + 1,
-		vector<vector<vector<complex<double>>>>(NUMBER_PARTITION_POINT + 1,
-			vector<vector<complex<double>>>(NUMBER_PARTITION_POINT + 1,
-				vector<complex<double>>(NUMBER_PARTITION_POINT + 1, complex<double>()))));
-
-	vector<vector<vector<vector<complex<double>>>>> ac_1(NUMBER_PARTITION_POINT + 1,
-		vector<vector<vector<complex<double>>>>(NUMBER_PARTITION_POINT + 1,
-			vector<vector<complex<double>>>(NUMBER_PARTITION_POINT + 1,
-				vector<complex<double>>(NUMBER_PARTITION_POINT + 1, complex<double>()))));
-
-	vector<vector<vector<vector<complex<double>>>>> bb_1(NUMBER_PARTITION_POINT + 1,
-		vector<vector<vector<complex<double>>>>(NUMBER_PARTITION_POINT + 1,
-			vector<vector<complex<double>>>(NUMBER_PARTITION_POINT + 1,
-				vector<complex<double>>(NUMBER_PARTITION_POINT + 1, complex<double>()))));
-
-	vector<vector<vector<vector<complex<double>>>>> bc_1(NUMBER_PARTITION_POINT + 1,
-		vector<vector<vector<complex<double>>>>(NUMBER_PARTITION_POINT + 1,
-			vector<vector<complex<double>>>(NUMBER_PARTITION_POINT + 1,
-				vector<complex<double>>(NUMBER_PARTITION_POINT + 1, complex<double>()))));
-
-	vector<vector<vector<vector<complex<double>>>>> cc_1(NUMBER_PARTITION_POINT + 1,
-		vector<vector<vector<complex<double>>>>(NUMBER_PARTITION_POINT + 1,
-			vector<vector<complex<double>>>(NUMBER_PARTITION_POINT + 1,
-				vector<complex<double>>(NUMBER_PARTITION_POINT + 1, complex<double>()))));
-
-	vector<vector<vector<vector<complex<double>>>>> aa_2(NUMBER_PARTITION_POINT + 1,
-		vector<vector<vector<complex<double>>>>(NUMBER_PARTITION_POINT + 1,
-			vector<vector<complex<double>>>(NUMBER_PARTITION_POINT + 1,
-				vector<complex<double>>(NUMBER_PARTITION_POINT + 1, complex<double>()))));
-
-	vector<vector<vector<vector<complex<double>>>>> ab_2(NUMBER_PARTITION_POINT + 1,
-		vector<vector<vector<complex<double>>>>(NUMBER_PARTITION_POINT + 1,
-			vector<vector<complex<double>>>(NUMBER_PARTITION_POINT + 1,
-				vector<complex<double>>(NUMBER_PARTITION_POINT + 1, complex<double>()))));
-
-	vector<vector<vector<vector<complex<double>>>>> ac_2(NUMBER_PARTITION_POINT + 1,
-		vector<vector<vector<complex<double>>>>(NUMBER_PARTITION_POINT + 1,
-			vector<vector<complex<double>>>(NUMBER_PARTITION_POINT + 1,
-				vector<complex<double>>(NUMBER_PARTITION_POINT + 1, complex<double>()))));
-
-	vector<vector<vector<vector<complex<double>>>>> bb_2(NUMBER_PARTITION_POINT + 1,
-		vector<vector<vector<complex<double>>>>(NUMBER_PARTITION_POINT + 1,
-			vector<vector<complex<double>>>(NUMBER_PARTITION_POINT + 1,
-				vector<complex<double>>(NUMBER_PARTITION_POINT + 1, complex<double>()))));
-
-	vector<vector<vector<vector<complex<double>>>>> bc_2(NUMBER_PARTITION_POINT + 1,
-		vector<vector<vector<complex<double>>>>(NUMBER_PARTITION_POINT + 1,
-			vector<vector<complex<double>>>(NUMBER_PARTITION_POINT + 1,
-				vector<complex<double>>(NUMBER_PARTITION_POINT + 1, complex<double>()))));
-
-	vector<vector<vector<vector<complex<double>>>>> cc_2(NUMBER_PARTITION_POINT + 1,
-		vector<vector<vector<complex<double>>>>(NUMBER_PARTITION_POINT + 1,
-			vector<vector<complex<double>>>(NUMBER_PARTITION_POINT + 1,
-				vector<complex<double>>(NUMBER_PARTITION_POINT + 1, complex<double>()))));
-
-	vector<vector<vector<vector<complex<double>>>>> overline_aa_1(NUMBER_PARTITION_POINT + 1,
-		vector<vector<vector<complex<double>>>>(NUMBER_PARTITION_POINT + 1,
-			vector<vector<complex<double>>>(NUMBER_PARTITION_POINT + 1,
-				vector<complex<double>>(NUMBER_PARTITION_POINT + 1, complex<double>()))));
-
-	vector<vector<vector<vector<complex<double>>>>> overline_ab_1(NUMBER_PARTITION_POINT + 1,
-		vector<vector<vector<complex<double>>>>(NUMBER_PARTITION_POINT + 1,
-			vector<vector<complex<double>>>(NUMBER_PARTITION_POINT + 1,
-			vector<complex<double>>(NUMBER_PARTITION_POINT + 1, complex<double>()))));
-
-	vector<vector<vector<vector<complex<double>>>>> overline_ac_1(NUMBER_PARTITION_POINT + 1,
-		vector<vector<vector<complex<double>>>>(NUMBER_PARTITION_POINT + 1,
-			vector<vector<complex<double>>>(NUMBER_PARTITION_POINT + 1,
-				vector<complex<double>>(NUMBER_PARTITION_POINT + 1, complex<double>()))));
-
-	vector<vector<vector<vector<complex<double>>>>> overline_bb_1(NUMBER_PARTITION_POINT + 1,
-		vector<vector<vector<complex<double>>>>(NUMBER_PARTITION_POINT + 1,
-			vector<vector<complex<double>>>(NUMBER_PARTITION_POINT + 1,
-				vector<complex<double>>(NUMBER_PARTITION_POINT + 1, complex<double>()))));
-
-	vector<vector<vector<vector<complex<double>>>>> overline_bc_1(NUMBER_PARTITION_POINT + 1,
-		vector<vector<vector<complex<double>>>>(NUMBER_PARTITION_POINT + 1,
-			vector<vector<complex<double>>>(NUMBER_PARTITION_POINT + 1,
-			vector<complex<double>>(NUMBER_PARTITION_POINT + 1, complex<double>()))));
-
-	vector<vector<vector<vector<complex<double>>>>> overline_cc_1(NUMBER_PARTITION_POINT + 1,
-		vector<vector<vector<complex<double>>>>(NUMBER_PARTITION_POINT + 1,
-			vector<vector<complex<double>>>(NUMBER_PARTITION_POINT + 1,
-			vector<complex<double>>(NUMBER_PARTITION_POINT + 1, complex<double>()))));
-
-	vector<vector<vector<vector<complex<double>>>>> overline_aa_2(NUMBER_PARTITION_POINT + 1,
-		vector<vector<vector<complex<double>>>>(NUMBER_PARTITION_POINT + 1,
-			vector<vector<complex<double>>>(NUMBER_PARTITION_POINT + 1,
-			vector<complex<double>>(NUMBER_PARTITION_POINT + 1, complex<double>()))));
-
-	vector<vector<vector<vector<complex<double>>>>> overline_ab_2(NUMBER_PARTITION_POINT + 1,
-		vector<vector<vector<complex<double>>>>(NUMBER_PARTITION_POINT + 1,
-			vector<vector<complex<double>>>(NUMBER_PARTITION_POINT + 1,
-			vector<complex<double>>(NUMBER_PARTITION_POINT + 1, complex<double>()))));
-
-	vector<vector<vector<vector<complex<double>>>>> overline_ac_2(NUMBER_PARTITION_POINT + 1,
-		vector<vector<vector<complex<double>>>>(NUMBER_PARTITION_POINT + 1,
-			vector<vector<complex<double>>>(NUMBER_PARTITION_POINT + 1,
-			vector<complex<double>>(NUMBER_PARTITION_POINT + 1, complex<double>()))));
-
-	vector<vector<vector<vector<complex<double>>>>> overline_bb_2(NUMBER_PARTITION_POINT + 1,
-		vector<vector<vector<complex<double>>>>(NUMBER_PARTITION_POINT + 1,
-			vector<vector<complex<double>>>(NUMBER_PARTITION_POINT + 1,
-				vector<complex<double>>(NUMBER_PARTITION_POINT + 1, complex<double>()))));
-
-	vector<vector<vector<vector<complex<double>>>>> overline_bc_2(NUMBER_PARTITION_POINT + 1,
-		vector<vector<vector<complex<double>>>>(NUMBER_PARTITION_POINT + 1,
-			vector<vector<complex<double>>>(NUMBER_PARTITION_POINT + 1,
-			vector<complex<double>>(NUMBER_PARTITION_POINT + 1, complex<double>()))));
-
-	vector<vector<vector<vector<complex<double>>>>> overline_cc_2(NUMBER_PARTITION_POINT + 1,
-		vector<vector<vector<complex<double>>>>(NUMBER_PARTITION_POINT + 1,
-			vector<vector<complex<double>>>(NUMBER_PARTITION_POINT + 1,
-				vector<complex<double>>(NUMBER_PARTITION_POINT + 1, complex<double>()))));
-
+	BasicArrays basicArrays;
+	
 	// начало счета времени
 	clock_t time = clock();
 	clock_t timeBegin = clock();
 
-	GetBasicArrays(aa_1, ab_1, ac_1, bb_1, bc_1, cc_1, overline_aa_1, overline_ab_1, overline_ac_1, overline_bb_1, overline_bc_1, overline_cc_1, aa_2, ab_2, ac_2, bb_2, bc_2, cc_2, overline_aa_2, overline_ab_2, overline_ac_2, overline_bb_2, overline_bc_2, overline_cc_2);
+	GetBasicArrays(basicArrays);
 	Lasting("Time calculation of basic matrices", time);
 
-	WriteBasicArraysFile(aa_1, ab_1, ac_1, bb_1, bc_1, cc_1, overline_aa_1, overline_ab_1, overline_ac_1, overline_bb_1, overline_bc_1, overline_cc_1, aa_2, ab_2, ac_2, bb_2, bc_2, cc_2, overline_aa_2, overline_ab_2, overline_ac_2, overline_bb_2, overline_bc_2, overline_cc_2);
+	WriteBasicArraysFile(basicArrays);
 	Lasting("Download time major arrays", time);
 
 
