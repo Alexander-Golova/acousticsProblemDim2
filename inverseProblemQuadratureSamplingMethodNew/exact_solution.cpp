@@ -10,6 +10,7 @@ void ProjectionXi(vector<vector<complex<double>>> & xi)
 	{
 		for (size_t j = 0; j < N; ++j)
 		{
+			xi[i][j] = real(xi[i][j]);
 			if (real(xi[i][j]) <= 0)
 			{
 				xi[i][j] = { 0.0, 0.0 };
