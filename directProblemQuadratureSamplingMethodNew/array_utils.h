@@ -4,5 +4,3 @@ void WriteBasicArraysFile(std::vector<std::vector<std::vector<std::vector<std::c
 	std::vector<std::vector<std::vector<std::complex<double>>>> & overline_a,
 	std::vector<std::vector<std::complex<double>>> & b);
 
-
-

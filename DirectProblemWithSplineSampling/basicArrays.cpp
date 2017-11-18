@@ -5,18 +5,18 @@
 
 using namespace std;
 
-void GetBasicArrays(BasicArrays basicArrays)
+void GetBasicArrays(BasicArrays & basicArrays)
 {
 	// Используются квадратурные формулы третьего порядка
 	double x1, x2;
 	complex<double> temp;
-	for (size_t i = 0; i <= NUMBER_PARTITION_POINT; ++i)
+	for (size_t i = 0; i <= SPLITTING; ++i)
 	{
-		for (size_t j = 0; j <= NUMBER_PARTITION_POINT; ++j)
+		for (size_t j = 0; j <= SPLITTING; ++j)
 		{
-			for (size_t p = 0; p < NUMBER_PARTITION_POINT; ++p)
+			for (size_t p = 0; p < SPLITTING; ++p)
 			{
-				for (size_t s = 0; s < NUMBER_PARTITION_POINT; ++s)
+				for (size_t s = 0; s < SPLITTING; ++s)
 				{
 					//первые треугольники
 					x1 = h / 3.0 + p * h;
@@ -199,18 +199,18 @@ void GetBasicArrays(BasicArrays basicArrays)
 	}
 }
 
-void WriteBasicArraysFile(BasicArrays basicArrays)
+void WriteBasicArraysFile(BasicArrays & basicArrays)
 {
 	//печатаем коэффициенты в файлы
 	ofstream f_matrix("matrix.txt");
 	f_matrix << fixed << setprecision(6);
-	for (size_t i = 0; i <= NUMBER_PARTITION_POINT; ++i)
+	for (size_t i = 0; i <= SPLITTING; ++i)
 	{
-		for (size_t j = 0; j <= NUMBER_PARTITION_POINT; ++j)
+		for (size_t j = 0; j <= SPLITTING; ++j)
 		{
-			for (size_t p = 0; p < NUMBER_PARTITION_POINT; ++p)
+			for (size_t p = 0; p < SPLITTING; ++p)
 			{
-				for (size_t s = 0; s < NUMBER_PARTITION_POINT; ++s)
+				for (size_t s = 0; s < SPLITTING; ++s)
 				{
 					f_matrix << basicArrays.aa_1[i][j][p][s] << " ";
 					f_matrix << basicArrays.ab_1[i][j][p][s] << " ";

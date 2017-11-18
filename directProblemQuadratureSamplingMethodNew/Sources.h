@@ -1,19 +1,19 @@
-#pragma once
+п»ї#pragma once
 #include "taskData.h"
 #include <vector>
 #include <complex>
 
-// источники
+// РёСЃС‚РѕС‡РЅРёРєРё
 
 struct Source
 {
-	// количество источников
+	// РєРѕР»РёС‡РµСЃС‚РІРѕ РёСЃС‚РѕС‡РЅРёРєРѕРІ
 	const size_t numberSource = 5;
-	// координаты источников на двухмерной плоскости
+	// РєРѕРѕСЂРґРёРЅР°С‚С‹ РёСЃС‚РѕС‡РЅРёРєРѕРІ РЅР° РґРІСѓС…РјРµСЂРЅРѕР№ РїР»РѕСЃРєРѕСЃС‚Рё
 	const std::vector<Point> node = {
-		{ -0.1, 0.0 }, { -0.1, 2.0 }, { -0.1, 4.0 }, { -0.1, 6.0 }, { -0.1, 8.0 }, { -0.1, 10.0 } };
+		{ -0.1, 0.0 }, { -0.1, 1.2 }, { -0.1, 0.4 }, { -0.1, 0.6 }, { -0.1, 0.8 }, { -0.1, 1.0 } };
 	std::complex<double> Function(const Point source, const double x, const double y) const;
 };
 
-// печать значений источника в файл "Source.txt"
+// РїРµС‡Р°С‚СЊ Р·РЅР°С‡РµРЅРёР№ РёСЃС‚РѕС‡РЅРёРєР° РІ С„Р°Р№Р» "Source.txt"
 void WriteSourceValues(const Source & source);

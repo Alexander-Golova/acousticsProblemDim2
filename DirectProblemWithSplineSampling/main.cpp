@@ -4,7 +4,8 @@
 #include "taskData.h"
 #include "basicArrays.h"
 #include "exact_solution.h"
-#include "../directProblemQuadratureSamplingMethod/matrix_utils.h"
+#include "array_utils.h"
+#include "directProblem_utils.h"
 
 using namespace std;
 
@@ -14,328 +15,62 @@ int main()
 	const Source source;
 
 	// выделение памяти для акустического поля u
-	vector<vector<complex<double>>> u(NUMBER_PARTITION_POINT + 1,
-		vector<complex<double>>(NUMBER_PARTITION_POINT + 1, complex<double>()));
+	array<array<complex<double>, SPLITTING + 1>, SPLITTING + 1> u;
 
 	// задание точного решения xi
-	vector<vector<double>> xi(NUMBER_PARTITION_POINT + 1, vector<double>(NUMBER_PARTITION_POINT + 1, 0.0));
+	array<array<complex<double>, SPLITTING + 1>, SPLITTING + 1> xi;
 	GetExactSolution(xi);
 	WriteSolutionFile(xi);
-
-	BasicArrays basicArrays;
 	
 	// начало счета времени
 	clock_t time = clock();
 	clock_t timeBegin = clock();
 
+	BasicArrays basicArrays;
 	GetBasicArrays(basicArrays);
 	Lasting("Time calculation of basic matrices", time);
 
 	WriteBasicArraysFile(basicArrays);
 	Lasting("Download time major arrays", time);
 
-
-
-	// счет функции источника в R и X
-	ofstream fileSource("Source.txt");
-	for (size_t count = 0; count < source.numberSource; ++count)
-	{
-		for (size_t i = 0; i <= N; ++i)
-		{
-			for (size_t j = 0; j <= N; ++j)
-			{
-				fileSource << fixed << setprecision(6) << source.Function(source.node[count], i * h, j * h) << " ";
-			}
-		}
-
-		for (size_t i = 0; i <= N; ++i)
-		{
-			for (size_t j = 0; j <= N; ++j)
-			{
-				fileSource << fixed << setprecision(6) << source.Function(source.node[count], RECEIVER + i * stepReceiver, j * h) << " ";
-			}
-		}
-	}
-	fileSource.close();
+	WriteSourceValues(source);
+	Lasting("The computation time of the source function", time);
 
 	//печатаем время работы
 	Lasting("The computation time of the source function", time);
 
 	// для нахождения u^(1) составляем СЛАУ основная матрица * u^(1) = правой части
 	// substantiveMatrix[ii][jj] * numbered_u[jj] = rightPartEequation[ii]
-
-	const size_t N_squared = (N + 1) * (N + 1);
-	vector<complex<double>> rightPartEquation(N_squared, complex<double>());
-	vector<complex<double>> numbered_u(N_squared);
-	vector<vector<complex<double>>> substantiveMatrix(N_squared, vector<complex<double>>(N_squared, complex<double>()));
-	vector<vector<complex<double>>> overline_u(N + 1, vector<complex<double>>(N + 1, complex<double>()));
+	array<complex<double>, N_SQUARED> rightPartEquation{};
+	array<complex<double>, N_SQUARED> numbered_u{};
+	array<array<complex<double>, N_SQUARED>, N_SQUARED> substantiveMatrix{};
+	array<array<complex<double>, N_SQUARED>, N_SQUARED> overline_u{};
 
 	//счет основной матрицы
-	size_t ii, jj;
-	size_t auxInd;
-
-	// считаем для вершин квадрата
-	for (size_t i = 0; i <= N; ++i)
-	{
-		for (size_t j = 0; j <= N; ++j)
-		{
-			ii = i * (N + 1) + j;
-
-			// вершина O(0; 0)
-			//1 треугольник
-			substantiveMatrix[ii][0] = aa_1[i][j][0][0] * xi[0][0];
-			substantiveMatrix[ii][0] += ab_1[i][j][0][0] * xi[0][1];
-			substantiveMatrix[ii][0] += ac_1[i][j][0][0] * xi[1][0];
-
-			//2 треугольник
-			// вершина A(N; 0)
-			auxInd = N * (N + 1);
-			//1 треугольник
-			substantiveMatrix[ii][auxInd] = aa_1[i][j][N][0] * xi[N][0];
-			substantiveMatrix[ii][auxInd] += ab_1[i][j][N][0] * xi[N][1];
-			substantiveMatrix[ii][auxInd] += ac_1[i][j][N - 1][0] * xi[N - 1][0];
-			substantiveMatrix[ii][auxInd] += bc_1[i][j][N - 1][0] * xi[N - 1][1];
-			substantiveMatrix[ii][auxInd] += cc_1[i][j][N - 1][0] * xi[N][0];
-			//2 треугольник
-			substantiveMatrix[ii][auxInd] += ac_2[i][j][N - 1][0] * xi[N][1];
-			substantiveMatrix[ii][auxInd] += bc_2[i][j][N - 1][0] * xi[N - 1][1];
-			substantiveMatrix[ii][auxInd] += cc_2[i][j][N - 1][0] * xi[N][0];
-
-			// вершина B(0; N)
-			auxInd = N;
-			//1 треугольник
-			substantiveMatrix[ii][auxInd] = aa_1[i][j][0][N] * xi[0][N];
-			substantiveMatrix[ii][auxInd] += ab_1[i][j][0][N - 1] * xi[0][N - 1];
-			substantiveMatrix[ii][auxInd] += ac_1[i][j][0][N] * xi[1][N];
-			substantiveMatrix[ii][auxInd] += bb_1[i][j][0][N - 1] * xi[0][N];
-			substantiveMatrix[ii][auxInd] += bc_1[i][j][0][N - 1] * xi[1][N - 1];
-			//2 треугольник
-			substantiveMatrix[ii][auxInd] += ab_2[i][j][0][N - 1] * xi[1][N];
-			substantiveMatrix[ii][auxInd] += bb_2[i][j][0][N - 1] * xi[0][N];
-			substantiveMatrix[ii][auxInd] += bc_2[i][j][0][N - 1] * xi[1][N - 1];
-
-			// вершина C(N; N)
-			auxInd = N * (N + 1) + N;
-			//1 треугольник
-			substantiveMatrix[ii][auxInd] = aa_1[i][j][N][N] * xi[N][N];
-			substantiveMatrix[ii][auxInd] += ac_1[i][j][N - 1][N] * xi[N - 1][N];
-			substantiveMatrix[ii][auxInd] += bb_1[i][j][N][N - 1] * xi[N][N];
-			substantiveMatrix[ii][auxInd] += cc_1[i][j][N - 1][N] * xi[N][N];
-			//2 треугольник
-			substantiveMatrix[ii][auxInd] += aa_2[i][j][N - 1][N - 1] * xi[N][N];
-			substantiveMatrix[ii][auxInd] += ab_2[i][j][N - 1][N] * xi[N][N];
-			substantiveMatrix[ii][auxInd] += ac_2[i][j][N - 1][N - 1] * xi[N][N - 1];
-			substantiveMatrix[ii][auxInd] += bb_2[i][j][N][N - 1] * xi[N][N];
-			substantiveMatrix[ii][auxInd] += cc_2[i][j][N - 1][N] * xi[N][N];
-		}
-	}
-
-	// считаем для сторон квадрата
-	for (size_t i = 0; i <= N; ++i)
-	{
-		for (size_t j = 0; j <= N; ++j)
-		{
-			ii = i * (N + 1) + j;
-
-			// сторона OA(p; 0)
-			for (size_t p = 1; p < N; ++p)
-			{
-				auxInd = p * (N + 1);
-				//1 треугольник
-				substantiveMatrix[ii][auxInd] = aa_1[i][j][p][0] * xi[p][0];
-				substantiveMatrix[ii][auxInd] += ab_1[i][j][p][0] * xi[p][1];
-				substantiveMatrix[ii][auxInd] += ac_1[i][j][p - 1][0] * xi[p - 1][0];
-				substantiveMatrix[ii][auxInd] += ac_1[i][j][p][0] * xi[p + 1][0];
-				substantiveMatrix[ii][auxInd] += bc_1[i][j][p - 1][0] * xi[p - 1][1];
-				substantiveMatrix[ii][auxInd] += cc_1[i][j][p - 1][0] * xi[p][0];
-				//2 треугольник
-				substantiveMatrix[ii][auxInd] += ac_2[i][j][p - 1][0] * xi[p][1];
-				substantiveMatrix[ii][auxInd] += bc_2[i][j][p - 1][0] * xi[p - 1][1];
-				substantiveMatrix[ii][auxInd] += cc_2[i][j][p - 1][0] * xi[p][0];
-			}
-
-			// сторона OB(0; s)
-			for (size_t s = 1; s < N; ++s)
-			{
-				auxInd = s;
-				//1 треугольник
-				substantiveMatrix[ii][auxInd] = aa_1[i][j][0][s] * xi[0][s];
-				substantiveMatrix[ii][auxInd] += ab_1[i][j][0][s - 1] * xi[0][s - 1];
-				substantiveMatrix[ii][auxInd] += ab_1[i][j][0][s] * xi[0][s + 1];
-				substantiveMatrix[ii][auxInd] += ac_1[i][j][0][s] * xi[1][s];
-				substantiveMatrix[ii][auxInd] += bb_1[i][j][0][s - 1] * xi[0][s];
-				substantiveMatrix[ii][auxInd] += bc_1[i][j][0][s - 1] * xi[1][s - 1];
-				//2 треугольник
-				substantiveMatrix[ii][auxInd] += ab_2[i][j][0][s - 1] * xi[1][s];
-				substantiveMatrix[ii][auxInd] += bb_2[i][j][0][s - 1] * xi[0][s];
-				substantiveMatrix[ii][auxInd] += bc_2[i][j][0][s - 1] * xi[1][s - 1];
-			}
-			//
-			// сторона BC(p; N)
-			//
-			for (size_t p = 1; p < N; ++p)
-			{
-				auxInd = p * (N + 1) + N;
-				//1 треугольник
-				substantiveMatrix[ii][auxInd] = aa_1[i][j][p][N] * xi[p][N];
-				substantiveMatrix[ii][auxInd] += ac_1[i][j][p - 1][N] * xi[p - 1][N];
-				substantiveMatrix[ii][auxInd] += ac_1[i][j][p][N] * xi[p + 1][N];
-				substantiveMatrix[ii][auxInd] += bb_1[i][j][p][N - 1] * xi[p][N];
-				substantiveMatrix[ii][auxInd] += bc_1[i][j][p][N - 1] * xi[p + 1][N - 1];
-				substantiveMatrix[ii][auxInd] += cc_1[i][j][p - 1][N] * xi[p][N];
-				//2 треугольник
-				substantiveMatrix[ii][auxInd] += aa_2[i][j][p - 1][N - 1] * xi[p][N];
-				substantiveMatrix[ii][auxInd] += ab_2[i][j][p][N - 1] * xi[p + 1][N];
-				substantiveMatrix[ii][auxInd] += ab_2[i][j][p - 1][N - 1] * xi[p - 1][N];
-				substantiveMatrix[ii][auxInd] += ac_2[i][j][p - 1][N - 1] * xi[p][N - 1];
-				substantiveMatrix[ii][auxInd] += bb_2[i][j][p][N - 1] * xi[p][N];
-				substantiveMatrix[ii][auxInd] += bc_2[i][j][p][N - 1] * xi[p + 1][N - 1];
-				substantiveMatrix[ii][auxInd] += cc_2[i][j][p - 1][N] * xi[p][N];
-			}
-
-			// сторона AC(N; s)
-			for (size_t s = 1; s < N; ++s)
-			{
-				auxInd = N * (N + 1) + s;
-				//1 треугольник
-				substantiveMatrix[ii][auxInd] = aa_1[i][j][N][s] * xi[N][s];
-				substantiveMatrix[ii][auxInd] += ab_1[i][j][N][s - 1] * xi[N][s - 1];
-				substantiveMatrix[ii][auxInd] += ab_1[i][j][N][s] * xi[N][s + 1];
-				substantiveMatrix[ii][auxInd] += ac_1[i][j][N - 1][s] * xi[N - 1][s];
-				substantiveMatrix[ii][auxInd] += bb_1[i][j][N][s - 1] * xi[N][s];
-				substantiveMatrix[ii][auxInd] += bc_1[i][j][N - 1][s] * xi[N - 1][s + 1];
-				substantiveMatrix[ii][auxInd] += cc_1[i][j][N - 1][s] * xi[N][s];
-				//2 треугольник
-				substantiveMatrix[ii][auxInd] += aa_2[i][j][N - 1][s - 1] * xi[N][s];
-				substantiveMatrix[ii][auxInd] += ab_2[i][j][N - 1][s - 1] * xi[N - 1][s];
-				substantiveMatrix[ii][auxInd] += ac_2[i][j][N - 1][s] * xi[N][s + 1];
-				substantiveMatrix[ii][auxInd] += ac_2[i][j][N - 1][s - 1] * xi[N][s - 1];
-				substantiveMatrix[ii][auxInd] += bb_2[i][j][N][s - 1] * xi[N][s];
-				substantiveMatrix[ii][auxInd] += bc_2[i][j][N - 1][s] * xi[N - 1][s + 1];
-				substantiveMatrix[ii][auxInd] += cc_2[i][j][N - 1][s] * xi[N][s];
-			}
-		}
-	}
-
-	// считаем для внутренних точек квадрата
-	for (size_t i = 1; i < N; ++i)
-	{
-		for (size_t j = 1; j < N; ++j)
-		{
-			ii = i * (N + 1) + j;
-			for (size_t p = 1; p < N; ++p)
-			{
-				for (size_t s = 1; s < N; ++s)
-				{
-					jj = p * (N + 1) + s;
-					//1 треугольник
-					substantiveMatrix[ii][jj] = aa_1[i][j][p][s] * xi[p][s];
-					substantiveMatrix[ii][jj] += ab_1[i][j][p][s - 1] * xi[p][s - 1];
-					substantiveMatrix[ii][jj] += ab_1[i][j][p][s] * xi[p][s + 1];
-					substantiveMatrix[ii][jj] += ac_1[i][j][p - 1][s] * xi[p - 1][s];
-					substantiveMatrix[ii][jj] += ac_1[i][j][p][s] * xi[p + 1][s];
-					substantiveMatrix[ii][jj] += bb_1[i][j][p][s - 1] * xi[p][s];
-					substantiveMatrix[ii][jj] += bc_1[i][j][p - 1][s] * xi[p - 1][s + 1];
-					substantiveMatrix[ii][jj] += bc_1[i][j][p][s - 1] * xi[p + 1][s - 1];
-					substantiveMatrix[ii][jj] += cc_1[i][j][p - 1][s] * xi[p][s];
-					//2 треугольник
-					substantiveMatrix[ii][jj] += aa_2[i][j][p - 1][s - 1] * xi[p][s];
-					substantiveMatrix[ii][jj] += ab_2[i][j][p][s - 1] * xi[p + 1][s];
-					substantiveMatrix[ii][jj] += ab_2[i][j][p - 1][s - 1] * xi[p - 1][s];
-					substantiveMatrix[ii][jj] += ac_2[i][j][p - 1][s] * xi[p][s + 1];
-					substantiveMatrix[ii][jj] += ac_2[i][j][p - 1][s - 1] * xi[p][s - 1];
-					substantiveMatrix[ii][jj] += bb_2[i][j][p][s - 1] * xi[p][s];
-					substantiveMatrix[ii][jj] += bc_2[i][j][p - 1][s] * xi[p - 1][s + 1];
-					substantiveMatrix[ii][jj] += bc_2[i][j][p][s - 1] * xi[p + 1][s - 1];
-					substantiveMatrix[ii][jj] += cc_2[i][j][p - 1][s] * xi[p][s];
-				}
-			}
-		}
-	}
-
-	// Добавляем единицу к главной диагонали
-	for (size_t i = 0; i < N_squared; ++i)
-	{
-		substantiveMatrix[i][i] += 1.0;
-	}
-
-	Lasting("The computation time of the matrix inside the cube", time);
+	GetSubstantiveMatrix(basicArrays, xi, substantiveMatrix);
+	Lasting("The computation time of the matrix inside the squared", time);
 
 	// Находим акустическое поле в приемниках
-	// для каждого источника
 	ofstream file_overline_u("matrix_overline_u.txt");
+	file_overline_u << fixed << setprecision(6);
 	for (size_t count = 0; count < source.numberSource; ++count)
 	{
 		// нахождение правой части
-		for (size_t i = 0; i <= N; ++i)
-		{
-			for (size_t j = 0; j <= N; ++j)
-			{
-				ii = i * (N + 1) + j;
-				rightPartEquation[ii] = source.Function(source.node[count], i * h, j * h);
-			}
-		}
+		GetRightPartEquation(source, count, rightPartEquation);
+		
 		// нахождение u^{(count)}
 		SolveSlauGaussa(substantiveMatrix, rightPartEquation, numbered_u);
 
 		// Обратная перенумерация
-		size_t coordinate_x;
-		size_t coordinate_y;
-		for (size_t i = 0; i < N_squared; ++i)
-		{
-			coordinate_x = i / (N + 1);
-			coordinate_y = i % (N + 1);
-			u[coordinate_x][coordinate_y] = numbered_u[i];
-		}
-
+		InverseRenumbering(numbered_u, u);
 		Lasting("Finding the acoustic pressure in R", time);
 
-		// находим overline_u_0
-		for (size_t i = 0; i <= N; ++i)
+		GetOverlineU(source, count, basicArrays, xi, u, overline_u);
+		for (size_t i = 0; i <= SPLITTING; ++i)
 		{
-			for (size_t j = 0; j <= N; ++j)
+			for (size_t j = 0; j <= SPLITTING; ++j)
 			{
-				overline_u[i][j] = source.Function(source.node[count], RECEIVER + i * stepReceiver, j * h);
-			}
-		}
-		for (size_t i = 0; i <= N; ++i)
-		{
-			for (size_t j = 0; j <= N; ++j)
-			{
-				for (size_t p = 0; p < N; ++p)
-				{
-					for (size_t s = 0; s < N; ++s)
-					{
-						//1 треугольник
-						overline_u[i][j] -= overline_aa_1[i][j][p][s] * xi[p][s] * u[p][s];
-						overline_u[i][j] -= overline_ab_1[i][j][p][s] * xi[p][s] * u[p][s + 1];
-						overline_u[i][j] -= overline_ab_1[i][j][p][s] * xi[p][s + 1] * u[p][s];
-						overline_u[i][j] -= overline_ac_1[i][j][p][s] * xi[p][s] * u[p + 1][s];
-						overline_u[i][j] -= overline_ac_1[i][j][p][s] * xi[p + 1][s] * u[p][s];
-						overline_u[i][j] -= overline_bb_1[i][j][p][s] * xi[p][s + 1] * u[p][s + 1];
-						overline_u[i][j] -= overline_bc_1[i][j][p][s] * xi[p][s + 1] * u[p + 1][s];
-						overline_u[i][j] -= overline_bc_1[i][j][p][s] * xi[p + 1][s] * u[p][s + 1];
-						overline_u[i][j] -= overline_cc_1[i][j][p][s] * xi[p + 1][s] * u[p + 1][s];
-						//2 треугольник
-						overline_u[i][j] -= overline_aa_2[i][j][p][s] * xi[p + 1][s + 1] * u[p + 1][s + 1];
-						overline_u[i][j] -= overline_ab_2[i][j][p][s] * xi[p + 1][s + 1] * u[p][s + 1];
-						overline_u[i][j] -= overline_ab_2[i][j][p][s] * xi[p][s + 1] * u[p + 1][s + 1];
-						overline_u[i][j] -= overline_ac_2[i][j][p][s] * xi[p + 1][s + 1] * u[p + 1][s];
-						overline_u[i][j] -= overline_ac_2[i][j][p][s] * xi[p + 1][s] * u[p + 1][s + 1];
-						overline_u[i][j] -= overline_bb_2[i][j][p][s] * xi[p][s + 1] * u[p][s + 1];
-						overline_u[i][j] -= overline_bc_2[i][j][p][s] * xi[p][s + 1] * u[p + 1][s];
-						overline_u[i][j] -= overline_bc_2[i][j][p][s] * xi[p + 1][s] * u[p][s + 1];
-						overline_u[i][j] -= overline_cc_2[i][j][p][s] * xi[p + 1][s] * u[p + 1][s];
-					}
-				}
-			}
-		}
-		// печать overline_u_0^(count) в файл в одну строчку
-		for (size_t i = 0; i <= N; ++i)
-		{
-			for (size_t j = 0; j <= N; ++j)
-			{
-				file_overline_u << fixed << setprecision(6) << overline_u[i][j] << " ";
+				file_overline_u << overline_u[i][j] << " ";
 			}
 		}
 

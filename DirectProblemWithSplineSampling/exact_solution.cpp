@@ -4,24 +4,24 @@
 
 using namespace std;
 
-void GetExactSolution(std::vector<std::vector<double>> & xi)
+void GetExactSolution(array<array<complex<double>, SPLITTING + 1>, SPLITTING + 1> &xi)
 {
-	for (size_t i = 0; i <= NUMBER_PARTITION_POINT; ++i)
+	for (size_t i = 0; i <= SPLITTING; ++i)
 	{
-		for (size_t j = 0; j <= NUMBER_PARTITION_POINT; ++j)
+		for (size_t j = 0; j <= SPLITTING; ++j)
 		{
 			xi[i][j] = exp(-64.0 * (i * h - 0.6) * (i * h - 0.6) - 64.0 * (j * h - 0.6) * (j * h - 0.6));
 		}
 	}
 }
 
-void WriteSolutionFile(vector<vector<double>> & xi)
+void WriteSolutionFile(const array<array<complex<double>, SPLITTING + 1>, SPLITTING + 1> & xi)
 {
 	ofstream file_xi("exact_xi.txt");
 	file_xi << fixed << setprecision(6);
-	for (size_t i = 0; i <= NUMBER_PARTITION_POINT; ++i)
+	for (size_t i = 0; i <= SPLITTING; ++i)
 	{
-		for (size_t j = 0; j <= NUMBER_PARTITION_POINT; ++j)
+		for (size_t j = 0; j <= SPLITTING; ++j)
 		{
 			file_xi << xi[i][j] << " ";
 		}

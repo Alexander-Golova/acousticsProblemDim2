@@ -12,4 +12,5 @@
 #include <iomanip>
 #include <time.h>
 #include <vector>
+#include "array"
 #include <algorithm>

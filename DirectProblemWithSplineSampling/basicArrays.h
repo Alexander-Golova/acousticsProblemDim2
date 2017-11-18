@@ -1,7 +1,6 @@
 #pragma once
 
 #include "taskData.h"
-#include <vector>
 #include <complex>
 #include <array>
 
@@ -33,7 +32,7 @@ struct BasicArrays
 	std::array<std::array<std::array<std::array<std::complex<double>, SPLITTING + 1>, SPLITTING + 1>, SPLITTING + 1>, SPLITTING + 1> overline_cc_2;
 };
 
-void GetBasicArrays(BasicArrays basicArrays);
+void GetBasicArrays(BasicArrays & basicArrays);
 
-void WriteBasicArraysFile(BasicArrays basicArrays);
+void WriteBasicArraysFile(BasicArrays & basicArrays);
 

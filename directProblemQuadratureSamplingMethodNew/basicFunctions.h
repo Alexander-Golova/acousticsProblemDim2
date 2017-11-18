@@ -1,12 +1,12 @@
-#pragma once
+п»ї#pragma once
 
 const std::complex<double> I{ 0.0, 1.0 };
 
-//функция Ханкеля
+//С„СѓРЅРєС†РёСЏ РҐР°РЅРєРµР»СЏ
 std::complex<double> Hankel(const double x);
 
-// функция Грина
+// С„СѓРЅРєС†РёСЏ Р“СЂРёРЅР°
 std::complex<double> G(const double x_1, const double x_2, const double y_1, const double y_2);
 
-//печать времени
+//РїРµС‡Р°С‚СЊ РІСЂРµРјРµРЅРё
 void Lasting(const std::string & st, clock_t & time);
