@@ -11,7 +11,7 @@ void GetExactSolution(vector<vector<double>> & xi)
 	{
 		for (size_t j = 0; j <= NUMBER_PARTITION_POINT; ++j)
 		{
-			xi[i][j] = exp(-((i * h - 0.6) * (i * h - 0.6) + (j * h - 0.6) * (j * h - 0.6)) / sigma);
+			xi[i][j] = exp(-((i * h - 0.6) * (i * h - 0.6) + (j * h - 0.6) * (j * h - 0.6)) * sigma);
 		}
 	}
 }
