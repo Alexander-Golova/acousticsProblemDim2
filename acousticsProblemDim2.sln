@@ -3,19 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "directProblemQuadratureSamplingMethod", "directProblemQuadratureSamplingMethod\directProblemQuadratureSamplingMethod.vcxproj", "{512851FF-7FC0-49E3-A1AA-0E29EC938BC9}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "directProblemQuadratureMethod", "directProblemQuadratureMethod\directProblemQuadratureMethod.vcxproj", "{DC2F2179-91D4-48EE-BF66-64AA83709C68}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "inverseProblemQuadratureSamplingMethod", "inverseProblemQuadratureSamplingMethod\inverseProblemQuadratureSamplingMethod.vcxproj", "{04468CA1-8113-4E2D-84A5-554863AE60A1}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MultMatrix", "MultMatrix\MultMatrix.vcxproj", "{A3EE0E59-3089-4554-BC88-248E6B279C4F}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "directProblemQuadratureSamplingMethodNew", "directProblemQuadratureSamplingMethodNew\directProblemQuadratureSamplingMethodNew.vcxproj", "{DC2F2179-91D4-48EE-BF66-64AA83709C68}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "inverseProblemQuadratureSamplingMethodNew", "inverseProblemQuadratureSamplingMethodNew\inverseProblemQuadratureSamplingMethodNew.vcxproj", "{5206358D-B4EE-4351-AD0C-06D391B33693}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "directProblemDimensionalKvadraturOLd", "directProblemDimensionalKvadraturOLd\directProblemDimensionalKvadraturOLd.vcxproj", "{342382D9-901C-4E22-9174-C8ECA92402D5}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "inverseProblemDimensional_2_kvadraturOld", "inverseProblemDimensional_2_kvadraturOld\inverseProblemDimensional_2_kvadraturOld.vcxproj", "{FF9D1D7B-C680-425B-8471-F00884249DEB}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "inverseProblemQuadratureMethod", "inverseProblemQuadratureMethod\inverseProblemQuadratureMethod.vcxproj", "{5206358D-B4EE-4351-AD0C-06D391B33693}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "matrixComparison", "matrixComparison\matrixComparison.vcxproj", "{1A7FB758-0EB4-46A8-99E6-39A199B7871E}"
 EndProject
@@ -27,30 +17,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{512851FF-7FC0-49E3-A1AA-0E29EC938BC9}.Debug|x64.ActiveCfg = Debug|x64
-		{512851FF-7FC0-49E3-A1AA-0E29EC938BC9}.Debug|x64.Build.0 = Debug|x64
-		{512851FF-7FC0-49E3-A1AA-0E29EC938BC9}.Debug|x86.ActiveCfg = Debug|Win32
-		{512851FF-7FC0-49E3-A1AA-0E29EC938BC9}.Debug|x86.Build.0 = Debug|Win32
-		{512851FF-7FC0-49E3-A1AA-0E29EC938BC9}.Release|x64.ActiveCfg = Release|x64
-		{512851FF-7FC0-49E3-A1AA-0E29EC938BC9}.Release|x64.Build.0 = Release|x64
-		{512851FF-7FC0-49E3-A1AA-0E29EC938BC9}.Release|x86.ActiveCfg = Release|Win32
-		{512851FF-7FC0-49E3-A1AA-0E29EC938BC9}.Release|x86.Build.0 = Release|Win32
-		{04468CA1-8113-4E2D-84A5-554863AE60A1}.Debug|x64.ActiveCfg = Debug|x64
-		{04468CA1-8113-4E2D-84A5-554863AE60A1}.Debug|x64.Build.0 = Debug|x64
-		{04468CA1-8113-4E2D-84A5-554863AE60A1}.Debug|x86.ActiveCfg = Debug|Win32
-		{04468CA1-8113-4E2D-84A5-554863AE60A1}.Debug|x86.Build.0 = Debug|Win32
-		{04468CA1-8113-4E2D-84A5-554863AE60A1}.Release|x64.ActiveCfg = Release|x64
-		{04468CA1-8113-4E2D-84A5-554863AE60A1}.Release|x64.Build.0 = Release|x64
-		{04468CA1-8113-4E2D-84A5-554863AE60A1}.Release|x86.ActiveCfg = Release|Win32
-		{04468CA1-8113-4E2D-84A5-554863AE60A1}.Release|x86.Build.0 = Release|Win32
-		{A3EE0E59-3089-4554-BC88-248E6B279C4F}.Debug|x64.ActiveCfg = Debug|x64
-		{A3EE0E59-3089-4554-BC88-248E6B279C4F}.Debug|x64.Build.0 = Debug|x64
-		{A3EE0E59-3089-4554-BC88-248E6B279C4F}.Debug|x86.ActiveCfg = Debug|Win32
-		{A3EE0E59-3089-4554-BC88-248E6B279C4F}.Debug|x86.Build.0 = Debug|Win32
-		{A3EE0E59-3089-4554-BC88-248E6B279C4F}.Release|x64.ActiveCfg = Release|x64
-		{A3EE0E59-3089-4554-BC88-248E6B279C4F}.Release|x64.Build.0 = Release|x64
-		{A3EE0E59-3089-4554-BC88-248E6B279C4F}.Release|x86.ActiveCfg = Release|Win32
-		{A3EE0E59-3089-4554-BC88-248E6B279C4F}.Release|x86.Build.0 = Release|Win32
 		{DC2F2179-91D4-48EE-BF66-64AA83709C68}.Debug|x64.ActiveCfg = Debug|x64
 		{DC2F2179-91D4-48EE-BF66-64AA83709C68}.Debug|x64.Build.0 = Debug|x64
 		{DC2F2179-91D4-48EE-BF66-64AA83709C68}.Debug|x86.ActiveCfg = Debug|Win32
@@ -67,22 +33,6 @@ Global
 		{5206358D-B4EE-4351-AD0C-06D391B33693}.Release|x64.Build.0 = Release|x64
 		{5206358D-B4EE-4351-AD0C-06D391B33693}.Release|x86.ActiveCfg = Release|Win32
 		{5206358D-B4EE-4351-AD0C-06D391B33693}.Release|x86.Build.0 = Release|Win32
-		{342382D9-901C-4E22-9174-C8ECA92402D5}.Debug|x64.ActiveCfg = Debug|x64
-		{342382D9-901C-4E22-9174-C8ECA92402D5}.Debug|x64.Build.0 = Debug|x64
-		{342382D9-901C-4E22-9174-C8ECA92402D5}.Debug|x86.ActiveCfg = Debug|Win32
-		{342382D9-901C-4E22-9174-C8ECA92402D5}.Debug|x86.Build.0 = Debug|Win32
-		{342382D9-901C-4E22-9174-C8ECA92402D5}.Release|x64.ActiveCfg = Release|x64
-		{342382D9-901C-4E22-9174-C8ECA92402D5}.Release|x64.Build.0 = Release|x64
-		{342382D9-901C-4E22-9174-C8ECA92402D5}.Release|x86.ActiveCfg = Release|Win32
-		{342382D9-901C-4E22-9174-C8ECA92402D5}.Release|x86.Build.0 = Release|Win32
-		{FF9D1D7B-C680-425B-8471-F00884249DEB}.Debug|x64.ActiveCfg = Debug|x64
-		{FF9D1D7B-C680-425B-8471-F00884249DEB}.Debug|x64.Build.0 = Debug|x64
-		{FF9D1D7B-C680-425B-8471-F00884249DEB}.Debug|x86.ActiveCfg = Debug|Win32
-		{FF9D1D7B-C680-425B-8471-F00884249DEB}.Debug|x86.Build.0 = Debug|Win32
-		{FF9D1D7B-C680-425B-8471-F00884249DEB}.Release|x64.ActiveCfg = Release|x64
-		{FF9D1D7B-C680-425B-8471-F00884249DEB}.Release|x64.Build.0 = Release|x64
-		{FF9D1D7B-C680-425B-8471-F00884249DEB}.Release|x86.ActiveCfg = Release|Win32
-		{FF9D1D7B-C680-425B-8471-F00884249DEB}.Release|x86.Build.0 = Release|Win32
 		{1A7FB758-0EB4-46A8-99E6-39A199B7871E}.Debug|x64.ActiveCfg = Debug|x64
 		{1A7FB758-0EB4-46A8-99E6-39A199B7871E}.Debug|x64.Build.0 = Debug|x64
 		{1A7FB758-0EB4-46A8-99E6-39A199B7871E}.Debug|x86.ActiveCfg = Debug|Win32
