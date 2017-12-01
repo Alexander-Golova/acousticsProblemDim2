@@ -14,7 +14,7 @@ const double C_0 = 1.0;
 const double receiver = 1.2;
 
 // количество квадратиков по каждому измерению
-const size_t NUMBER_PARTITION_POINT = 50;
+const size_t NUMBER_PARTITION_POINT = 40;
 const size_t N_SQUARED = (NUMBER_PARTITION_POINT + 1) * (NUMBER_PARTITION_POINT + 1);
 
 // размер квадрата в котором находится неоднородность
