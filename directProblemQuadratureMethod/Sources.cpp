@@ -4,10 +4,10 @@
 
 using namespace std;
 
-complex<double> Source::Function(const Point source, const double x, const double y) const
+complex<float> Source::Function(const Point source, const float x, const float y) const
 {
-	double dist = sqrt(pow(x - source.x, 2) + pow(y - source.y, 2));
-	return -0.25 * I * Hankel(OMEGA * dist / C_0);
+	float dist = sqrt(pow(x - source.x, 2) + pow(y - source.y, 2));
+	return -0.25f * I * Hankel(OMEGA * dist / C_0);
 }
 
 void WriteSourceValues(const Source & source)

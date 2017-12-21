@@ -3,12 +3,12 @@
 using namespace std;
 
 // возвращает евклидову норму матрицы в квадрате
-double GetEuclideanNorm(vector<vector<double>> & matrix)
+float GetEuclideanNorm(vector<vector<float>> & matrix)
 {
 	const size_t dim1 = (size_t)matrix.size();
 	const size_t dim2 = (size_t)matrix[0].size();
 
-	double euclideanNorm = 0.0;
+	float euclideanNorm = 0.0f;
 
 	for (size_t row = 0; row < dim1; ++row)
 	{
@@ -21,7 +21,7 @@ double GetEuclideanNorm(vector<vector<double>> & matrix)
 }
 
 // Вычитание квадратных матриц lhs = lhs - rhs
-void SubtractionOfSquareMatrices(vector<vector<double>> & lhs, const vector<vector<double>> & rhs)
+void SubtractionOfSquareMatrices(vector<vector<float>> & lhs, const vector<vector<float>> & rhs)
 {
 	const size_t dim = (size_t)lhs.size();
 
@@ -37,8 +37,8 @@ void SubtractionOfSquareMatrices(vector<vector<double>> & lhs, const vector<vect
 int main()
 {
 	size_t N = 50;
-	vector<vector<double>> a(N + 1, vector<double>(N + 1, 0.0));
-	vector<vector<double>> b(N + 1, vector<double>(N + 1, 0.0));
+	vector<vector<float>> a(N + 1, vector<float>(N + 1, 0.0f));
+	vector<vector<float>> b(N + 1, vector<float>(N + 1, 0.0f));
 
 	ifstream f_a("a.txt");
 	for (size_t i = 0; i <= N; ++i)

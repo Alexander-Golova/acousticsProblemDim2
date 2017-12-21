@@ -5,25 +5,25 @@
 
 using namespace std;
 
-void GetBasicArrays(vector<vector<vector<vector<complex<double>>>>> & a,
-     vector<vector<vector<complex<double>>>> & overline_a, vector<vector<complex<double>>> & b)
+void GetBasicArrays(vector<vector<vector<vector<complex<float>>>>> & a,
+     vector<vector<vector<complex<float>>>> & overline_a, vector<vector<complex<float>>> & b)
 {
 	// счет индексов метода квадратур
-	vector<double> index(NUMBER_PARTITION_POINT + 1);
+	vector<float> index(NUMBER_PARTITION_POINT + 1);
 
 	for (size_t i = 1; i < NUMBER_PARTITION_POINT; ++i)
 	{
 		if (i % 2 != 0)
 		{
-			index[i] = 4.0 / 3;
+			index[i] = 4.0f / 3;
 		}
 		else
 		{
-			index[i] = 2.0 / 3;
+			index[i] = 2.0f / 3;
 		}
 	}
-	index[0] = 1.0 / 3;
-	index[NUMBER_PARTITION_POINT] = 1.0 / 3;
+	index[0] = 1.0f / 3;
+	index[NUMBER_PARTITION_POINT] = 1.0f / 3;
 
 	// нахождение массива a
 	for (size_t i = 0; i <= NUMBER_PARTITION_POINT; ++i)

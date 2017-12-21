@@ -5,8 +5,8 @@
 
 using namespace std;
 
-void WriteBasicArraysFile(vector<vector<vector<vector<complex<double>>>>> & a,
-	vector<vector<vector<complex<double>>>> & overline_a, vector<vector<complex<double>>> & b)
+void WriteBasicArraysFile(vector<vector<vector<vector<complex<float>>>>> & a,
+	vector<vector<vector<complex<float>>>> & overline_a, vector<vector<complex<float>>> & b)
 {
 	ofstream f_a("matrix_a.txt");
 	f_a << fixed << setprecision(6);

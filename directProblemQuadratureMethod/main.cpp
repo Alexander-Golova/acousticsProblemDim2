@@ -14,11 +14,11 @@ int main()
 {
 	const Source source;
 
-	vector<vector<complex<double>>> u(NUMBER_PARTITION_POINT + 1,
-		vector<complex<double>>(NUMBER_PARTITION_POINT + 1, complex<double>()));
+	vector<vector<complex<float>>> u(NUMBER_PARTITION_POINT + 1,
+		vector<complex<float>>(NUMBER_PARTITION_POINT + 1, complex<float>()));
 
-	vector<vector<double>> xi(NUMBER_PARTITION_POINT + 1,
-		vector<double>(NUMBER_PARTITION_POINT + 1, 0.0));
+	vector<vector<float>> xi(NUMBER_PARTITION_POINT + 1,
+		vector<float>(NUMBER_PARTITION_POINT + 1, 0.0f));
 
 	GetExactSolution(xi);
 
@@ -27,17 +27,17 @@ int main()
 	clock_t time = clock();
 	clock_t timeBegin = clock();
 
-	vector<vector<vector<vector<complex<double>>>>> a(NUMBER_PARTITION_POINT + 1,
-		vector<vector<vector<complex<double>>>>(NUMBER_PARTITION_POINT + 1,
-			vector<vector<complex<double>>>(NUMBER_PARTITION_POINT + 1,
-			vector<complex<double>>(NUMBER_PARTITION_POINT + 1, complex<double>()))));
+	vector<vector<vector<vector<complex<float>>>>> a(NUMBER_PARTITION_POINT + 1,
+		vector<vector<vector<complex<float>>>>(NUMBER_PARTITION_POINT + 1,
+			vector<vector<complex<float>>>(NUMBER_PARTITION_POINT + 1,
+			vector<complex<float>>(NUMBER_PARTITION_POINT + 1, complex<float>()))));
 
-	vector<vector<vector<complex<double>>>> overline_a(NUMBER_PARTITION_POINT + 1,
-		vector<vector<complex<double>>>(NUMBER_PARTITION_POINT + 1,
-		vector<complex<double>>(NUMBER_PARTITION_POINT + 1, complex<double>())));
+	vector<vector<vector<complex<float>>>> overline_a(NUMBER_PARTITION_POINT + 1,
+		vector<vector<complex<float>>>(NUMBER_PARTITION_POINT + 1,
+		vector<complex<float>>(NUMBER_PARTITION_POINT + 1, complex<float>())));
 
-	vector<vector<complex<double>>> b(NUMBER_PARTITION_POINT + 1,
-		vector<complex<double>>(NUMBER_PARTITION_POINT + 1, complex<double>()));
+	vector<vector<complex<float>>> b(NUMBER_PARTITION_POINT + 1,
+		vector<complex<float>>(NUMBER_PARTITION_POINT + 1, complex<float>()));
 
 
 	GetBasicArrays(a, overline_a, b);
@@ -53,10 +53,10 @@ int main()
 	// substantiveMatrix[ii][jj] * numbered_u[jj] = rightPartEquation[ii]
 
 	const size_t N_squared = (NUMBER_PARTITION_POINT + 1) * (NUMBER_PARTITION_POINT + 1);
-	vector<complex<double>> rightPartEquation(N_squared, complex<double>());
-	vector<complex<double>> numbered_u(N_squared);
-	vector<vector<complex<double>>> substantiveMatrix(N_squared, vector<complex<double>>(N_squared, complex<double>()));
-	vector<complex<double>> overline_u(NUMBER_PARTITION_POINT + 1, complex<double>());
+	vector<complex<float>> rightPartEquation(N_squared, complex<float>());
+	vector<complex<float>> numbered_u(N_squared);
+	vector<vector<complex<float>>> substantiveMatrix(N_squared, vector<complex<float>>(N_squared, complex<float>()));
+	vector<complex<float>> overline_u(NUMBER_PARTITION_POINT + 1, complex<float>());
 
 	GetSubstantiveMatrix(a, b, xi, substantiveMatrix);
 	Lasting("The computation time of the matrix inside the squared", time);

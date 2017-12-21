@@ -3,7 +3,7 @@
 #include <vector>
 #include <complex>
 
-void GetBasicArrays(std::vector<std::vector<std::vector<std::vector<std::complex<double>>>>> & a,
-     std::vector<std::vector<std::vector<std::complex<double>>>> & overline_a,
-     std::vector<std::vector<std::complex<double>>> & b);
+void GetBasicArrays(std::vector<std::vector<std::vector<std::vector<std::complex<float>>>>> & a,
+     std::vector<std::vector<std::vector<std::complex<float>>>> & overline_a,
+     std::vector<std::vector<std::complex<float>>> & b);
 

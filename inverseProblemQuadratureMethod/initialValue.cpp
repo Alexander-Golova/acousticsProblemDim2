@@ -4,8 +4,8 @@
 
 using namespace std;
 
-void InitialValueU(const size_t numberSource, vector<vector<vector<complex<double>>>> & u,
-	vector<vector<vector<complex<double>>>> & Source_R)
+void InitialValueU(const size_t numberSource, vector<vector<vector<complex<float>>>> & u,
+	vector<vector<vector<complex<float>>>> & Source_R)
 {
 	for (size_t count = 0; count < numberSource; ++count)
 	{
@@ -19,13 +19,13 @@ void InitialValueU(const size_t numberSource, vector<vector<vector<complex<doubl
 	}
 }
 
-void InitialValueXi(vector<vector<complex<double>>> &xi)
+void InitialValueXi(vector<vector<complex<float>>> &xi)
 {
 	for (size_t i = 0; i <= NUMBER_PARTITION_POINT; ++i)
 	{
 		for (size_t j = 0; j <= NUMBER_PARTITION_POINT; ++j)
 		{
-			xi[i][j] = 0.1;
+			xi[i][j] = 0.1f;
 		}
 	}
 }

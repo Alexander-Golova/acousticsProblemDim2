@@ -5,18 +5,18 @@
 
 using namespace std;
 
-void GetSubstantiveMatrix(const vector<vector<vector<vector<complex<double>>>>> & a,
-	const vector<vector<complex<double>>> & b, const vector<vector<double>> & xi,
-	vector<vector<complex<double>>> & substantiveMatrix)
+void GetSubstantiveMatrix(const vector<vector<vector<vector<complex<float>>>>> & a,
+	const vector<vector<complex<float>>> & b, const vector<vector<float>> & xi,
+	vector<vector<complex<float>>> & substantiveMatrix)
 {
 	size_t ii, jj;
-	complex<double> sumOfTheCoefficients;
+	complex<float> sumOfTheCoefficients;
 	for (size_t i = 0; i <= NUMBER_PARTITION_POINT; ++i)
 	{
 		for (size_t j = 0; j <= NUMBER_PARTITION_POINT; ++j)
 		{
 			ii = i * (NUMBER_PARTITION_POINT + 1) + j;
-			sumOfTheCoefficients = complex<double>();
+			sumOfTheCoefficients = complex<float>();
 			for (size_t p = 0; p < NUMBER_PARTITION_POINT; ++p)
 			{
 				for (size_t q = 0; q < NUMBER_PARTITION_POINT; ++q)
@@ -29,14 +29,14 @@ void GetSubstantiveMatrix(const vector<vector<vector<vector<complex<double>>>>> 
 					}
 				}
 			}
-			substantiveMatrix[ii][ii] += 1.0;
+			substantiveMatrix[ii][ii] += { 1.0f, 0.0f };
 			substantiveMatrix[ii][ii] -= sumOfTheCoefficients * xi[i][j];
 			substantiveMatrix[ii][ii] += b[i][j] * xi[i][j];
 		}
 	}
 }
 
-void GetRightPartEquation(const Source & source, size_t count, vector<complex<double>> & rightPartEquation)
+void GetRightPartEquation(const Source & source, size_t count, vector<complex<float>> & rightPartEquation)
 {
 	size_t ii;
 	for (size_t i = 0; i <= NUMBER_PARTITION_POINT; ++i)
@@ -49,7 +49,7 @@ void GetRightPartEquation(const Source & source, size_t count, vector<complex<do
 	}
 }
 
-void InverseRenumbering(const vector<complex<double>> & numbered_u, vector<vector<complex<double>>> & u)
+void InverseRenumbering(const vector<complex<float>> & numbered_u, vector<vector<complex<float>>> & u)
 {
 	size_t ii;
 	for (size_t i = 0; i <= NUMBER_PARTITION_POINT; ++i)
@@ -63,9 +63,9 @@ void InverseRenumbering(const vector<complex<double>> & numbered_u, vector<vecto
 }
 
 void GetOverlineU(const Source & source, size_t count,
-	const vector<vector<vector<complex<double>>>> & overline_a,
-	const vector<vector<double>> & xi, const vector<vector<complex<double>>> & u,
-	vector<complex<double>> & overline_u)
+	const vector<vector<vector<complex<float>>>> & overline_a,
+	const vector<vector<float>> & xi, const vector<vector<complex<float>>> & u,
+	vector<complex<float>> & overline_u)
 {
 	for (size_t i = 0; i <= NUMBER_PARTITION_POINT; ++i)
 	{

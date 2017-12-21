@@ -3,7 +3,7 @@
 
 using namespace std;
 
-void ArrayLoadingA(vector<vector<vector<vector<complex<double>>>>> & a)
+void ArrayLoadingA(vector<vector<vector<vector<complex<float>>>>> & a)
 {
 	ifstream f_a("matrix_a.txt");
 	for (size_t i = 0; i <= NUMBER_PARTITION_POINT; ++i)
@@ -22,7 +22,7 @@ void ArrayLoadingA(vector<vector<vector<vector<complex<double>>>>> & a)
 	f_a.close();
 }
 
-void ArrayLoadingOverlineA(vector<vector<vector<complex<double>>>> & overline_a)
+void ArrayLoadingOverlineA(vector<vector<vector<complex<float>>>> & overline_a)
 {
 	ifstream f_overline_a("matrix_overline_a.txt");
 	for (size_t j = 0; j <= NUMBER_PARTITION_POINT; ++j)
@@ -38,7 +38,7 @@ void ArrayLoadingOverlineA(vector<vector<vector<complex<double>>>> & overline_a)
 	f_overline_a.close();
 }
 
-void ArrayLoadingB(vector<vector<complex<double>>> & b)
+void ArrayLoadingB(vector<vector<complex<float>>> & b)
 {
 	ifstream f_b("matrix_b.txt");
 	for (size_t i = 0; i <= NUMBER_PARTITION_POINT; ++i)
@@ -51,8 +51,8 @@ void ArrayLoadingB(vector<vector<complex<double>>> & b)
 	f_b.close();
 }
 
-void ArrayLoadingSource(const size_t numberSource, vector<vector<vector<complex<double>>>> & Source_R,
-	vector<vector<complex<double>>> & Source_X)
+void ArrayLoadingSource(const size_t numberSource, vector<vector<vector<complex<float>>>> & Source_R,
+	vector<vector<complex<float>>> & Source_X)
 {
 	ifstream fileSource("Source.txt");
 	for (size_t count = 0; count < numberSource; ++count)
@@ -73,7 +73,7 @@ void ArrayLoadingSource(const size_t numberSource, vector<vector<vector<complex<
 	fileSource.close();
 }
 
-void ArrayLoadingOverlineU(const size_t numberSource, vector<vector<complex<double>>> & overline_u)
+void ArrayLoadingOverlineU(const size_t numberSource, vector<vector<complex<float>>> & overline_u)
 {
 	ifstream file_overline_u("matrix_overline_u.txt");
 	for (size_t count = 0; count < numberSource; ++count)
@@ -86,10 +86,10 @@ void ArrayLoadingOverlineU(const size_t numberSource, vector<vector<complex<doub
 	file_overline_u.close();
 }
 
-void LoadData(const size_t numberSource, vector<vector<vector<vector<complex<double>>>>> & a,
-	vector<vector<vector<complex<double>>>> & overline_a, vector<vector<complex<double>>> & b,
-	vector<vector<vector<complex<double>>>> & Source_R, vector<vector<complex<double>>> & Source_X,
-	vector<vector<complex<double>>> & overline_u)
+void LoadData(const size_t numberSource, vector<vector<vector<vector<complex<float>>>>> & a,
+	vector<vector<vector<complex<float>>>> & overline_a, vector<vector<complex<float>>> & b,
+	vector<vector<vector<complex<float>>>> & Source_R, vector<vector<complex<float>>> & Source_X,
+	vector<vector<complex<float>>> & overline_u)
 {
 	ArrayLoadingA(a);
 	ArrayLoadingOverlineA(overline_a);

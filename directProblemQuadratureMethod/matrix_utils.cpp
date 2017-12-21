@@ -3,7 +3,7 @@
 
 using namespace std;
 
-void GetNullMatrix(vector<vector<complex<double>>> & matrix)
+void GetNullMatrix(vector<vector<complex<float>>> & matrix)
 {
 	const size_t dim1 = (size_t)matrix.size();
 	const size_t dim2 = (size_t)matrix[0].size();
@@ -12,17 +12,17 @@ void GetNullMatrix(vector<vector<complex<double>>> & matrix)
 	{
 		for (size_t col = 0; col < dim2; ++col)
 		{
-			matrix[row][col] = { 0.0, 0.0 };
+			matrix[row][col] = complex<float>();
 		}
 	}
 }
 
-void SolveSlauGaussa(const vector<vector<complex<double>>> & matrix, const vector<complex<double>> & rhs,
-	vector<complex<double>> & exactSolution)
+void SolveSlauGaussa(const vector<vector<complex<float>>> & matrix, const vector<complex<float>> & rhs,
+	vector<complex<float>> & exactSolution)
 {
 	const size_t dim = (size_t)rhs.size();
-	vector<vector<complex<double>>> a(dim, vector<complex<double>>(dim, complex<double>()));
-	vector<complex<double>> b(dim, complex<double>());
+	vector<vector<complex<float>>> a(dim, vector<complex<float>>(dim, complex<float>()));
+	vector<complex<float>> b(dim, complex<float>());
 
 	for (size_t i = 0; i < dim; ++i)
 	{
@@ -33,11 +33,11 @@ void SolveSlauGaussa(const vector<vector<complex<double>>> & matrix, const vecto
 		b[i] = rhs[i];
 	}
 
-	double maxString;
+	float maxString;
 	size_t maxNomerInString;
-	complex<double> c;
-	complex<double> M;
-	complex<double> s;
+	complex<float> c;
+	complex<float> M;
+	complex<float> s;
 
 	for (size_t k = 0; k < dim; ++k)
 	{
@@ -69,7 +69,7 @@ void SolveSlauGaussa(const vector<vector<complex<double>>> & matrix, const vecto
 
 	for (size_t i = dim - 1; i > 0; --i)
 	{
-		s = { 0.0, 0.0 };
+		s = complex<float>();
 		for (size_t j = i + 1; j < dim; ++j)
 		{
 			s += a[i][j] * exactSolution[j];
@@ -77,7 +77,7 @@ void SolveSlauGaussa(const vector<vector<complex<double>>> & matrix, const vecto
 		exactSolution[i] = (b[i] - s) / a[i][i];
 	}
 
-	s = { 0.0, 0.0 };
+	s = complex<float>();
 	for (size_t j = 1; j < dim; ++j)
 	{
 		s += a[0][j] * exactSolution[j];
@@ -86,45 +86,45 @@ void SolveSlauGaussa(const vector<vector<complex<double>>> & matrix, const vecto
 }
 
 
-void InvertMatrix(vector<vector<complex<double>>> matrix, vector<vector<complex<double>>> & invertedMatrix)
+void InvertMatrix(vector<vector<complex<float>>> matrix, vector<vector<complex<float>>> & invertedMatrix)
 {
 	const size_t dim = (size_t)matrix.size();
 
-	complex<double> temp;
-	complex<double> maxElement;
-	complex<double> multiplier;
+	complex<float> temp;
+	complex<float> maxElement;
+	complex<float> multiplier;
 
 	GetNullMatrix(invertedMatrix);
 	for (size_t row = 0; row < dim; ++row)
 	{
-		invertedMatrix[row][row] = { 1.0, 0.0 };
+		invertedMatrix[row][row] = { 1.0f, 0.0f };
 	}
 
 	for (size_t k = 0; k < dim; k++)
 	{
 		temp = matrix[k][k];
 
-		for (size_t j = 0; j < dim; j++)
+		for (size_t j = 0; j < dim; ++j)
 		{
 			matrix[k][j] /= temp;
 			invertedMatrix[k][j] /= temp;
 		}
-		for (size_t i = k + 1; i < dim; i++)
+		for (size_t i = k + 1; i < dim; ++i)
 		{
 			temp = matrix[i][k];
-			for (size_t j = 0; j < dim; j++)
+			for (size_t j = 0; j < dim; ++j)
 			{
 				matrix[i][j] -= matrix[k][j] * temp;
 				invertedMatrix[i][j] -= invertedMatrix[k][j] * temp;
 			}
 		}
 	}
-	for (size_t k = dim - 1; k > 0; k--)
+	for (size_t k = dim - 1; k > 0; --k)
 	{
-		for (size_t i = k - 1; i > 0; i--)
+		for (size_t i = k - 1; i > 0; --i)
 		{
 			temp = matrix[i][k];
-			for (size_t j = 0; j < dim; j++)
+			for (size_t j = 0; j < dim; ++j)
 			{
 				matrix[i][j] -= matrix[k][j] * temp;
 				invertedMatrix[i][j] -= invertedMatrix[k][j] * temp;
@@ -132,7 +132,7 @@ void InvertMatrix(vector<vector<complex<double>>> matrix, vector<vector<complex<
 		}
 		{
 			temp = matrix[0][k];
-			for (size_t j = 0; j < dim; j++)
+			for (size_t j = 0; j < dim; ++j)
 			{
 				matrix[0][j] -= matrix[k][j] * temp;
 				invertedMatrix[0][j] -= invertedMatrix[k][j] * temp;
@@ -141,7 +141,7 @@ void InvertMatrix(vector<vector<complex<double>>> matrix, vector<vector<complex<
 	}
 }
 
-void AddSquareMatrices(vector<vector<complex<double>>> & lhs, const vector<vector<complex<double>>> & rhs)
+void AddSquareMatrices(vector<vector<complex<float>>> & lhs, const vector<vector<complex<float>>> & rhs)
 {
 	const size_t dim = (size_t)lhs.size();
 
@@ -154,7 +154,7 @@ void AddSquareMatrices(vector<vector<complex<double>>> & lhs, const vector<vecto
 	}
 }
 
-void SubSquareMatrices(vector<vector<complex<double>>> & lhs, const vector<vector<complex<double>>> & rhs)
+void SubSquareMatrices(vector<vector<complex<float>>> & lhs, const vector<vector<complex<float>>> & rhs)
 {
 	const size_t dim = (size_t)lhs.size();
 
@@ -167,7 +167,7 @@ void SubSquareMatrices(vector<vector<complex<double>>> & lhs, const vector<vecto
 	}
 }
 
-void AddVectors(vector<complex<double>> & lhs, const vector<complex<double>> & rhs)
+void AddVectors(vector<complex<float>> & lhs, const vector<complex<float>> & rhs)
 {
 	for (size_t i = 0; i < (size_t)lhs.size(); ++i)
 	{
@@ -175,7 +175,7 @@ void AddVectors(vector<complex<double>> & lhs, const vector<complex<double>> & r
 	}
 }
 
-void SubVectors(vector<complex<double>> & lhs, const vector<complex<double>> & rhs)
+void SubVectors(vector<complex<float>> & lhs, const vector<complex<float>> & rhs)
 {
 	for (size_t i = 0; i < (size_t)lhs.size(); ++i)
 	{
@@ -183,9 +183,9 @@ void SubVectors(vector<complex<double>> & lhs, const vector<complex<double>> & r
 	}
 }
 
-complex<double> MultVectorVector(const vector<complex<double>> & lhs, const vector<complex<double>> & rhs)
+complex<float> MultVectorVector(const vector<complex<float>> & lhs, const vector<complex<float>> & rhs)
 {
-	complex<double> sum = complex<double>();
+	complex<float> sum = complex<float>();
 	for (size_t i = 0; i < (size_t)lhs.size(); ++i)
 	{
 		sum += lhs[i] * rhs[i];
@@ -193,15 +193,15 @@ complex<double> MultVectorVector(const vector<complex<double>> & lhs, const vect
 	return sum;
 }
 
-void MultMatrixVector(const vector<vector<complex<double>>> & matrix, const vector<complex<double>> & vect,
-	vector<complex<double>> & result)
+void MultMatrixVector(const vector<vector<complex<float>>> & matrix, const vector<complex<float>> & vect,
+	vector<complex<float>> & result)
 {
 	const size_t dim1 = (size_t)matrix.size();
 	const size_t dim2 = (size_t)matrix[0].size();
 
 	for (size_t row = 0; row < dim1; ++row)
 	{
-		result[row] = { 0.0, 0.0 };
+		result[row] = { 0.0f, 0.0f };
 	}
 	for (size_t row = 0; row < dim1; ++row)
 	{
@@ -212,15 +212,15 @@ void MultMatrixVector(const vector<vector<complex<double>>> & matrix, const vect
 	}
 }
 
-void MultTransposedMatrixVector(const vector<vector<complex<double>>> & matrix,
-	const vector<complex<double>> & vect, vector<complex<double>> & result)
+void MultTransposedMatrixVector(const vector<vector<complex<float>>> & matrix,
+	const vector<complex<float>> & vect, vector<complex<float>> & result)
 {
 	const size_t dim1 = (size_t)matrix.size();
 	const size_t dim2 = (size_t)matrix[0].size();
 
 	for (size_t i = 0; i < dim2; ++i)
 	{
-		result[i] = { 0.0, 0.0 };
+		result[i] = { 0.0f, 0.0f };
 	}
 	for (size_t i = 0; i < dim2; ++i)
 	{
@@ -231,8 +231,8 @@ void MultTransposedMatrixVector(const vector<vector<complex<double>>> & matrix,
 	}
 }
 
-void MultMatrix(const vector<vector<complex<double>>> & lhs, const vector<vector<complex<double>>> & rhs,
-	vector<vector<complex<double>>> & result)
+void MultMatrix(const vector<vector<complex<float>>> & lhs, const vector<vector<complex<float>>> & rhs,
+	vector<vector<complex<float>>> & result)
 {
 	const size_t dim1 = (size_t)lhs.size();
 	const size_t dim2 = (size_t)lhs[0].size();
@@ -240,9 +240,9 @@ void MultMatrix(const vector<vector<complex<double>>> & lhs, const vector<vector
 
 	GetNullMatrix(result);
 
-	vector<complex<double>> thatColumn(dim3);
-	vector<complex<double>> thisRow(dim2);
-	complex<double> summand;
+	vector<complex<float>> thatColumn(dim3);
+	vector<complex<float>> thisRow(dim2);
+	complex<float> summand;
 
 	for (size_t col = 0; col < dim3; ++col)
 	{
@@ -253,7 +253,7 @@ void MultMatrix(const vector<vector<complex<double>>> & lhs, const vector<vector
 		for (size_t row = 0; row < dim1; ++row)
 		{
 			thisRow = lhs[row];
-			summand = { 0.0, 0.0 };
+			summand = { 0.0f, 0.0f };
 			for (size_t inner = 0; inner < dim2; ++inner)
 			{
 				summand += thisRow[inner] * thatColumn[inner];
@@ -263,14 +263,14 @@ void MultMatrix(const vector<vector<complex<double>>> & lhs, const vector<vector
 	}
 }
 
-void MultTransposedMatrix(const vector<vector<complex<double>>> & lhs,
-	const vector<vector<complex<double>>> & rhs, vector<vector<complex<double>>> & result)
+void MultTransposedMatrix(const vector<vector<complex<float>>> & lhs,
+	const vector<vector<complex<float>>> & rhs, vector<vector<complex<float>>> & result)
 {
 	const size_t dim1 = (size_t)lhs.size();
 	const size_t dim2 = (size_t)lhs[0].size();
 	const size_t dim3 = (size_t)rhs.size();
 
-	vector<vector<complex<double>>> a(dim2, vector<complex<double>>(dim3, complex<double>()));
+	vector<vector<complex<float>>> a(dim2, vector<complex<float>>(dim3, complex<float>()));
 
 	for (size_t i = 0; i < dim2; ++i)
 	{
@@ -283,14 +283,14 @@ void MultTransposedMatrix(const vector<vector<complex<double>>> & lhs,
 	MultMatrix(a, rhs, result);
 }
 
-void MultMatrixTransposed(const vector<vector<complex<double>>> & lhs,
-	const vector<vector<complex<double>>> & rhs, vector<vector<complex<double>>> & result)
+void MultMatrixTransposed(const vector<vector<complex<float>>> & lhs,
+	const vector<vector<complex<float>>> & rhs, vector<vector<complex<float>>> & result)
 {
 	const size_t dim1 = (size_t)lhs.size();
 	const size_t dim2 = (size_t)lhs[0].size();
 	const size_t dim3 = (size_t)rhs.size();
 
-	vector<vector<complex<double>>> a(dim1, vector<complex<double>>(dim3, complex<double>()));
+	vector<vector<complex<float>>> a(dim1, vector<complex<float>>(dim3, complex<float>()));
 
 	for (size_t i = 0; i < dim1; ++i)
 	{

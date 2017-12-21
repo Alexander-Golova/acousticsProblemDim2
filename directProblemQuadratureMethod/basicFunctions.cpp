@@ -4,28 +4,32 @@
 
 using namespace std;
 
-complex<double> Hankel(const double x)
+complex<float> Hankel(const float x)
 {
-	return{ static_cast<double>(_j0(x)), static_cast<double>(_y0(x)) };
+	if (x == 0.0f)
+	{
+		return { 1.0f, 0.0f };
+	}
+	return{ static_cast<float>(_j0(x)), static_cast<float>(_y0(x)) };
 }
 
-complex<double> G(const double x_1, const double x_2, const double y_1, const double y_2)
+complex<float> G(const float x_1, const float x_2, const float y_1, const float y_2)
 {
-	double dist = sqrt(pow(x_1 - y_1, 2) + pow(x_2 - y_2, 2));
-	if(abs(dist) < 0.001)
+	float dist = sqrt(pow(x_1 - y_1, 2) + pow(x_2 - y_2, 2));
+	if(abs(dist) < 0.001f)
 	{
-		return{ 0.0, 0.0 };
+		return{ 0.0f, 0.0f };
 	}
 	else
 	{
-		return -0.25 * I * OMEGA * OMEGA * Hankel(OMEGA * dist / C_0);
+		return -0.25f * I * OMEGA * OMEGA * Hankel(OMEGA * dist / C_0);
 	}
 }
 
 void Lasting(const string & st, clock_t & time)
 {
 	clock_t timeFinish = clock();
-	double d = static_cast<double>(timeFinish - time) / CLOCKS_PER_SEC;
+	float d = static_cast<float>(timeFinish - time) / CLOCKS_PER_SEC;
 	cout << st << " " << d << endl;
 	time = clock();
 }
