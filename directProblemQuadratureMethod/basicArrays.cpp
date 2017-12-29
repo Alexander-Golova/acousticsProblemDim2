@@ -37,9 +37,9 @@ void GetBasicArrays(vector<vector<vector<vector<float>>>> & a,
 			{
 				for (size_t q = 0; q < NUMBER_PARTITION_POINT; ++q)
 				{
-					if ((i != p) && (q != j))
+					if ((i != p) || (q != j))
 					{
-						dist = step * sqrt(pow(static_cast<float>(i - p), 2) + pow(static_cast<float>(j - q), 2));
+						dist = step * sqrt(static_cast<float>((i - p) * (i - p) + (j - q) * (j - q)));
 						a[i][j][p][q] = index[p] * index[q] * 0.25f * N_0(dist) * pow(OMEGA, 2) * pow(step, 2);
 					}
 					else
@@ -60,7 +60,7 @@ void GetBasicArrays(vector<vector<vector<vector<float>>>> & a,
 			{
 				for (size_t q = 0; q < NUMBER_PARTITION_POINT; ++q)
 				{
-					dist = step * sqrt(pow(static_cast<float>(i - p), 2) + pow(static_cast<float>(j - q), 2));
+					dist = step * sqrt(static_cast<float>((i - p) * (i - p) + (j - q) * (j - q)));
 					b[i][j][p][q] = index[p] * index[q] * (-0.25f) * J_0(dist) * pow(OMEGA, 2) * pow(step, 2);
 				}
 			}
@@ -77,9 +77,9 @@ void GetBasicArrays(vector<vector<vector<vector<float>>>> & a,
 			{
 				for (size_t q = 0; q < NUMBER_PARTITION_POINT; ++q)
 				{
-					if ((i != p) && (q != j))
+					if ((i != p) || (q != j))
 					{
-						dist = step * sqrt(pow(static_cast<float>(i - p), 2) + pow(static_cast<float>(j - q), 2));
+						dist = step * sqrt(static_cast<float>((i - p) * (i - p) + (j - q) * (j - q)));
 						c[i][j] += index[p] * index[q] * 0.25f * N_0(dist) * pow(OMEGA, 2) * pow(step, 2);
 					}
 					else
@@ -98,7 +98,7 @@ void GetBasicArrays(vector<vector<vector<vector<float>>>> & a,
 		{
 			for (size_t q = 0; q < NUMBER_PARTITION_POINT; ++q)
 			{
-				dist = sqrt(pow(receiver - static_cast<float>(p) * step, 2) + pow(static_cast<float>(j - q) * step, 2));
+				dist = step * sqrt(static_cast<float>((receiver - p) * (receiver - p) + (j - q) * (j - q)));
 				overline_a[j][p][q] = index[p] * index[q] * 0.25f * N_0(dist) * pow(OMEGA, 2) * pow(step, 2);
 			}
 		}
@@ -111,7 +111,7 @@ void GetBasicArrays(vector<vector<vector<vector<float>>>> & a,
 		{
 			for (size_t q = 0; q < NUMBER_PARTITION_POINT; ++q)
 			{
-				dist = sqrt(pow(receiver - static_cast<float>(p) * step, 2) + pow(static_cast<float>(j - q) * step, 2));
+				dist = step * sqrt(static_cast<float>((receiver - p) * (receiver - p) + (j - q) * (j - q)));
 				overline_b[j][p][q] = index[p] * index[q] * (-0.25f) * J_0(dist) * pow(OMEGA, 2) * pow(step, 2);
 			}
 		}
