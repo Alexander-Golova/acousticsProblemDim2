@@ -84,7 +84,7 @@ void GetBasicArrays(vector<vector<vector<vector<float>>>> & a,
 					}
 					else
 					{
-						a[i][j][p][q] = 0.0f;
+						c[i][j] = 0.0f;
 					}
 				}
 			}
