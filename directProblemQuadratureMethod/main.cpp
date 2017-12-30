@@ -48,7 +48,6 @@ int main()
 
 	WriteBasicArraysFile(a, b, c, overline_a, overline_b);
 	Lasting("Download time major arrays", time);
-	return 0;
 
 	WriteSourceValues(source);
 	Lasting("The computation time of the source function", time);
