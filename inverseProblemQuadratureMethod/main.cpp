@@ -33,22 +33,27 @@ int main()
 
 	// выделение памяти
 	// выделяем память под основные матрицы
-	vector<vector<vector<vector<complex<float>>>>> a(NUMBER_PARTITION_POINT + 1,
-		vector<vector<vector<complex<float>>>>(NUMBER_PARTITION_POINT + 1,
-			vector<vector<complex<float>>>(NUMBER_PARTITION_POINT + 1,
-				vector<complex<float>>(NUMBER_PARTITION_POINT + 1, complex<float>()))));
+	vector<vector<vector<vector<float>>>> a(NUMBER_PARTITION_POINT + 1,
+		vector<vector<vector<float>>>(NUMBER_PARTITION_POINT + 1,
+			vector<vector<float>>(NUMBER_PARTITION_POINT + 1, vector<float>(NUMBER_PARTITION_POINT + 1, 0.0f))));
 
-	vector<vector<vector<complex<float>>>> overline_a(NUMBER_PARTITION_POINT + 1,
-		vector<vector<complex<float>>>(NUMBER_PARTITION_POINT + 1,
-			vector<complex<float>>(NUMBER_PARTITION_POINT + 1, complex<float>())));
+	vector<vector<vector<vector<float>>>> b(NUMBER_PARTITION_POINT + 1,
+		vector<vector<vector<float>>>(NUMBER_PARTITION_POINT + 1,
+			vector<vector<float>>(NUMBER_PARTITION_POINT + 1, vector<float>(NUMBER_PARTITION_POINT + 1, 0.0f))));
 
-	vector<vector<complex<float>>> b(NUMBER_PARTITION_POINT + 1,
-		vector<complex<float>>(NUMBER_PARTITION_POINT + 1, complex<float>()));
+	vector<vector<float>> c(NUMBER_PARTITION_POINT + 1, vector<float>(NUMBER_PARTITION_POINT + 1, 0.0f));
+
+	vector<vector<vector<float>>> overline_a(NUMBER_PARTITION_POINT + 1,
+		vector<vector<float>>(NUMBER_PARTITION_POINT + 1, vector<float>(NUMBER_PARTITION_POINT + 1, 0.0f)));
+
+	vector<vector<vector<float>>> overline_b(NUMBER_PARTITION_POINT + 1,
+		vector<vector<float>>(NUMBER_PARTITION_POINT + 1, vector<float>(NUMBER_PARTITION_POINT + 1, 0.0f)));
 
 	// выделяем память для значений источников
 	vector<vector<vector<complex<float>>>> Source_R(source.numberSource,
 		vector<vector<complex<float>>>(NUMBER_PARTITION_POINT + 1,
 			vector<complex<float>>(NUMBER_PARTITION_POINT + 1, complex<float>())));
+
 	vector<vector<complex<float>>> Source_X(source.numberSource,
 		vector<complex<float>>(NUMBER_PARTITION_POINT + 1, complex<float>()));
 
@@ -57,8 +62,13 @@ int main()
 		vector<complex<float>>(NUMBER_PARTITION_POINT + 1, complex<float>()));
 
 	//выделение памяти под массивы производных  F_1, F_2, ...
-	vector<vector<vector<complex<float>>>> F_odd(source.numberSource + 1,
+	vector<vector<vector<complex<float>>>> F_odd(source.numberSource,
 		vector<vector<complex<float>>>(N_SQUARED, vector<complex<float>>(N_SQUARED, complex<float>())));
+
+	vector<vector<complex<float>>> F_0(N_SQUARED, vector<complex<float>>(N_SQUARED, complex<float>()));
+
+	vector<vector<complex<float>>> F_00(NUMBER_PARTITION_POINT + 1, vector<complex<float>>(N_SQUARED, complex<float>()));
+
 	vector<vector<vector<complex<float>>>> F_even(source.numberSource + 1,
 		vector<vector<complex<float>>>(NUMBER_PARTITION_POINT + 1,
 			vector<complex<float>>(N_SQUARED, complex<float>())));
@@ -95,7 +105,7 @@ int main()
 
 	Lasting("Time allocation", time);
 
-	LoadData(source.numberSource, a, overline_a, b, Source_R, Source_X, overline_u);
+	LoadData(source.numberSource, a, b, c, overline_a, overline_b, Source_R, Source_X, overline_u);
 	Lasting("Download time", time);
 
 	// Начало вычислительной части
@@ -110,30 +120,30 @@ int main()
 		cout << "alpha= " << alpha << endl;
 
 		//строим левую часть СЛАУ основного метода Ньютона
-		GetJacobian(source.numberSource, a, overline_a, b, xi, u, F_odd, F_even);
+		GetJacobian(source.numberSource, a, b, c, overline_a, overline_b, xi, u, F_odd, F_even, F_0, F_00);
 		Lasting("The counting time of the Jacobian matrices", time);
 
-		GetMatrixA(source.numberSource, F_odd, F_even, A, alpha);
+		GetMatrixA(source.numberSource, F_odd, F_even, F_0, F_00, A, alpha);
 		Lasting("Counting time of matrices A", time);
 
-		GetMatrixB(F_odd, F_even, B, alpha);
+		GetMatrixB(F_0, F_00, B, alpha);
 		Lasting("Counting time of matrices B", time);
 
 		cout << "Calculate the left side" << endl;
 
 		//строим правую часть СЛАУ основного метода Ньютона
-		GetOperatorF(source.numberSource, a, overline_a, b, xi, u, overline_u, Source_R, Source_X, F_part_odd, F_part_even);
+		GetOperatorF(source.numberSource, a, b, c, overline_a, overline_b, xi, u, overline_u, Source_R, Source_X, F_part_odd, F_part_even);
 		Lasting("Counting time of the main matrix", time);
 
-		Renumbering(xi, numbered_xi);
+		RenumberingXi(xi, numbered_xi);
 		for (size_t count = 0; count < source.numberSource; ++count)
 		{
-			Renumbering(u[count], numbered_u[count]);
+			RenumberingU(u[count], numbered_u[count]);
 		}
 
-		GetValueDerivedFunction(source.numberSource, numbered_xi, numbered_u, F_odd, F_even, F_part_odd, F_part_even);
+		GetValueDerivedFunction(source.numberSource, numbered_xi, numbered_u, F_odd, F_even, F_0, F_00, F_part_odd, F_part_even);
 
-		Getb(source.numberSource, F_odd, F_even, F_part_odd, F_part_even, b_right);
+		Getb(source.numberSource, F_odd, F_even, F_0, F_00, F_part_odd, F_part_even, b_right);
 		Lasting("Calculation time right side", time);
 
 		InvertMatrix(B, inverseMatrixB);
@@ -145,10 +155,10 @@ int main()
 
 		alpha = alpha * multiplier;
 
-		InverseRenumbering(numbered_xi, xi);
+		InverseRenumberingXi(numbered_xi, xi);
 		for (size_t count = 0; count < source.numberSource; ++count)
 		{
-			InverseRenumbering(numbered_u[count], u[count]);
+			InverseRenumberingU(numbered_u[count], u[count]);
 		}
 
 		ProjectionXi(xi);

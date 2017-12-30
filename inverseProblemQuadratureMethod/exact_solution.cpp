@@ -5,7 +5,7 @@ using namespace std;
 
 void ProjectionXi(vector<vector<complex<float>>> & xi)
 {
-	const size_t N = (size_t)xi.size();
+	const size_t N = static_cast<size_t>(xi.size());
 	for (size_t i = 0; i < N; ++i)
 	{
 		for (size_t j = 0; j < N; ++j)
@@ -34,7 +34,7 @@ void PrintXi(vector<vector<complex<float>>> & xi, size_t iteration)
 	f_xi.close();
 }
 
-void Renumbering(const vector<vector<complex<float>>> & xi, vector<complex<float>> & numbered_xi)
+void RenumberingXi(const vector<vector<complex<float>>> & xi, vector<complex<float>> & numbered_xi)
 {
 	size_t ii;
 	for (size_t i = 0; i <= NUMBER_PARTITION_POINT; ++i)
@@ -47,7 +47,20 @@ void Renumbering(const vector<vector<complex<float>>> & xi, vector<complex<float
 	}
 }
 
-void InverseRenumbering(const vector<complex<float>> & numbered_xi, vector<vector<complex<float>>> & xi)
+void RenumberingU(const vector<vector<complex<float>>> & u, vector<complex<float>> & numbered_u)
+{
+	size_t ii;
+	for (size_t i = 0; i < NUMBER_PARTITION_POINT; ++i)
+	{
+		for (size_t j = 0; j < NUMBER_PARTITION_POINT; ++j)
+		{
+			ii = i * (NUMBER_PARTITION_POINT + 1) + j;
+			numbered_u[ii] = u[i][j];
+		}
+	}
+}
+
+void InverseRenumberingXi(const vector<complex<float>> & numbered_xi, vector<vector<complex<float>>> & xi)
 {
 	size_t ii;
 	for (size_t i = 0; i <= NUMBER_PARTITION_POINT; ++i)
@@ -56,6 +69,19 @@ void InverseRenumbering(const vector<complex<float>> & numbered_xi, vector<vecto
 		{
 			ii = i * (NUMBER_PARTITION_POINT + 1) + j;
 			xi[i][j] = numbered_xi[ii];
+		}
+	}
+}
+
+void InverseRenumberingU(const vector<complex<float>> & numbered_u, vector<vector<complex<float>>> & u)
+{
+	size_t ii;
+	for (size_t i = 0; i < NUMBER_PARTITION_POINT; ++i)
+	{
+		for (size_t j = 0; j < NUMBER_PARTITION_POINT; ++j)
+		{
+			ii = i * (NUMBER_PARTITION_POINT + 1) + j;
+			u[i][j] = numbered_u[ii];
 		}
 	}
 }
