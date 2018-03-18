@@ -63,6 +63,6 @@ int main()
 
 	cout << GetEuclideanNorm(a) << endl;
 
-    return 0;
+	return 0;
 }
 

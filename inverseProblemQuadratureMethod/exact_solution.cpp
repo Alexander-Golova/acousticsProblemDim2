@@ -5,10 +5,9 @@ using namespace std;
 
 void ProjectionXi(vector<vector<complex<float>>> & xi)
 {
-	const size_t N = static_cast<size_t>(xi.size());
-	for (size_t i = 0; i < N; ++i)
+	for (size_t i = 0; i <= NUMBER_PARTITION_POINT; ++i)
 	{
-		for (size_t j = 0; j < N; ++j)
+		for (size_t j = 0; j <= NUMBER_PARTITION_POINT; ++j)
 		{
 			xi[i][j] = real(xi[i][j]);
 			if (real(xi[i][j]) <= 0.0f)
@@ -21,12 +20,11 @@ void ProjectionXi(vector<vector<complex<float>>> & xi)
 
 void PrintXi(vector<vector<complex<float>>> & xi, size_t iteration)
 {
-	const size_t N = static_cast<size_t>(xi.size());
 	ofstream f_xi("approximate_xi_" + to_string(iteration + 1) + ".txt");
 	f_xi << fixed << setprecision(6);
-	for (size_t i = 0; i < N; ++i)
+	for (size_t i = 0; i <= NUMBER_PARTITION_POINT; ++i)
 	{
-		for (size_t j = 0; j < N; ++j)
+		for (size_t j = 0; j <= NUMBER_PARTITION_POINT; ++j)
 		{
 			f_xi << real(xi[i][j]) << " ";
 		}

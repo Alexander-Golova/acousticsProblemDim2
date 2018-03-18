@@ -4,7 +4,8 @@
 
 using namespace std;
 
-void InitialValueU(const size_t numberSource, vector<vector<vector<complex<float>>>> & u,
+void InitialValueU(const size_t numberSource,
+	vector<vector<vector<complex<float>>>> & u,
 	vector<vector<vector<complex<float>>>> & Source_R)
 {
 	for (size_t count = 0; count < numberSource; ++count)
@@ -25,7 +26,7 @@ void InitialValueXi(vector<vector<complex<float>>> & xi)
 	{
 		for (size_t j = 0; j <= NUMBER_PARTITION_POINT; ++j)
 		{
-			xi[i][j] = static_cast<complex<float>>(0.0f);
+			xi[i][j] = static_cast<complex<float>>(0.0f + I * 0.0f);
 		}
 	}
 }

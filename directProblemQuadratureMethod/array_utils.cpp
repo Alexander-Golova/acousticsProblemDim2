@@ -9,7 +9,7 @@ void WriteBasicArraysFile(vector<vector<vector<vector<float>>>> & a,
 	vector<vector<vector<vector<float>>>> & b, vector<vector<float>> & c,
 	vector<vector<vector<float>>> & overline_a, vector<vector<vector<float>>> & overline_b)
 {
-	ofstream f_a("matrix_a.txt");
+	ofstream f_a("matrix_a.txt"); 
 	f_a << fixed << setprecision(6);
 	for (size_t i = 0; i <= NUMBER_PARTITION_POINT; ++i)
 	{

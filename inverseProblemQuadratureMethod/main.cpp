@@ -78,7 +78,7 @@ int main()
 		vector<vector<complex<float>>>(N_SQUARED, vector<complex<float>>(N_SQUARED, complex<float>())));
 	vector<vector<complex<float>>> B(N_SQUARED, vector<complex<float>>(N_SQUARED, complex<float>()));
 	vector<vector<complex<float>>> inverseMatrixB(N_SQUARED, vector<complex<float>>(N_SQUARED, complex<float>()));
-	
+
 	// память для хранения значений основного оператора
 	vector<vector<complex<float>>> F_part_odd(source.numberSource,
 		vector<complex<float>>(N_SQUARED, complex<float>()));
@@ -161,7 +161,7 @@ int main()
 			InverseRenumberingU(numbered_u[count], u[count]);
 		}
 
-		ProjectionXi(xi);
+		//ProjectionXi(xi);
 
 		PrintXi(xi, iteration);
 		Lasting("Calculation time solutions", time);

@@ -9,9 +9,12 @@ void GetJacobian(const size_t numberSource,
 	const vector<vector<float>> & c,
 	const vector<vector<vector<float>>> & overline_a,
 	const vector<vector<vector<float>>> & overline_b,
-	const vector<vector<complex<float>>> & xi, const vector<vector<vector<complex<float>>>> & u,
-	vector<vector<vector<complex<float>>>> & F_odd, vector<vector<vector<complex<float>>>> & F_even,
-	vector<vector<complex<float>>> & F_0, vector<vector<complex<float>>> & F_00)
+	const vector<vector<complex<float>>> & xi,
+	const vector<vector<vector<complex<float>>>> & u,
+	vector<vector<vector<complex<float>>>> & F_odd,
+	vector<vector<vector<complex<float>>>> & F_even,
+	vector<vector<complex<float>>> & F_0,
+	vector<vector<complex<float>>> & F_00)
 {
 	size_t ii, jj;
 
@@ -22,9 +25,9 @@ void GetJacobian(const size_t numberSource,
 			for (size_t j = 0; j <= NUMBER_PARTITION_POINT; ++j)
 			{
 				ii = i * (NUMBER_PARTITION_POINT + 1) + j;
-				for (size_t p = 0; p < NUMBER_PARTITION_POINT; ++p)
+				for (size_t p = 0; p <= NUMBER_PARTITION_POINT; ++p)
 				{
-					for (size_t q = 0; q < NUMBER_PARTITION_POINT; ++q)
+					for (size_t q = 0; q <= NUMBER_PARTITION_POINT; ++q)
 					{
 						jj = p * (NUMBER_PARTITION_POINT + 1) + q;
 						F_odd[count][ii][jj] = static_cast<complex<float>>(a[i][j][p][q] - I * b[i][j][p][q]) * u[count][p][q];
@@ -41,9 +44,9 @@ void GetJacobian(const size_t numberSource,
 	{
 		for (size_t j = 0; j <= NUMBER_PARTITION_POINT; ++j)
 		{
-			for (size_t p = 0; p < NUMBER_PARTITION_POINT; ++p)
+			for (size_t p = 0; p <= NUMBER_PARTITION_POINT; ++p)
 			{
-				for (size_t q = 0; q < NUMBER_PARTITION_POINT; ++q)
+				for (size_t q = 0; q <= NUMBER_PARTITION_POINT; ++q)
 				{
 					jj = p * (NUMBER_PARTITION_POINT + 1) + q;
 					F_even[count][j][jj] = static_cast<complex<float>>(overline_a[j][p][q] - I * overline_b[j][p][q]) * u[count][p][q];
@@ -230,8 +233,10 @@ void Getb(const size_t numberSource,
 	}
 }
 
-void GetXi(const size_t numberSource, vector<vector<vector<complex<float>>>> & A,
-	const vector<vector<complex<float>>> & inverseMatrixB, vector<vector<complex<float>>> & b_right,
+void GetXi(const size_t numberSource,
+	vector<vector<vector<complex<float>>>> & A,
+	const vector<vector<complex<float>>> & inverseMatrixB,
+	vector<vector<complex<float>>> & b_right,
 	vector<complex<float>> & numbered_xi)
 {
 	vector<vector<complex<float>>> auxiliaryMatrix(N_SQUARED, vector<complex<float>>(N_SQUARED, complex<float>()));
