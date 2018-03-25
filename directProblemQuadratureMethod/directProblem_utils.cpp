@@ -11,16 +11,16 @@ void GetSubstantiveMatrix(const vector<vector<vector<vector<float>>>> & a,
 	vector<vector<complex<float>>> & substantiveMatrix)
 {
 	size_t ii, jj;
-	for (size_t i = 0; i <= NUMBER_PARTITION_POINT; ++i)
+	for (size_t i = 0; i < N; ++i)
 	{
-		for (size_t j = 0; j <= NUMBER_PARTITION_POINT; ++j)
+		for (size_t j = 0; j < N; ++j)
 		{
-			ii = i * (NUMBER_PARTITION_POINT + 1) + j;
-			for (size_t p = 0; p < NUMBER_PARTITION_POINT; ++p)
+			ii = i * N + j;
+			for (size_t p = 0; p < N; ++p)
 			{
-				for (size_t q = 0; q < NUMBER_PARTITION_POINT; ++q)
+				for (size_t q = 0; q < N; ++q)
 				{
-					jj = p * (NUMBER_PARTITION_POINT + 1) + q;
+					jj = p * N + q;
 					substantiveMatrix[ii][jj] += (a[i][j][p][q] - I * b[i][j][p][q]) * xi[p][q];
 				}
 			}
@@ -32,11 +32,11 @@ void GetSubstantiveMatrix(const vector<vector<vector<vector<float>>>> & a,
 void GetRightPartEquation(const Source & source, const size_t count, vector<complex<float>> & rightPartEquation)
 {
 	size_t ii;
-	for (size_t i = 0; i <= NUMBER_PARTITION_POINT; ++i)
+	for (size_t i = 0; i < N; ++i)
 	{
-		for (size_t j = 0; j <= NUMBER_PARTITION_POINT; ++j)
+		for (size_t j = 0; j < N; ++j)
 		{
-			ii = i * (NUMBER_PARTITION_POINT + 1) + j;
+			ii = i * N + j;
 			rightPartEquation[ii] = source.Function(source.node[count], i * step, j * step);
 		}
 	}
@@ -45,11 +45,11 @@ void GetRightPartEquation(const Source & source, const size_t count, vector<comp
 void InverseRenumbering(const vector<complex<float>> & numbered_u, vector<vector<complex<float>>> & u)
 {
 	size_t ii;
-	for (size_t i = 0; i <= NUMBER_PARTITION_POINT; ++i)
+	for (size_t i = 0; i < N; ++i)
 	{
-		for (size_t j = 0; j <= NUMBER_PARTITION_POINT; ++j)
+		for (size_t j = 0; j < N; ++j)
 		{
-			ii = i * (NUMBER_PARTITION_POINT + 1) + j;
+			ii = i * N + j;
 			u[i][j] = numbered_u[ii];
 		}
 	}
@@ -60,15 +60,15 @@ void GetOverlineU(const Source & source, size_t count,
 	const vector<vector<float>> & xi, const vector<vector<complex<float>>> & u,
 	vector<complex<float>> & overline_u)
 {
-	for (size_t i = 0; i <= NUMBER_PARTITION_POINT; ++i)
+	for (size_t i = 0; i < N; ++i)
 	{
 		overline_u[i] = source.Function(source.node[count], receiver, i * step);
 	}
-	for (size_t j = 0; j <= NUMBER_PARTITION_POINT; ++j)
+	for (size_t j = 0; j < N; ++j)
 	{
-		for (size_t p = 0; p < NUMBER_PARTITION_POINT; ++p)
+		for (size_t p = 0; p < N; ++p)
 		{
-			for (size_t q = 0; q < NUMBER_PARTITION_POINT; ++q)
+			for (size_t q = 0; q < N; ++q)
 			{
 				overline_u[j] += (I * overline_b[j][p][q] - overline_a[j][p][q])* xi[p][q] * u[p][q];
 			}

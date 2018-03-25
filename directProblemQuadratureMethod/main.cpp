@@ -48,10 +48,10 @@ int main()
 	// для нахождения u^(1) составляем СЛАУ основная матрица * u^(1) = правой части
 	// substantiveMatrix[ii][jj] * numbered_u[jj] = rightPartEquation[ii]
 
-	vector<complex<float>> rightPartEquation(N_SQUARED, complex<float>());
+	vector<complex<float>> rightPartEquation(N_SQUARED);
 	vector<complex<float>> numbered_u(N_SQUARED);
-	vector<vector<complex<float>>> substantiveMatrix(N_SQUARED, vector<complex<float>>(N_SQUARED, complex<float>()));
-	vector<complex<float>> overline_u(NUMBER_PARTITION_POINT + 1, complex<float>());
+	vector<vector<complex<float>>> substantiveMatrix(N_SQUARED, vector<complex<float>>(N_SQUARED));
+	vector<complex<float>> overline_u(NUMBER_PARTITION_POINT + 1);
 
 	GetSubstantiveMatrix(a, b, c, xi, substantiveMatrix);
 	Lasting("The computation time of the matrix inside the squared", time);
@@ -68,7 +68,7 @@ int main()
 		Lasting("Finding the acoustic pressure in R", time);
 
 		GetOverlineU(source, count, overline_a, overline_b, xi, u, overline_u);
-		for (size_t j = 0; j <= NUMBER_PARTITION_POINT; ++j)
+		for (size_t j = 0; j < N; ++j)
 		{
 			file_overline_u << overline_u[j] << " ";
 		}

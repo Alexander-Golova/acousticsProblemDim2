@@ -17,15 +17,15 @@ void WriteSourceValues(const Source & source)
 	fileSource << fixed << setprecision(6);
 	for (size_t count = 0; count < source.numberSource; ++count)
 	{
-		for (size_t i = 0; i <= NUMBER_PARTITION_POINT; ++i)
+		for (size_t i = 0; i < N; ++i)
 		{
-			for (size_t j = 0; j <= NUMBER_PARTITION_POINT; ++j)
+			for (size_t j = 0; j < N; ++j)
 			{
 				fileSource << source.Function(source.node[count], i * step, j * step) << " ";
 			}
 		}
 
-		for (size_t j = 0; j <= NUMBER_PARTITION_POINT; ++j)
+		for (size_t j = 0; j < N; ++j)
 		{
 			fileSource << source.Function(source.node[count], receiver, j * step) << " ";
 		}
