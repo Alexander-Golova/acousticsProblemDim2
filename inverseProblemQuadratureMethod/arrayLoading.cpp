@@ -6,13 +6,13 @@ using namespace std;
 void ArrayLoadingA(vector<vector<vector<vector<float>>>> & a)
 {
 	ifstream f_a("matrix_a.txt");
-	for (size_t i = 0; i <= NUMBER_PARTITION_POINT; ++i)
+	for (size_t i = 0; i < N; ++i)
 	{
-		for (size_t j = 0; j <= NUMBER_PARTITION_POINT; ++j)
+		for (size_t j = 0; j < N; ++j)
 		{
-			for (size_t p = 0; p < NUMBER_PARTITION_POINT; ++p)
+			for (size_t p = 0; p < N; ++p)
 			{
-				for (size_t q = 0; q < NUMBER_PARTITION_POINT; ++q)
+				for (size_t q = 0; q < N; ++q)
 				{
 					f_a >> a[i][j][p][q];
 				}
@@ -25,13 +25,13 @@ void ArrayLoadingA(vector<vector<vector<vector<float>>>> & a)
 void ArrayLoadingB(vector<vector<vector<vector<float>>>> & b)
 {
 	ifstream f_b("matrix_b.txt");
-	for (size_t i = 0; i <= NUMBER_PARTITION_POINT; ++i)
+	for (size_t i = 0; i < N; ++i)
 	{
-		for (size_t j = 0; j <= NUMBER_PARTITION_POINT; ++j)
+		for (size_t j = 0; j < N; ++j)
 		{
-			for (size_t p = 0; p < NUMBER_PARTITION_POINT; ++p)
+			for (size_t p = 0; p < N; ++p)
 			{
-				for (size_t q = 0; q < NUMBER_PARTITION_POINT; ++q)
+				for (size_t q = 0; q < N; ++q)
 				{
 					f_b >> b[i][j][p][q];
 				}
@@ -44,9 +44,9 @@ void ArrayLoadingB(vector<vector<vector<vector<float>>>> & b)
 void ArrayLoadingC(vector<vector<float>> & c)
 {
 	ifstream f_c("matrix_c.txt");
-	for (size_t i = 0; i <= NUMBER_PARTITION_POINT; ++i)
+	for (size_t i = 0; i < N; ++i)
 	{
-		for (size_t j = 0; j <= NUMBER_PARTITION_POINT; ++j)
+		for (size_t j = 0; j < N; ++j)
 		{
 			f_c >> c[i][j];
 		}
@@ -58,11 +58,11 @@ void ArrayLoadingC(vector<vector<float>> & c)
 void ArrayLoadingOverlineA(vector<vector<vector<float>>> & overline_a)
 {
 	ifstream f_overline_a("matrix_overline_a.txt");
-	for (size_t j = 0; j <= NUMBER_PARTITION_POINT; ++j)
+	for (size_t j = 0; j < N; ++j)
 	{
-		for (size_t p = 0; p < NUMBER_PARTITION_POINT; ++p)
+		for (size_t p = 0; p < N; ++p)
 		{
-			for (size_t q = 0; q < NUMBER_PARTITION_POINT; ++q)
+			for (size_t q = 0; q < N; ++q)
 			{
 				f_overline_a >> overline_a[j][p][q];
 			}
@@ -74,11 +74,11 @@ void ArrayLoadingOverlineA(vector<vector<vector<float>>> & overline_a)
 void ArrayLoadingOverlineB(vector<vector<vector<float>>> & overline_b)
 {
 	ifstream f_overline_b("matrix_overline_b.txt");
-	for (size_t j = 0; j <= NUMBER_PARTITION_POINT; ++j)
+	for (size_t j = 0; j < N; ++j)
 	{
-		for (size_t p = 0; p < NUMBER_PARTITION_POINT; ++p)
+		for (size_t p = 0; p < N; ++p)
 		{
-			for (size_t q = 0; q < NUMBER_PARTITION_POINT; ++q)
+			for (size_t q = 0; q < N; ++q)
 			{
 				f_overline_b >> overline_b[j][p][q];
 			}
