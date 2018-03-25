@@ -33,75 +33,58 @@ int main()
 
 	// выделение памяти
 	// выделяем память под основные матрицы
-	vector<vector<vector<vector<float>>>> a(NUMBER_PARTITION_POINT + 1,
-		vector<vector<vector<float>>>(NUMBER_PARTITION_POINT + 1,
-			vector<vector<float>>(NUMBER_PARTITION_POINT + 1, vector<float>(NUMBER_PARTITION_POINT + 1, 0.0f))));
+	vector<vector<vector<vector<float>>>> a(N, vector<vector<vector<float>>>(N, vector<vector<float>>(N, vector<float>(N))));
 
-	vector<vector<vector<vector<float>>>> b(NUMBER_PARTITION_POINT + 1,
-		vector<vector<vector<float>>>(NUMBER_PARTITION_POINT + 1,
-			vector<vector<float>>(NUMBER_PARTITION_POINT + 1, vector<float>(NUMBER_PARTITION_POINT + 1, 0.0f))));
+	vector<vector<vector<vector<float>>>> b(N, vector<vector<vector<float>>>(N,	vector<vector<float>>(N, vector<float>(N))));
 
-	vector<vector<float>> c(NUMBER_PARTITION_POINT + 1, vector<float>(NUMBER_PARTITION_POINT + 1, 0.0f));
+	vector<vector<float>> c(N, vector<float>(N));
 
-	vector<vector<vector<float>>> overline_a(NUMBER_PARTITION_POINT + 1,
-		vector<vector<float>>(NUMBER_PARTITION_POINT + 1, vector<float>(NUMBER_PARTITION_POINT + 1, 0.0f)));
+	vector<vector<vector<float>>> overline_a(N,	vector<vector<float>>(N, vector<float>(N)));
 
-	vector<vector<vector<float>>> overline_b(NUMBER_PARTITION_POINT + 1,
-		vector<vector<float>>(NUMBER_PARTITION_POINT + 1, vector<float>(NUMBER_PARTITION_POINT + 1, 0.0f)));
+	vector<vector<vector<float>>> overline_b(N,	vector<vector<float>>(N, vector<float>(N)));
 
 	// выделяем память для значений источников
 	vector<vector<vector<complex<float>>>> Source_R(source.numberSource,
-		vector<vector<complex<float>>>(NUMBER_PARTITION_POINT + 1,
-			vector<complex<float>>(NUMBER_PARTITION_POINT + 1, complex<float>())));
+		vector<vector<complex<float>>>(N, vector<complex<float>>(N)));
 
-	vector<vector<complex<float>>> Source_X(source.numberSource,
-		vector<complex<float>>(NUMBER_PARTITION_POINT + 1, complex<float>()));
+	vector<vector<complex<float>>> Source_X(source.numberSource, vector<complex<float>>(N));
 
 	// Выделяем память для поля в приемниках
-	vector<vector<complex<float>>> overline_u(source.numberSource,
-		vector<complex<float>>(NUMBER_PARTITION_POINT + 1, complex<float>()));
+	vector<vector<complex<float>>> overline_u(source.numberSource, vector<complex<float>>(N));
 
 	//выделение памяти под массивы производных  F_1, F_2, ...
 	vector<vector<vector<complex<float>>>> F_odd(source.numberSource,
-		vector<vector<complex<float>>>(N_SQUARED, vector<complex<float>>(N_SQUARED, complex<float>())));
+		vector<vector<complex<float>>>(N_SQUARED, vector<complex<float>>(N_SQUARED)));
 
-	vector<vector<complex<float>>> F_0(N_SQUARED, vector<complex<float>>(N_SQUARED, complex<float>()));
+	vector<vector<complex<float>>> F_0(N_SQUARED, vector<complex<float>>(N_SQUARED));
 
-	vector<vector<complex<float>>> F_00(NUMBER_PARTITION_POINT + 1, vector<complex<float>>(N_SQUARED, complex<float>()));
+	vector<vector<complex<float>>> F_00(N, vector<complex<float>>(N_SQUARED));
 
 	vector<vector<vector<complex<float>>>> F_even(source.numberSource + 1,
-		vector<vector<complex<float>>>(NUMBER_PARTITION_POINT + 1,
-			vector<complex<float>>(N_SQUARED, complex<float>())));
+		vector<vector<complex<float>>>(N, vector<complex<float>>(N_SQUARED)));
 
 	//выделение памяти под массивы A и B
 	vector<vector<vector<complex<float>>>> A(source.numberSource + 1,
-		vector<vector<complex<float>>>(N_SQUARED, vector<complex<float>>(N_SQUARED, complex<float>())));
-	vector<vector<complex<float>>> B(N_SQUARED, vector<complex<float>>(N_SQUARED, complex<float>()));
-	vector<vector<complex<float>>> inverseMatrixB(N_SQUARED, vector<complex<float>>(N_SQUARED, complex<float>()));
+		vector<vector<complex<float>>>(N_SQUARED, vector<complex<float>>(N_SQUARED)));
+	vector<vector<complex<float>>> B(N_SQUARED, vector<complex<float>>(N_SQUARED));
+	vector<vector<complex<float>>> inverseMatrixB(N_SQUARED, vector<complex<float>>(N_SQUARED));
 
 	// память для хранения значений основного оператора
-	vector<vector<complex<float>>> F_part_odd(source.numberSource,
-		vector<complex<float>>(N_SQUARED, complex<float>()));
-	vector<vector<complex<float>>> F_part_even(source.numberSource,
-		vector<complex<float>>(NUMBER_PARTITION_POINT + 1, complex<float>()));
+	vector<vector<complex<float>>> F_part_odd(source.numberSource, vector<complex<float>>(N_SQUARED));
+	vector<vector<complex<float>>> F_part_even(source.numberSource,	vector<complex<float>>(N));
 
 	// память для b_0, b_1,...
-	vector<vector<complex<float>>> b_right(source.numberSource + 1,
-		vector<complex<float>>(N_SQUARED, complex<float>()));
+	vector<vector<complex<float>>> b_right(source.numberSource + 1,	vector<complex<float>>(N_SQUARED));
 
 	// память для u^(1), u^(2), u^(3)
-	vector<vector<vector<complex<float>>>> u(source.numberSource + 1,
-		vector<vector<complex<float>>>(NUMBER_PARTITION_POINT + 1,
-			vector<complex<float>>(NUMBER_PARTITION_POINT + 1, complex<float>())));
+	vector<vector<vector<complex<float>>>> u(source.numberSource + 1, vector<vector<complex<float>>>(N,	vector<complex<float>>(N)));
 
 	// память для xi
-	vector<vector<complex<float>>> xi(NUMBER_PARTITION_POINT + 1,
-		vector<complex<float>>(NUMBER_PARTITION_POINT + 1, complex<float>()));
+	vector<vector<complex<float>>> xi(N, vector<complex<float>>(N));
 
 	// память для перенумерованных переменных
-	vector<vector<complex<float>>> numbered_u(source.numberSource,
-		vector<complex<float>>(N_SQUARED, complex<float>()));
-	vector<complex<float>> numbered_xi(N_SQUARED, complex<float>());
+	vector<vector<complex<float>>> numbered_u(source.numberSource, vector<complex<float>>(N_SQUARED));
+	vector<complex<float>> numbered_xi(N_SQUARED);
 
 	Lasting("Time allocation", time);
 
