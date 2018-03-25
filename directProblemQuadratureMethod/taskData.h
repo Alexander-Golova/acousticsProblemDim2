@@ -9,14 +9,14 @@ struct Point
 };
 
 // задание характеристик поля
-const float OMEGA = 6.2831853f;
+const float OMEGA = 62.831853f;
 const float C_0 = 1.0f;
 
 // координаты приемников
 const float receiver = 1.1f;
 
 // количество квадратиков по каждому измерению
-const size_t NUMBER_PARTITION_POINT = 50;
+const size_t NUMBER_PARTITION_POINT = 10;
 
 const size_t N = NUMBER_PARTITION_POINT + 1;
 
