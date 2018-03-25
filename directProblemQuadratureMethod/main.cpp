@@ -15,10 +15,9 @@ int main()
 	// задаём множество источников
 	const Source source;
 
-	vector<vector<complex<float>>> u(NUMBER_PARTITION_POINT + 1,
-		vector<complex<float>>(NUMBER_PARTITION_POINT + 1, complex<float>()));
+	vector<vector<complex<float>>> u(N, vector<complex<float>>(N));
 
-	vector<vector<float>> xi(NUMBER_PARTITION_POINT + 1, vector<float>(NUMBER_PARTITION_POINT + 1, 0.0f));
+	vector<vector<float>> xi(N, vector<float>(N));
 
 	GetExactSolution(xi);
 
@@ -27,21 +26,15 @@ int main()
 	clock_t time = clock();
 	clock_t timeBegin = clock();
 
-	vector<vector<vector<vector<float>>>> a(NUMBER_PARTITION_POINT + 1,
-		vector<vector<vector<float>>>(NUMBER_PARTITION_POINT + 1,
-			vector<vector<float>>(NUMBER_PARTITION_POINT + 1, vector<float>(NUMBER_PARTITION_POINT + 1, 0.0f))));
+	vector<vector<vector<vector<float>>>> a(N, vector<vector<vector<float>>>(N,	vector<vector<float>>(N, vector<float>(N))));
 
-	vector<vector<vector<vector<float>>>> b(NUMBER_PARTITION_POINT + 1,
-		vector<vector<vector<float>>>(NUMBER_PARTITION_POINT + 1,
-			vector<vector<float>>(NUMBER_PARTITION_POINT + 1, vector<float>(NUMBER_PARTITION_POINT + 1, 0.0f))));
+	vector<vector<vector<vector<float>>>> b(N, vector<vector<vector<float>>>(N,	vector<vector<float>>(N, vector<float>(N))));
 
-	vector<vector<float>> c(NUMBER_PARTITION_POINT + 1, vector<float>(NUMBER_PARTITION_POINT + 1, 0.0f));
+	vector<vector<float>> c(N, vector<float>(N));
 
-	vector<vector<vector<float>>> overline_a(NUMBER_PARTITION_POINT + 1,
-		vector<vector<float>>(NUMBER_PARTITION_POINT + 1, vector<float>(NUMBER_PARTITION_POINT + 1, 0.0f)));
+	vector<vector<vector<float>>> overline_a(N, vector<vector<float>>(N, vector<float>(N)));
 
-	vector<vector<vector<float>>> overline_b(NUMBER_PARTITION_POINT + 1,
-		vector<vector<float>>(NUMBER_PARTITION_POINT + 1, vector<float>(NUMBER_PARTITION_POINT + 1, 0.0f)));
+	vector<vector<vector<float>>> overline_b(N,	vector<vector<float>>(N, vector<float>(N)));
 
 	GetBasicArrays(a, b, c, overline_a, overline_b);
 	Lasting("Time calculation of basic matrices", time);

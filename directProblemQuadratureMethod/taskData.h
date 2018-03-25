@@ -17,7 +17,18 @@ const float receiver = 1.1f;
 
 // количество квадратиков по каждому измерению
 const size_t NUMBER_PARTITION_POINT = 50;
-const size_t N_SQUARED = (NUMBER_PARTITION_POINT + 1) * (NUMBER_PARTITION_POINT + 1);
+
+const size_t N = NUMBER_PARTITION_POINT + 1;
+
+const size_t N_SQUARED = N * N;
+
+const size_t N_QUBE = N * N * N;
+
+const size_t N_FOURTH_DEGREE = N * N * N * N;
+
+const size_t N_FIFTH_DEGREE = N * N * N * N * N;
+
+const size_t N_SIXTH_DEGREE = N * N * N * N * N * N;
 
 // размер квадрата в котором находится неоднородность
 const float DOMAIN_IN_HOMOGENEITY = 1.0f;
