@@ -10,9 +10,9 @@ void InitialValueU(const size_t numberSource,
 {
 	for (size_t count = 0; count < numberSource; ++count)
 	{
-		for (size_t i = 0; i <= NUMBER_PARTITION_POINT; ++i)
+		for (size_t i = 0; i < N; ++i)
 		{
-			for (size_t j = 0; j <= NUMBER_PARTITION_POINT; ++j)
+			for (size_t j = 0; j < N; ++j)
 			{
 				u[count][i][j] = Source_R[count][i][j];
 			}
@@ -22,11 +22,11 @@ void InitialValueU(const size_t numberSource,
 
 void InitialValueXi(vector<vector<complex<float>>> & xi)
 {
-	for (size_t i = 0; i <= NUMBER_PARTITION_POINT; ++i)
+	for (size_t i = 0; i < N; ++i)
 	{
-		for (size_t j = 0; j <= NUMBER_PARTITION_POINT; ++j)
+		for (size_t j = 0; j < N; ++j)
 		{
-			xi[i][j] = static_cast<complex<float>>(0.0f + I * 0.0f);
+			xi[i][j] = I * 0.0f;
 		}
 	}
 }
