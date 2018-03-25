@@ -144,7 +144,7 @@ int main()
 			InverseRenumberingU(numbered_u[count], u[count]);
 		}
 
-		//ProjectionXi(xi);
+		ProjectionXi(xi);
 
 		PrintXi(xi, iteration);
 		Lasting("Calculation time solutions", time);
