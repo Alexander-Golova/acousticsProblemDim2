@@ -3,7 +3,7 @@
 
 using namespace std;
 
-void GetNullMatrix(vector<vector<complex<float>>> & matrix)
+void GetNullMatrix(vector<vector<complex<float>>> & matrix) noexcept
 {
 	const size_t dim1 = (size_t)matrix.size();
 	const size_t dim2 = (size_t)matrix[0].size();
@@ -18,7 +18,7 @@ void GetNullMatrix(vector<vector<complex<float>>> & matrix)
 }
 
 void SolveSlauGaussa(const vector<vector<complex<float>>> & matrix, const vector<complex<float>> & rhs,
-	vector<complex<float>> & exactSolution)
+	vector<complex<float>> & exactSolution) noexcept
 {
 	const size_t dim = (size_t)rhs.size();
 	vector<vector<complex<float>>> a(dim, vector<complex<float>>(dim, complex<float>()));
@@ -86,7 +86,7 @@ void SolveSlauGaussa(const vector<vector<complex<float>>> & matrix, const vector
 }
 
 
-void InvertMatrix(vector<vector<complex<float>>> matrix, vector<vector<complex<float>>> & invertedMatrix)
+void InvertMatrix(vector<vector<complex<float>>> matrix, vector<vector<complex<float>>> & invertedMatrix) noexcept
 {
 	const size_t dim = (size_t)matrix.size();
 
@@ -141,7 +141,7 @@ void InvertMatrix(vector<vector<complex<float>>> matrix, vector<vector<complex<f
 	}
 }
 
-void AddSquareMatrices(vector<vector<complex<float>>> & lhs, const vector<vector<complex<float>>> & rhs)
+void AddSquareMatrices(vector<vector<complex<float>>> & lhs, const vector<vector<complex<float>>> & rhs) noexcept
 {
 	const size_t dim = (size_t)lhs.size();
 
@@ -154,7 +154,7 @@ void AddSquareMatrices(vector<vector<complex<float>>> & lhs, const vector<vector
 	}
 }
 
-void SubSquareMatrices(vector<vector<complex<float>>> & lhs, const vector<vector<complex<float>>> & rhs)
+void SubSquareMatrices(vector<vector<complex<float>>> & lhs, const vector<vector<complex<float>>> & rhs) noexcept
 {
 	const size_t dim = (size_t)lhs.size();
 
@@ -167,7 +167,7 @@ void SubSquareMatrices(vector<vector<complex<float>>> & lhs, const vector<vector
 	}
 }
 
-void AddVectors(vector<complex<float>> & lhs, const vector<complex<float>> & rhs)
+void AddVectors(vector<complex<float>> & lhs, const vector<complex<float>> & rhs) noexcept
 {
 	for (size_t i = 0; i < (size_t)lhs.size(); ++i)
 	{
@@ -175,7 +175,7 @@ void AddVectors(vector<complex<float>> & lhs, const vector<complex<float>> & rhs
 	}
 }
 
-void SubVectors(vector<complex<float>> & lhs, const vector<complex<float>> & rhs)
+void SubVectors(vector<complex<float>> & lhs, const vector<complex<float>> & rhs) noexcept
 {
 	for (size_t i = 0; i < (size_t)lhs.size(); ++i)
 	{
@@ -183,7 +183,7 @@ void SubVectors(vector<complex<float>> & lhs, const vector<complex<float>> & rhs
 	}
 }
 
-complex<float> MultVectorVector(const vector<complex<float>> & lhs, const vector<complex<float>> & rhs)
+complex<float> MultVectorVector(const vector<complex<float>> & lhs, const vector<complex<float>> & rhs) noexcept
 {
 	complex<float> sum = complex<float>();
 	for (size_t i = 0; i < (size_t)lhs.size(); ++i)
@@ -194,7 +194,7 @@ complex<float> MultVectorVector(const vector<complex<float>> & lhs, const vector
 }
 
 void MultMatrixVector(const vector<vector<complex<float>>> & matrix, const vector<complex<float>> & vect,
-	vector<complex<float>> & result)
+	vector<complex<float>> & result) noexcept
 {
 	const size_t dim1 = (size_t)matrix.size();
 	const size_t dim2 = (size_t)matrix[0].size();
@@ -213,7 +213,7 @@ void MultMatrixVector(const vector<vector<complex<float>>> & matrix, const vecto
 }
 
 void MultTransposedMatrixVector(const vector<vector<complex<float>>> & matrix,
-	const vector<complex<float>> & vect, vector<complex<float>> & result)
+	const vector<complex<float>> & vect, vector<complex<float>> & result) noexcept
 {
 	const size_t dim1 = (size_t)matrix.size();
 	const size_t dim2 = (size_t)matrix[0].size();
@@ -232,7 +232,7 @@ void MultTransposedMatrixVector(const vector<vector<complex<float>>> & matrix,
 }
 
 void MultMatrix(const vector<vector<complex<float>>> & lhs, const vector<vector<complex<float>>> & rhs,
-	vector<vector<complex<float>>> & result)
+	vector<vector<complex<float>>> & result) noexcept
 {
 	const size_t dim1 = (size_t)lhs.size();
 	const size_t dim2 = (size_t)lhs[0].size();
@@ -264,7 +264,7 @@ void MultMatrix(const vector<vector<complex<float>>> & lhs, const vector<vector<
 }
 
 void MultTransposedMatrix(const vector<vector<complex<float>>> & lhs,
-	const vector<vector<complex<float>>> & rhs, vector<vector<complex<float>>> & result)
+	const vector<vector<complex<float>>> & rhs, vector<vector<complex<float>>> & result) noexcept
 {
 	const size_t dim1 = (size_t)lhs.size();
 	const size_t dim2 = (size_t)lhs[0].size();
@@ -284,7 +284,7 @@ void MultTransposedMatrix(const vector<vector<complex<float>>> & lhs,
 }
 
 void MultMatrixTransposed(const vector<vector<complex<float>>> & lhs,
-	const vector<vector<complex<float>>> & rhs, vector<vector<complex<float>>> & result)
+	const vector<vector<complex<float>>> & rhs, vector<vector<complex<float>>> & result) noexcept
 {
 	const size_t dim1 = (size_t)lhs.size();
 	const size_t dim2 = (size_t)lhs[0].size();

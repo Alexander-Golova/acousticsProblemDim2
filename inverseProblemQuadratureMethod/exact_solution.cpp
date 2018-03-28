@@ -3,7 +3,7 @@
 
 using namespace std;
 
-void ProjectionXi(vector<vector<complex<float>>> & xi)
+void ProjectionXi(vector<vector<complex<float>>> & xi) noexcept
 {
 	for (size_t i = 0; i < N; ++i)
 	{
@@ -18,7 +18,7 @@ void ProjectionXi(vector<vector<complex<float>>> & xi)
 	}
 }
 
-void PrintXi(vector<vector<complex<float>>> & xi, size_t iteration)
+void PrintXi(vector<vector<complex<float>>> & xi, size_t iteration) noexcept
 {
 	ofstream f_xi("approximate_xi_" + to_string(iteration + 1) + ".txt");
 	f_xi << fixed << setprecision(6);
@@ -32,7 +32,7 @@ void PrintXi(vector<vector<complex<float>>> & xi, size_t iteration)
 	f_xi.close();
 }
 
-void RenumberingXi(const vector<vector<complex<float>>> & xi, vector<complex<float>> & numbered_xi)
+void RenumberingXi(const vector<vector<complex<float>>> & xi, vector<complex<float>> & numbered_xi) noexcept
 {
 	size_t ii;
 	for (size_t i = 0; i < N; ++i)
@@ -45,7 +45,7 @@ void RenumberingXi(const vector<vector<complex<float>>> & xi, vector<complex<flo
 	}
 }
 
-void RenumberingU(const vector<vector<complex<float>>> & u, vector<complex<float>> & numbered_u)
+void RenumberingU(const vector<vector<complex<float>>> & u, vector<complex<float>> & numbered_u) noexcept
 {
 	size_t ii;
 	for (size_t i = 0; i < N; ++i)
@@ -58,7 +58,7 @@ void RenumberingU(const vector<vector<complex<float>>> & u, vector<complex<float
 	}
 }
 
-void InverseRenumberingXi(const vector<complex<float>> & numbered_xi, vector<vector<complex<float>>> & xi)
+void InverseRenumberingXi(const vector<complex<float>> & numbered_xi, vector<vector<complex<float>>> & xi) noexcept
 {
 	size_t ii;
 	for (size_t i = 0; i < N; ++i)
@@ -71,7 +71,7 @@ void InverseRenumberingXi(const vector<complex<float>> & numbered_xi, vector<vec
 	}
 }
 
-void InverseRenumberingU(const vector<complex<float>> & numbered_u, vector<vector<complex<float>>> & u)
+void InverseRenumberingU(const vector<complex<float>> & numbered_u, vector<vector<complex<float>>> & u) noexcept
 {
 	size_t ii;
 	for (size_t i = 0; i < N; ++i)

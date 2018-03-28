@@ -3,7 +3,7 @@
 
 using namespace std;
 
-void ArrayLoadingA(vector<vector<vector<vector<float>>>> & a)
+void ArrayLoadingA(vector<vector<vector<vector<float>>>> & a) noexcept
 {
 	ifstream f_a("matrix_a.txt");
 	for (size_t i = 0; i < N; ++i)
@@ -22,7 +22,7 @@ void ArrayLoadingA(vector<vector<vector<vector<float>>>> & a)
 	f_a.close();
 }
 
-void ArrayLoadingB(vector<vector<vector<vector<float>>>> & b)
+void ArrayLoadingB(vector<vector<vector<vector<float>>>> & b) noexcept
 {
 	ifstream f_b("matrix_b.txt");
 	for (size_t i = 0; i < N; ++i)
@@ -41,7 +41,7 @@ void ArrayLoadingB(vector<vector<vector<vector<float>>>> & b)
 	f_b.close();
 }
 
-void ArrayLoadingC(vector<vector<float>> & c)
+void ArrayLoadingC(vector<vector<float>> & c) noexcept
 {
 	ifstream f_c("matrix_c.txt");
 	for (size_t i = 0; i < N; ++i)
@@ -55,7 +55,7 @@ void ArrayLoadingC(vector<vector<float>> & c)
 }
 
 
-void ArrayLoadingOverlineA(vector<vector<vector<float>>> & overline_a)
+void ArrayLoadingOverlineA(vector<vector<vector<float>>> & overline_a) noexcept
 {
 	ifstream f_overline_a("matrix_overline_a.txt");
 	for (size_t j = 0; j < N; ++j)
@@ -71,7 +71,7 @@ void ArrayLoadingOverlineA(vector<vector<vector<float>>> & overline_a)
 	f_overline_a.close();
 }
 
-void ArrayLoadingOverlineB(vector<vector<vector<float>>> & overline_b)
+void ArrayLoadingOverlineB(vector<vector<vector<float>>> & overline_b) noexcept
 {
 	ifstream f_overline_b("matrix_overline_b.txt");
 	for (size_t j = 0; j < N; ++j)
@@ -89,7 +89,7 @@ void ArrayLoadingOverlineB(vector<vector<vector<float>>> & overline_b)
 
 
 void ArrayLoadingSource(const size_t numberSource, vector<vector<vector<complex<float>>>> & Source_R,
-	vector<vector<complex<float>>> & Source_X)
+	vector<vector<complex<float>>> & Source_X) noexcept
 {
 	ifstream fileSource("Source.txt");
 	for (size_t count = 0; count < numberSource; ++count)
@@ -110,7 +110,7 @@ void ArrayLoadingSource(const size_t numberSource, vector<vector<vector<complex<
 	fileSource.close();
 }
 
-void ArrayLoadingOverlineU(const size_t numberSource, vector<vector<complex<float>>> & overline_u)
+void ArrayLoadingOverlineU(const size_t numberSource, vector<vector<complex<float>>> & overline_u) noexcept
 {
 	ifstream file_overline_u("matrix_overline_u.txt");
 	for (size_t count = 0; count < numberSource; ++count)
@@ -131,7 +131,7 @@ void LoadData(const size_t numberSource,
 	vector<vector<vector<float>>> & overline_b,
 	vector<vector<vector<complex<float>>>> & Source_R,
 	vector<vector<complex<float>>> & Source_X,
-	vector<vector<complex<float>>> & overline_u)
+	vector<vector<complex<float>>> & overline_u) noexcept
 {
 	ArrayLoadingA(a);
 	ArrayLoadingB(b);

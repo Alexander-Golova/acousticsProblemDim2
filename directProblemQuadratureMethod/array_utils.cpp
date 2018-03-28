@@ -7,7 +7,7 @@ using namespace std;
 
 void WriteBasicArraysFile(vector<vector<vector<vector<float>>>> & a,
 	vector<vector<vector<vector<float>>>> & b, vector<vector<float>> & c,
-	vector<vector<vector<float>>> & overline_a, vector<vector<vector<float>>> & overline_b)
+	vector<vector<vector<float>>> & overline_a, vector<vector<vector<float>>> & overline_b) noexcept
 {
 	ofstream f_a("matrix_a.txt"); 
 	f_a << fixed << setprecision(6);

@@ -8,7 +8,7 @@ using namespace std;
 void GetSubstantiveMatrix(const vector<vector<vector<vector<float>>>> & a,
 	const vector<vector<vector<vector<float>>>> & b, const vector<vector<float>> & c,
 	const vector<vector<float>> & xi,
-	vector<vector<complex<float>>> & substantiveMatrix)
+	vector<vector<complex<float>>> & substantiveMatrix) noexcept
 {
 	size_t ii, jj;
 	for (size_t i = 0; i < N; ++i)
@@ -29,7 +29,7 @@ void GetSubstantiveMatrix(const vector<vector<vector<vector<float>>>> & a,
 	}
 }
 
-void GetRightPartEquation(const Source & source, const size_t count, vector<complex<float>> & rightPartEquation)
+void GetRightPartEquation(const Source & source, const size_t count, vector<complex<float>> & rightPartEquation) noexcept
 {
 	size_t ii;
 	for (size_t i = 0; i < N; ++i)
@@ -42,7 +42,7 @@ void GetRightPartEquation(const Source & source, const size_t count, vector<comp
 	}
 }
 
-void InverseRenumbering(const vector<complex<float>> & numbered_u, vector<vector<complex<float>>> & u)
+void InverseRenumbering(const vector<complex<float>> & numbered_u, vector<vector<complex<float>>> & u) noexcept
 {
 	size_t ii;
 	for (size_t i = 0; i < N; ++i)
@@ -58,7 +58,7 @@ void InverseRenumbering(const vector<complex<float>> & numbered_u, vector<vector
 void GetOverlineU(const Source & source, size_t count,
 	const vector<vector<vector<float>>> & overline_a, const vector<vector<vector<float>>> & overline_b,
 	const vector<vector<float>> & xi, const vector<vector<complex<float>>> & u,
-	vector<complex<float>> & overline_u)
+	vector<complex<float>> & overline_u) noexcept
 {
 	for (size_t i = 0; i < N; ++i)
 	{

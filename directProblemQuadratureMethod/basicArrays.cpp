@@ -9,7 +9,7 @@ void GetBasicArrays(vector<vector<vector<vector<float>>>> & a,
 	vector<vector<vector<vector<float>>>> & b,
 	vector<vector<float>> & c,
 	vector<vector<vector<float>>> & overline_a,
-	vector<vector<vector<float>>> & overline_b)
+	vector<vector<vector<float>>> & overline_b) noexcept
 {
 	// счет индексов метода квадратур
 	vector<float> index(N);

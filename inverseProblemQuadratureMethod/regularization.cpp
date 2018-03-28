@@ -14,7 +14,7 @@ void GetJacobian(const size_t numberSource,
 	vector<vector<vector<complex<float>>>> & F_odd,
 	vector<vector<vector<complex<float>>>> & F_even,
 	vector<vector<complex<float>>> & F_0,
-	vector<vector<complex<float>>> & F_00)
+	vector<vector<complex<float>>> & F_00) noexcept
 {
 	size_t ii, jj;
 
@@ -64,7 +64,7 @@ void GetMatrixA(const size_t numberSource,
 	const vector<vector<complex<float>>> & F_0,
 	const vector<vector<complex<float>>> & F_00,
 	vector<vector<vector<complex<float>>>> & A,
-	const float alpha)
+	const float alpha) noexcept
 {
 	vector<vector<complex<float>>> auxiliaryMatrix(N_SQUARED, vector<complex<float>>(N_SQUARED));
 	MultTransposedMatrix(F_odd[0], F_odd[0], A[numberSource]);
@@ -95,7 +95,7 @@ void GetMatrixA(const size_t numberSource,
 void GetMatrixB(const vector<vector<complex<float>>> & F_0,
 	const vector<vector<complex<float>>> & F_00,
 	vector<vector<complex<float>>> & B,
-	const float alpha)
+	const float alpha) noexcept
 {
 	vector<vector<complex<float>>> auxiliaryMatrix(N_SQUARED, vector<complex<float>>(N_SQUARED));
 
@@ -122,7 +122,7 @@ void GetOperatorF(const size_t numberSource,
 	const vector<vector<vector<complex<float>>>> & Source_R,
 	const vector<vector<complex<float>>> & Source_X,
 	vector<vector<complex<float>>> & F_part_odd,
-	vector<vector<complex<float>>> & F_part_even)
+	vector<vector<complex<float>>> & F_part_even) noexcept
 {
 	size_t ii;
 
@@ -169,7 +169,7 @@ void GetValueDerivedFunction(const size_t numberSource,
 	const vector<vector<complex<float>>> & F_0,
 	const vector<vector<complex<float>>> & F_00,
 	vector<vector<complex<float>>> & F_part_odd,
-	vector<vector<complex<float>>> & F_part_even)
+	vector<vector<complex<float>>> & F_part_even) noexcept
 {
 	vector<complex<float>> supportingVector(N);
 	vector<complex<float>> supportingVectorSQ(N_SQUARED);
@@ -210,7 +210,7 @@ void Getb(const size_t numberSource,
 	const vector<vector<complex<float>>> & F_00,
 	const vector<vector<complex<float>>> & F_part_odd,
 	const vector<vector<complex<float>>> & F_part_even,
-	vector<vector<complex<float>>> & b_right)
+	vector<vector<complex<float>>> & b_right) noexcept
 {
 	vector<complex<float>> supportingVectorSQ(N_SQUARED);
 
@@ -237,7 +237,7 @@ void GetXi(const size_t numberSource,
 	vector<vector<vector<complex<float>>>> & A,
 	const vector<vector<complex<float>>> & inverseMatrixB,
 	vector<vector<complex<float>>> & b_right,
-	vector<complex<float>> & numbered_xi)
+	vector<complex<float>> & numbered_xi) noexcept
 {
 	vector<vector<complex<float>>> auxiliaryMatrix(N_SQUARED, vector<complex<float>>(N_SQUARED));
 	vector<vector<complex<float>>> secondAuxiliaryMatrix(N_SQUARED, vector<complex<float>>(N_SQUARED));
@@ -269,7 +269,7 @@ void GetU(const size_t numberSource,
 	const vector<vector<complex<float>>> & inverseMatrixB,
 	vector<vector<complex<float>>> & b_right,
 	const vector<complex<float>> & numbered_xi,
-	vector<vector<complex<float>>> & numbered_u)
+	vector<vector<complex<float>>> & numbered_u) noexcept
 {
 	vector<complex<float>> supportingVectorSQ(N_SQUARED, complex<float>());
 

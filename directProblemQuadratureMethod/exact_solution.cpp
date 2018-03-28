@@ -4,7 +4,7 @@
 
 using namespace std;
 
-void GetExactSolution(vector<vector<float>> & xi)
+void GetExactSolution(vector<vector<float>> & xi) noexcept
 {
 	float sigma = 25.0f;
 	for (size_t i = 0; i < N; ++i)
@@ -18,7 +18,7 @@ void GetExactSolution(vector<vector<float>> & xi)
 	}
 }
 
-void WriteSolutionFile(vector<vector<float>> & xi)
+void WriteSolutionFile(vector<vector<float>> & xi) noexcept
 {
 	ofstream file_xi("exact_xi.txt");
 	file_xi << fixed << setprecision(6);

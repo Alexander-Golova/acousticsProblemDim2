@@ -4,4 +4,4 @@ void WriteBasicArraysFile(std::vector<std::vector<std::vector<std::vector<float>
 	std::vector<std::vector<std::vector<std::vector<float>>>> & b,
 	std::vector<std::vector<float>> & c,
 	std::vector<std::vector<std::vector<float>>> & overline_a,
-	std::vector<std::vector<std::vector<float>>> & overline_b);
+	std::vector<std::vector<std::vector<float>>> & overline_b) noexcept;
