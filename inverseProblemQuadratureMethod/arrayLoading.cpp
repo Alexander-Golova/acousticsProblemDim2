@@ -94,15 +94,15 @@ void ArrayLoadingSource(const size_t numberSource, vector<vector<vector<complex<
 	ifstream fileSource("Source.txt");
 	for (size_t count = 0; count < numberSource; ++count)
 	{
-		for (size_t i = 0; i <= NUMBER_PARTITION_POINT; ++i)
+		for (size_t i = 0; i < N; ++i)
 		{
-			for (size_t j = 0; j <= NUMBER_PARTITION_POINT; ++j)
+			for (size_t j = 0; j < N; ++j)
 			{
 				fileSource >> Source_R[count][i][j];
 			}
 		}
 
-		for (size_t j = 0; j <= NUMBER_PARTITION_POINT; ++j)
+		for (size_t j = 0; j < N; ++j)
 		{
 			fileSource >> Source_X[count][j];
 		}
@@ -115,7 +115,7 @@ void ArrayLoadingOverlineU(const size_t numberSource, vector<vector<complex<floa
 	ifstream file_overline_u("matrix_overline_u.txt");
 	for (size_t count = 0; count < numberSource; ++count)
 	{
-		for (size_t j = 0; j <= NUMBER_PARTITION_POINT; ++j)
+		for (size_t j = 0; j < N; ++j)
 		{
 			file_overline_u >> overline_u[count][j];
 		}

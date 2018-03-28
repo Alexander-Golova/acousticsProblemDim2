@@ -16,7 +16,7 @@ const float C_0 = 1.0f;
 const float receiver = 1.1f;
 
 // количество квадратиков по каждому измерению
-const size_t NUMBER_PARTITION_POINT = 10;
+const size_t NUMBER_PARTITION_POINT = 20;
 
 const size_t N = NUMBER_PARTITION_POINT + 1;
 

@@ -33,7 +33,7 @@ void GetBasicArrays(vector<vector<vector<vector<float>>>> & a,
 					dist = step * sqrtf(static_cast<float>((i - p) * (i - p) + (j - q) * (j - q)));
 					if (dist > 0.000001f) // DBL_EPSILON
 					{
-						a[i][j][p][q] = index[p] * index[q] * 0.25f * N_0(dist) * pow(OMEGA, 2) * pow(step, 2); // TODO
+						a[i][j][p][q] = index[p] * index[q] * 0.25f * N_0(dist) * OMEGA * OMEGA * step * step; // TODO
 					}
 					else
 					{
@@ -54,7 +54,7 @@ void GetBasicArrays(vector<vector<vector<vector<float>>>> & a,
 				for (size_t q = 0; q < N; ++q)
 				{
 					dist = step * sqrtf(static_cast<float>((i - p) * (i - p) + (j - q) * (j - q)));
-					b[i][j][p][q] = index[p] * index[q] * (-0.25f) * J_0(dist) * pow(OMEGA, 2) * pow(step, 2);
+					b[i][j][p][q] = index[p] * index[q] * (-0.25f) * J_0(dist) * OMEGA * OMEGA * step * step;
 				}
 			}
 		}
@@ -72,7 +72,7 @@ void GetBasicArrays(vector<vector<vector<vector<float>>>> & a,
 					dist = step * sqrtf(static_cast<float>((i - p) * (i - p) + (j - q) * (j - q)));
 					if (dist > 0.000001f) // DBL_EPSILON
 					{
-						c[i][j] += index[p] * index[q] * 0.25f * N_0(dist) * pow(OMEGA, 2) * pow(step, 2);
+						c[i][j] += index[p] * index[q] * 0.25f * N_0(dist) * OMEGA * OMEGA * step * step;
 					}
 					else
 					{
@@ -91,7 +91,7 @@ void GetBasicArrays(vector<vector<vector<vector<float>>>> & a,
 			for (size_t q = 0; q < N; ++q)
 			{
 				dist = step * sqrt(static_cast<float>((receiver - p) * (receiver - p) + (j - q) * (j - q)));
-				overline_a[j][p][q] = index[p] * index[q] * 0.25f * N_0(dist) * pow(OMEGA, 2) * pow(step, 2);
+				overline_a[j][p][q] = index[p] * index[q] * 0.25f * N_0(dist) * OMEGA * OMEGA * step * step;
 			}
 		}
 	}
@@ -104,7 +104,7 @@ void GetBasicArrays(vector<vector<vector<vector<float>>>> & a,
 			for (size_t q = 0; q < N; ++q)
 			{
 				dist = step * sqrt(static_cast<float>((receiver - p) * (receiver - p) + (j - q) * (j - q)));
-				overline_b[j][p][q] = index[p] * index[q] * (-0.25f) * J_0(dist) * pow(OMEGA, 2) * pow(step, 2);
+				overline_b[j][p][q] = index[p] * index[q] * (-0.25f) * J_0(dist) * OMEGA * OMEGA * step * step;
 			}
 		}
 	}

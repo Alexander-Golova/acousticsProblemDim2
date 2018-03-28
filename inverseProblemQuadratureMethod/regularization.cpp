@@ -190,12 +190,12 @@ void GetValueDerivedFunction(const size_t numberSource,
 
 
 		MultMatrixVector(F_even[count], numbered_xi, supportingVector);
-		for (size_t i = 0; i <= NUMBER_PARTITION_POINT; ++i)
+		for (size_t i = 0; i < N; ++i)
 		{
 			F_part_even[count][i] = supportingVector[i] - F_part_even[count][i];
 		}
 		MultMatrixVector(F_00, numbered_u[count], supportingVector);
-		for (size_t i = 0; i <= NUMBER_PARTITION_POINT; ++i)
+		for (size_t i = 0; i < N; ++i)
 		{
 			F_part_even[count][i] += supportingVector[i];
 		}

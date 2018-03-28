@@ -26,7 +26,7 @@ void InitialValueXi(vector<vector<complex<float>>> & xi)
 	{
 		for (size_t j = 0; j < N; ++j)
 		{
-			xi[i][j] = I * 0.0f;
+			xi[i][j] = 0.0f;
 		}
 	}
 }
