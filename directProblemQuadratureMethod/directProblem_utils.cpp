@@ -11,6 +11,14 @@ void GetSubstantiveMatrix(const vector<vector<vector<vector<float>>>> & a,
 	vector<vector<complex<float>>> & substantiveMatrix) noexcept
 {
 	size_t ii, jj;
+	for (ii = 0; ii < N_SQUARED; ++ii)
+	{
+		for (jj = 0; jj < N_SQUARED; ++jj)
+		{
+			substantiveMatrix[ii][jj] = { 0.0f, 0.0f };
+		}
+	}
+
 	for (size_t i = 0; i < N; ++i)
 	{
 		for (size_t j = 0; j < N; ++j)
@@ -24,7 +32,7 @@ void GetSubstantiveMatrix(const vector<vector<vector<vector<float>>>> & a,
 					substantiveMatrix[ii][jj] += (a[i][j][p][q] - I * b[i][j][p][q]) * xi[p][q];
 				}
 			}
-			substantiveMatrix[ii][ii] += static_cast<complex<float>>(1.0f) + c[i][j] * xi[i][j];
+			substantiveMatrix[ii][ii] += 1.0f + c[i][j] * xi[i][j];
 		}
 	}
 }
@@ -70,7 +78,7 @@ void GetOverlineU(const Source & source, size_t count,
 		{
 			for (size_t q = 0; q < N; ++q)
 			{
-				overline_u[j] += (I * overline_b[j][p][q] - overline_a[j][p][q])* xi[p][q] * u[p][q];
+				overline_u[j] += (I * overline_b[j][p][q] - overline_a[j][p][q]) * xi[p][q] * u[p][q];
 			}
 		}
 	}
