@@ -30,7 +30,7 @@ void GetBasicArrays(vector<vector<vector<vector<float>>>> & a,
 			{
 				for (size_t q = 0; q < N; ++q)
 				{
-					dist = step * sqrtf(static_cast<float>((i - p) * (i - p) + (j - q) * (j - q)));
+					dist = OMEGA * step * sqrtf(static_cast<float>((i - p) * (i - p) + (j - q) * (j - q))) / C_0;
 					if (dist > 0.000001f) // DBL_EPSILON
 					{
 						a[i][j][p][q] = index[p] * index[q] * 0.25f * N_0(dist) * OMEGA * OMEGA * step * step; // TODO
@@ -53,7 +53,7 @@ void GetBasicArrays(vector<vector<vector<vector<float>>>> & a,
 			{
 				for (size_t q = 0; q < N; ++q)
 				{
-					dist = step * sqrtf(static_cast<float>((i - p) * (i - p) + (j - q) * (j - q)));
+					dist = OMEGA * step * sqrtf(static_cast<float>((i - p) * (i - p) + (j - q) * (j - q))) / C_0;
 					b[i][j][p][q] = index[p] * index[q] * (-0.25f) * J_0(dist) * OMEGA * OMEGA * step * step;
 				}
 			}
@@ -65,21 +65,19 @@ void GetBasicArrays(vector<vector<vector<vector<float>>>> & a,
 	{
 		for (size_t j = 0; j < N; ++j)
 		{
+			c[i][j] = 0.0f;
 			for (size_t p = 0; p < N; ++p)
 			{
 				for (size_t q = 0; q < N; ++q)
 				{
-					dist = step * sqrtf(static_cast<float>((i - p) * (i - p) + (j - q) * (j - q)));
+					dist = OMEGA * step * sqrtf(static_cast<float>((i - p) * (i - p) + (j - q) * (j - q))) / C_0;
 					if (dist > 0.000001f) // DBL_EPSILON
 					{
-						c[i][j] += index[p] * index[q] * 0.25f * N_0(dist) * OMEGA * OMEGA * step * step;
-					}
-					else
-					{
-						c[i][j] = 0.0f;
+						c[i][j] += index[p] * index[q] *  N_0(dist);
 					}
 				}
 			}
+			c[i][j] *= 0.25f * OMEGA * OMEGA * step * step;
 		}
 	}
 
@@ -90,7 +88,7 @@ void GetBasicArrays(vector<vector<vector<vector<float>>>> & a,
 		{
 			for (size_t q = 0; q < N; ++q)
 			{
-				dist = step * sqrt(static_cast<float>((receiver - p) * (receiver - p) + (j - q) * (j - q)));
+				dist = OMEGA * step * sqrt(static_cast<float>((receiver - p) * (receiver - p) + (j - q) * (j - q))) / C_0;
 				overline_a[j][p][q] = index[p] * index[q] * 0.25f * N_0(dist) * OMEGA * OMEGA * step * step;
 			}
 		}
@@ -103,7 +101,7 @@ void GetBasicArrays(vector<vector<vector<vector<float>>>> & a,
 		{
 			for (size_t q = 0; q < N; ++q)
 			{
-				dist = step * sqrt(static_cast<float>((receiver - p) * (receiver - p) + (j - q) * (j - q)));
+				dist = OMEGA * step * sqrt(static_cast<float>((receiver - p) * (receiver - p) + (j - q) * (j - q))) / C_0;
 				overline_b[j][p][q] = index[p] * index[q] * (-0.25f) * J_0(dist) * OMEGA * OMEGA * step * step;
 			}
 		}
