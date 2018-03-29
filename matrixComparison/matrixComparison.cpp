@@ -36,7 +36,7 @@ void SubtractionOfSquareMatrices(vector<vector<float>> & lhs, const vector<vecto
 
 int main()
 {
-	size_t N = 50;
+	size_t N = 5;
 	vector<vector<float>> a(N + 1, vector<float>(N + 1, 0.0f));
 	vector<vector<float>> b(N + 1, vector<float>(N + 1, 0.0f));
 
@@ -62,6 +62,16 @@ int main()
 	SubtractionOfSquareMatrices(a, b);
 
 	cout << GetEuclideanNorm(a) << endl;
+
+	const complex<float> I = { 0.0f, 1.0f };
+
+	size_t x = 9;
+
+	float y = 2.0f;
+
+//	float z = sqrtf(x);
+
+//	cout << z << endl;
 
 	return 0;
 }

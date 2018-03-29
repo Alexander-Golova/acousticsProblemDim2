@@ -9,7 +9,7 @@ struct Point
 };
 
 // задание характеристик поля
-const float OMEGA = 62.831853f;
+const float OMEGA = 628.31853f;
 const float C_0 = 1.0f;
 
 // координаты приемников

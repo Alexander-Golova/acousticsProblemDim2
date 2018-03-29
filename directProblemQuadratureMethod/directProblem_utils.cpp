@@ -45,7 +45,7 @@ void GetRightPartEquation(const Source & source, const size_t count, vector<comp
 		for (size_t j = 0; j < N; ++j)
 		{
 			ii = i * N + j;
-			rightPartEquation[ii] = source.Function(source.node[count], i * step, j * step);
+			rightPartEquation[ii] = source.Function(source.node[count], step * i, step * i);
 		}
 	}
 }

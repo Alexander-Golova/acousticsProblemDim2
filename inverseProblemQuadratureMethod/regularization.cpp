@@ -30,7 +30,7 @@ void GetJacobian(const size_t numberSource,
 					for (size_t q = 0; q < N; ++q)
 					{
 						jj = p * N + q;
-						F_odd[count][ii][jj] = static_cast<complex<float>>(a[i][j][p][q] - I * b[i][j][p][q]) * u[count][p][q];
+						F_odd[count][ii][jj] = (static_cast<complex<float>>(a[i][j][p][q]) - I * b[i][j][p][q]) * u[count][p][q];
 						F_0[ii][jj] = static_cast<complex<float>>(a[i][j][p][q] - I * b[i][j][p][q]) * xi[p][q];
 					}
 				}
@@ -137,10 +137,10 @@ void GetOperatorF(const size_t numberSource,
 				{
 					for (size_t q = 0; q < N; ++q)
 					{
-						F_part_odd[count][ii] = static_cast<complex<float>>(a[i][j][p][q] - I * b[i][j][p][q]) * xi[p][q] * u[count][p][q];
+						F_part_odd[count][ii] = (a[i][j][p][q] - I * b[i][j][p][q]) * xi[p][q] * u[count][p][q];
 					}
 				}
-				F_part_odd[count][ii] += u[count][i][j] + static_cast<complex<float>>(c[i][j] * xi[i][j]) * u[count][i][j] - Source_R[count][i][j];
+				F_part_odd[count][ii] += u[count][i][j] + (c[i][j] * xi[i][j]) * u[count][i][j] - Source_R[count][i][j];
 			}
 		}
 	}
@@ -153,7 +153,7 @@ void GetOperatorF(const size_t numberSource,
 			{
 				for (size_t q = 0; q < N; ++q)
 				{
-					F_part_even[count][j] += static_cast<complex<float>>(overline_a[j][p][q] - I * overline_b[j][p][q]) * xi[p][q] * u[count][p][q];
+					F_part_even[count][j] += (overline_a[j][p][q] - I * overline_b[j][p][q]) * xi[p][q] * u[count][p][q];
 				}
 			}
 			F_part_even[count][j] += overline_u[count][j] - Source_X[count][j];
