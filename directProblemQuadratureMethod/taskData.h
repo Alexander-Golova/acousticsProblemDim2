@@ -13,7 +13,7 @@ const float OMEGA = 628.31853f;
 const float C_0 = 1.0f;
 
 // координаты приемников
-const float receiver = 1.1f;
+const float receiver = 1.01f;
 
 // количество квадратиков по каждому измерению
 const size_t NUMBER_PARTITION_POINT = 20;
