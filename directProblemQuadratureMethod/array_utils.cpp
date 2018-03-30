@@ -5,9 +5,8 @@
 
 using namespace std;
 
-void WriteBasicArraysFile(vector<vector<vector<vector<float>>>> & a,
-	vector<vector<vector<vector<float>>>> & b, vector<vector<float>> & c,
-	vector<vector<vector<float>>> & overline_a, vector<vector<vector<float>>> & overline_b) noexcept
+void WriteBasicArraysFile(vector<vector<vector<vector<complex<float>>>>> & a,
+	vector<vector<vector<complex<float>>>> & overline_a) noexcept
 {
 	ofstream f_a("matrix_a.txt"); 
 	f_a << fixed << setprecision(6);
@@ -26,34 +25,6 @@ void WriteBasicArraysFile(vector<vector<vector<vector<float>>>> & a,
 	}
 	f_a.close();
 
-	ofstream f_b("matrix_b.txt");
-	f_b << fixed << setprecision(6);
-	for (size_t i = 0; i < N; ++i)
-	{
-		for (size_t j = 0; j < N; ++j)
-		{
-			for (size_t p = 0; p < N; ++p)
-			{
-				for (size_t q = 0; q < N; ++q)
-				{
-					f_b << b[i][j][p][q] << " ";
-				}
-			}
-		}
-	}
-	f_b.close();
-
-	ofstream f_c("matrix_c.txt");
-	f_c << fixed << setprecision(6);
-	for (size_t i = 0; i < N; ++i)
-	{
-		for (size_t j = 0; j < N; ++j)
-		{
-			f_c << c[i][j] << " ";
-		}
-	}
-	f_c.close();
-
 	ofstream f_overline_a("matrix_overline_a.txt");
 	f_overline_a << fixed << setprecision(6);
 	for (size_t j = 0; j < N; ++j)
@@ -67,18 +38,4 @@ void WriteBasicArraysFile(vector<vector<vector<vector<float>>>> & a,
 		}
 	}
 	f_overline_a.close();
-
-	ofstream f_overline_b("matrix_overline_b.txt");
-	f_overline_b << fixed << setprecision(6);
-	for (size_t j = 0; j < N; ++j)
-	{
-		for (size_t p = 0; p < N; ++p)
-		{
-			for (size_t q = 0; q < N; ++q)
-			{
-				f_overline_b << overline_b[j][p][q] << " ";
-			}
-		}
-	}
-	f_overline_b.close();
 }

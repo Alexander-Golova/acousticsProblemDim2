@@ -26,20 +26,14 @@ int main()
 	clock_t time = clock();
 	clock_t timeBegin = clock();
 
-	vector<vector<vector<vector<float>>>> a(N, vector<vector<vector<float>>>(N,	vector<vector<float>>(N, vector<float>(N))));
+	vector<vector<vector<vector<complex<float>>>>> a(N, vector<vector<vector<complex<float>>>>(N,	vector<vector<complex<float>>>(N, vector<complex<float>>(N))));
 
-	vector<vector<vector<vector<float>>>> b(N, vector<vector<vector<float>>>(N,	vector<vector<float>>(N, vector<float>(N))));
+	vector<vector<vector<complex<float>>>> overline_a(N, vector<vector<complex<float>>>(N, vector<complex<float>>(N)));
 
-	vector<vector<float>> c(N, vector<float>(N));
-
-	vector<vector<vector<float>>> overline_a(N, vector<vector<float>>(N, vector<float>(N)));
-
-	vector<vector<vector<float>>> overline_b(N,	vector<vector<float>>(N, vector<float>(N)));
-
-	GetBasicArrays(a, b, c, overline_a, overline_b);
+	GetBasicArrays(a, overline_a);
 	Lasting("Time calculation of basic matrices", time);
 
-	WriteBasicArraysFile(a, b, c, overline_a, overline_b);
+	WriteBasicArraysFile(a, overline_a);
 	Lasting("Download time major arrays", time);
 
 	WriteSourceValues(source);
@@ -53,7 +47,7 @@ int main()
 	vector<vector<complex<float>>> substantiveMatrix(N_SQUARED, vector<complex<float>>(N_SQUARED));
 	vector<complex<float>> overline_u(NUMBER_PARTITION_POINT + 1);
 
-	GetSubstantiveMatrix(a, b, c, xi, substantiveMatrix);
+	GetSubstantiveMatrix(a, xi, substantiveMatrix);
 	Lasting("The computation time of the matrix inside the squared", time);
 
 	ofstream file_overline_u("matrix_overline_u.txt");
@@ -67,7 +61,7 @@ int main()
 		InverseRenumbering(numbered_u, u);
 		Lasting("Finding the acoustic pressure in R", time);
 
-		GetOverlineU(source, count, overline_a, overline_b, xi, u, overline_u);
+		GetOverlineU(source, count, overline_a, xi, u, overline_u);
 		for (size_t j = 0; j < N; ++j)
 		{
 			file_overline_u << overline_u[j] << " ";
