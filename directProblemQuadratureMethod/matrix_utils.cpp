@@ -12,7 +12,7 @@ void GetNullMatrix(vector<vector<complex<float>>> & matrix) noexcept
 	{
 		for (size_t col = 0; col < dim2; ++col)
 		{
-			matrix[row][col] = complex<float>();
+			matrix[row][col] = { 0.0f, 0.0f };
 		}
 	}
 }
