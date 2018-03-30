@@ -29,7 +29,7 @@ void GetBasicArrays(vector<vector<vector<vector<complex<float>>>>> & a,
 				{
 					x_ij = { step * i, step * j };
 					x_pq = { step * p, step * q };
-					a[i][j][p][q] = index[p] * index[q] * G(x_ij, x_pq);
+					a[i][j][p][q] = step * step * index[p] * index[q] * G(x_ij, x_pq);
 				}
 			}
 		}
@@ -44,7 +44,7 @@ void GetBasicArrays(vector<vector<vector<vector<complex<float>>>>> & a,
 			{
 				x_ij = { receiver, step * j};
 				x_pq = { step * p, step * q };
-				overline_a[j][p][q] = index[p] * index[q] * G(x_ij, x_pq);
+				overline_a[j][p][q] = step * step * index[p] * index[q] * G(x_ij, x_pq);
 			}
 		}
 	}
