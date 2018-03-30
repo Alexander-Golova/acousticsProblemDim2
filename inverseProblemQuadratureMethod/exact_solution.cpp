@@ -12,8 +12,8 @@ void ProjectionXi(vector<vector<complex<float>>> & xi) noexcept
 			//xi[i][j] = real(xi[i][j]);
 			if (real(xi[i][j]) <= 0.0f)
 			{
-				xi[i][j] = 0.5f * (xi[i][j] - conj(xi[i][j]));
-					//{ 0.0f, 0.0f };
+				//xi[i][j] = 0.5f * (xi[i][j] - conj(xi[i][j]));
+				xi[i][j] = { 0.0f, 0.0f };
 			}
 		}
 	}
