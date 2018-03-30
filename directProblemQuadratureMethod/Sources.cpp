@@ -6,7 +6,7 @@ using namespace std;
 
 complex<float> Source::Function(const Point source, const float x, const float y) const
 {
-	const float dist = OMEGA * sqrtf(static_cast<float>((x - source.x) * (x - source.x) + (y - source.y, 2) * (y - source.y, 2))) / C_0;
+	const float dist = OMEGA * sqrtf(static_cast<float>((x - source.x) * (x - source.x) + (y - source.y) * (y - source.y))) / C_0;
 
 	return 0.25f * static_cast<complex<float>>(N_0(dist)) - 0.25f * I * static_cast<complex<float>>(J_0(dist));
 }
