@@ -162,7 +162,7 @@ void GetValueDerivedFunction(const size_t numberSource,
 	const vector<vector<complex<float>>> & F_0,
 	const vector<vector<complex<float>>> & F_00,
 	vector<vector<complex<float>>> & F_part_odd,
-	vector<vector<complex<float>>> & F_part_even) noexcept
+	vector<vector<complex<float>>> & F_part_even) noexcept  //TODO
 {
 	vector<complex<float>> supportingVector(N);
 	vector<complex<float>> supportingVectorSQ(N_SQUARED);
@@ -203,14 +203,14 @@ void Getb(const size_t numberSource,
 	const vector<vector<complex<float>>> & F_00,
 	const vector<vector<complex<float>>> & F_part_odd,
 	const vector<vector<complex<float>>> & F_part_even,
-	vector<vector<complex<float>>> & b_right) noexcept
+	vector<vector<complex<float>>> & b_right) noexcept //TODO
 {
 	vector<complex<float>> supportingVectorSQ(N_SQUARED);
 
 	MultTransposedMatrixVector(F_odd[0], F_part_odd[0], b_right[numberSource]);
 	MultTransposedMatrixVector(F_even[0], F_part_even[0], supportingVectorSQ);
 	AddVectors(b_right[numberSource], supportingVectorSQ);
-	for (size_t count = 0; count < numberSource; ++count)
+	for (size_t count = 1; count < numberSource; ++count)
 	{
 		MultTransposedMatrixVector(F_odd[count], F_part_odd[count], supportingVectorSQ);
 		AddVectors(b_right[numberSource], supportingVectorSQ);

@@ -6,14 +6,14 @@ using namespace std;
 
 void GetExactSolution(vector<vector<float>> & xi) noexcept
 {
-	float sigma = 25.0f;
+	float sigma = 64.0f;
 	for (size_t i = 0; i < N; ++i)
 	{
 		for (size_t j = 0; j < N; ++j)
 		{
 			xi[i][j] = 0.1f * exp(-((i * step - 0.6f) * (i * step - 0.6f) + (j * step - 0.6f) * (j * step - 0.6f)) * sigma);
-			//xi[i][j] = 0.8 * exp(-((i * h - 0.8) * (i * h - 0.8) + (j * h - 0.8) * (j * h - 0.8)) * sigma) +
-				//0.2 * exp(-((i * h - 0.2) * (i * h - 0.2) + (j * h - 0.2) * (j * h - 0.2)) * sigma);
+			//xi[i][j] = 0.2f * exp(-((i * step - 0.8f) * (i * step - 0.8f) + (j * step - 0.8f) * (j * step - 0.8f)) * sigma) +
+			//	0.4f * exp(-((i * step - 0.2f) * (i * step - 0.2f) + (j * step - 0.2f) * (j * step - 0.2f)) * sigma);
 		}
 	}
 }
