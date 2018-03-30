@@ -4,11 +4,8 @@
 using namespace std;
 
 void GetJacobian(const size_t numberSource,
-	const vector<vector<vector<vector<float>>>> & a,
-	const vector<vector<vector<vector<float>>>> & b,
-	const vector<vector<float>> & c,
-	const vector<vector<vector<float>>> & overline_a,
-	const vector<vector<vector<float>>> & overline_b,
+	const vector<vector<vector<vector<complex<float>>>>> & a,
+	const vector<vector<vector<complex<float>>>> & overline_a,
 	const vector<vector<complex<float>>> & xi,
 	const vector<vector<vector<complex<float>>>> & u,
 	vector<vector<vector<complex<float>>>> & F_odd,
@@ -30,12 +27,11 @@ void GetJacobian(const size_t numberSource,
 					for (size_t q = 0; q < N; ++q)
 					{
 						jj = p * N + q;
-						F_odd[count][ii][jj] = (static_cast<complex<float>>(a[i][j][p][q]) - I * b[i][j][p][q]) * u[count][p][q];
-						F_0[ii][jj] = static_cast<complex<float>>(a[i][j][p][q] - I * b[i][j][p][q]) * xi[p][q];
+						F_odd[count][ii][jj] = a[i][j][p][q] * u[count][p][q];
+						F_0[ii][jj] = a[i][j][p][q] * xi[p][q];
 					}
 				}
-				F_odd[count][ii][ii] += static_cast<complex<float>>(c[i][j]) * u[count][i][j];
-				F_0[ii][ii] += static_cast<complex<float>>(c[i][j]) * xi[i][j] + 1.0f;
+				F_0[ii][ii] += 1.0f;
 			}
 		}
 	}
@@ -49,8 +45,8 @@ void GetJacobian(const size_t numberSource,
 				for (size_t q = 0; q < N; ++q)
 				{
 					jj = p * N + q;
-					F_even[count][j][jj] = static_cast<complex<float>>(overline_a[j][p][q] - I * overline_b[j][p][q]) * u[count][p][q];
-					F_00[j][jj] = static_cast<complex<float>>(overline_a[j][p][q] - I * overline_b[j][p][q]) * xi[p][q];
+					F_even[count][j][jj] = overline_a[j][p][q] * u[count][p][q];
+					F_00[j][jj] = overline_a[j][p][q] * xi[p][q];
 				}
 			}
 		}
@@ -111,11 +107,8 @@ void GetMatrixB(const vector<vector<complex<float>>> & F_0,
 }
 
 void GetOperatorF(const size_t numberSource,
-	const vector<vector<vector<vector<float>>>> & a,
-	const vector<vector<vector<vector<float>>>> & b,
-	const vector<vector<float>> & c,
-	const vector<vector<vector<float>>> & overline_a,
-	const vector<vector<vector<float>>> & overline_b,
+	const vector<vector<vector<vector<complex<float>>>>> & a,
+	const vector<vector<vector<complex<float>>>> & overline_a,
 	const vector<vector<complex<float>>> & xi,
 	const vector<vector<vector<complex<float>>>> & u,
 	const vector<vector<complex<float>>> & overline_u,
@@ -137,10 +130,10 @@ void GetOperatorF(const size_t numberSource,
 				{
 					for (size_t q = 0; q < N; ++q)
 					{
-						F_part_odd[count][ii] = (a[i][j][p][q] - I * b[i][j][p][q]) * xi[p][q] * u[count][p][q];
+						F_part_odd[count][ii] = a[i][j][p][q] * xi[p][q] * u[count][p][q];
 					}
 				}
-				F_part_odd[count][ii] += u[count][i][j] + (c[i][j] * xi[i][j]) * u[count][i][j] - Source_R[count][i][j];
+				F_part_odd[count][ii] += u[count][i][j] - Source_R[count][i][j];
 			}
 		}
 	}
@@ -153,7 +146,7 @@ void GetOperatorF(const size_t numberSource,
 			{
 				for (size_t q = 0; q < N; ++q)
 				{
-					F_part_even[count][j] += (overline_a[j][p][q] - I * overline_b[j][p][q]) * xi[p][q] * u[count][p][q];
+					F_part_even[count][j] += overline_a[j][p][q] * xi[p][q] * u[count][p][q];
 				}
 			}
 			F_part_even[count][j] += overline_u[count][j] - Source_X[count][j];

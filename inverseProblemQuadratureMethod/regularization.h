@@ -6,11 +6,8 @@
 
 
 void GetJacobian(const size_t numberSource,
-	const std::vector<std::vector<std::vector<std::vector<float>>>> & a,
-	const std::vector<std::vector<std::vector<std::vector<float>>>> & b,
-	const std::vector<std::vector<float>> & c,
-	const std::vector<std::vector<std::vector<float>>> & overline_a,
-	const std::vector<std::vector<std::vector<float>>> & overline_b,
+	const std::vector<std::vector<std::vector<std::vector<std::complex<float>>>>> & a,
+	const std::vector<std::vector<std::vector<std::complex<float>>>> & overline_a,
 	const std::vector<std::vector<std::complex<float>>> & xi,
 	const std::vector<std::vector<std::vector<std::complex<float>>>> & u,
 	std::vector<std::vector<std::vector<std::complex<float>>>> & F_odd,
@@ -31,11 +28,8 @@ void GetMatrixB(const std::vector<std::vector<std::complex<float>>> & F_0,
 	const float alpha) noexcept;
 
 void GetOperatorF(const size_t numberSource,
-	const std::vector<std::vector<std::vector<std::vector<float>>>> & a,
-	const std::vector<std::vector<std::vector<std::vector<float>>>> & b,
-	const std::vector<std::vector<float>> & c,
-	const std::vector<std::vector<std::vector<float>>> & overline_a,
-	const std::vector<std::vector<std::vector<float>>> & overline_b,
+	const std::vector<std::vector<std::vector<std::vector<std::complex<float>>>>> & a,
+	const std::vector<std::vector<std::vector<std::complex<float>>>> & overline_a,
 	const std::vector<std::vector<std::complex<float>>> & xi,
 	const std::vector<std::vector<std::vector<std::complex<float>>>> & u,
 	const std::vector<std::vector<std::complex<float>>> & overline_u,

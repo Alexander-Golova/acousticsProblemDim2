@@ -33,15 +33,9 @@ int main()
 
 	// выделение памяти
 	// выделяем память под основные матрицы
-	vector<vector<vector<vector<float>>>> a(N, vector<vector<vector<float>>>(N, vector<vector<float>>(N, vector<float>(N))));
+	vector<vector<vector<vector<complex<float>>>>> a(N, vector<vector<vector<complex<float>>>>(N, vector<vector<complex<float>>>(N, vector<complex<float>>(N))));
 
-	vector<vector<vector<vector<float>>>> b(N, vector<vector<vector<float>>>(N,	vector<vector<float>>(N, vector<float>(N))));
-
-	vector<vector<float>> c(N, vector<float>(N));
-
-	vector<vector<vector<float>>> overline_a(N,	vector<vector<float>>(N, vector<float>(N)));
-
-	vector<vector<vector<float>>> overline_b(N,	vector<vector<float>>(N, vector<float>(N)));
+	vector<vector<vector<complex<float>>>> overline_a(N, vector<vector<complex<float>>>(N, vector<complex<float>>(N)));
 
 	// выделяем память для значений источников
 	vector<vector<vector<complex<float>>>> Source_R(source.numberSource,
@@ -88,7 +82,7 @@ int main()
 
 	Lasting("Time allocation", time);
 
-	LoadData(source.numberSource, a, b, c, overline_a, overline_b, Source_R, Source_X, overline_u);
+	LoadData(source.numberSource, a, overline_a, Source_R, Source_X, overline_u);
 	Lasting("Download time", time);
 
 	// Начало вычислительной части
@@ -103,7 +97,7 @@ int main()
 		cout << "alpha= " << alpha << endl;
 
 		//строим левую часть СЛАУ основного метода Ньютона
-		GetJacobian(source.numberSource, a, b, c, overline_a, overline_b, xi, u, F_odd, F_even, F_0, F_00);
+		GetJacobian(source.numberSource, a, overline_a, xi, u, F_odd, F_even, F_0, F_00);
 		Lasting("The counting time of the Jacobian matrices", time);
 
 		GetMatrixA(source.numberSource, F_odd, F_even, F_0, F_00, A, alpha);
@@ -115,7 +109,7 @@ int main()
 		cout << "Calculate the left side" << endl;
 
 		//строим правую часть СЛАУ основного метода Ньютона
-		GetOperatorF(source.numberSource, a, b, c, overline_a, overline_b, xi, u, overline_u, Source_R, Source_X, F_part_odd, F_part_even);
+		GetOperatorF(source.numberSource, a, overline_a, xi, u, overline_u, Source_R, Source_X, F_part_odd, F_part_even);
 		Lasting("Counting time of the main matrix", time);
 
 		RenumberingXi(xi, numbered_xi);
